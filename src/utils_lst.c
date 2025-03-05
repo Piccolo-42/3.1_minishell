@@ -1,82 +1,45 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_lst.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/05 16:07:32 by sravizza          #+#    #+#             */
+/*   Updated: 2025/03/05 16:24:40 by sravizza         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.c"
 
-void	prt_lst(t_list *lst)
+t_ast	*new_node(char *input)
 {
-	if (!lst)
-		return ;
-	while (lst)
-	{
-		if (lst->input)
-			ft_printf("in: %s", lst->input);
-		else
-			ft_printf("error in");
-		if (lst->type)
-			ft_printf("type: %s", lst->type);
-		else
-			ft_printf("error type");
-		if (lst->next)
-			lst = lst->next;
-		else
-			break;
-	}
-	return;
-}
+	t_ast	*dest;
 
-t_list	*new_node(char *input)
-{
-	t_list	*dest;
-
-	dest = malloc(sizeof(t_list));
+	dest = malloc(sizeof(t_ast));
 	if (!dest)
-		return (0);
-	dest->input = input;
-	dest->next = NULL;
+		return (NULL);
+	dest->value = ft_strdup(input);
 	dest->type = NULL;
+	dest->left = NULL;
+	dest->right = NULL;
+	dest->args = NULL;
 	return (dest);
 }
 
-void	node_add_back(t_list **lst, t_list *new)
+void	add_args_to_node(t_ast **ast, t_ast *arg)
 {
-	t_list	*tmp;
+	t_ast	*tmp;
 
-	if (!*lst)
+	// ft_printf("token nab: %s\n", new->input);
+	if (!*ast)
 	{
-		*lst = new;
+		*ast = arg;
 		return ;
 	}
-	tmp = *lst;
-	while (tmp->next)
-		tmp = tmp->next;
-	tmp->next = new;
-}
-
-int	ft_lstsize(t_list *lst)
-{
-	int	size;
-
-	if (!lst)
-		return (0);
-	size = 0;
-	while (lst)
-	{
-		lst = lst->next;
-		size++;
-	}
-	return (size);
-}
-
-void	free_lst(t_list **lst)
-{
-	t_list	*temp;
-
-	if (!lst || !*lst)
-		return ;
-	while (*lst)
-	{
-		temp = *lst;
-		*lst = (*lst)->next;
-		free(temp);
-	}
-	*lst = NULL;
+	tmp = *ast;
+	while (tmp->args)
+		tmp = tmp->args;
+	tmp->args = arg;
 	return ;
 }

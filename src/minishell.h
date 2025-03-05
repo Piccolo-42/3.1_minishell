@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 14:11:03 by sravizza          #+#    #+#             */
-/*   Updated: 2025/03/04 10:35:21 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/03/05 14:14:13 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define MINISHELL_H
 
 # include "../libft/libft_src/libft.h"
+# include "../libft/gnl_src/get_next_line.h"
+# include "../libft/printf_src/ft_printf.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -25,18 +27,43 @@
 
 typedef struct s_list
 {
-	char	*input;
-	char	*type;
-	t_list	*next;
-}			t_list;
+	char			*input;
+	char			*type;
+	struct s_list	*next;
+}	t_list;
+
+typedef enum e_type {
+	CMD,      
+	PIPE,      // |
+	REDIR_IN,  // <
+	REDIR_OUT, // >
+	APPEND,    // >>
+	HEREDOC,   // <<
+	ARG,       // flags, files
+}	t_type;
+
+typedef struct s_ast {
+	t_type         type;   // Type of node (command, pipe, etc.)
+	char           *value; // Command name or argument (optional)
+	struct s_ast   *left;  // Left child (used for pipes and redirections)
+	struct s_ast   *right; // Right child (used for pipes and redirections)
+	struct s_ast   *args;  // Linked list of arguments (for commands)
+}	t_ast;
+
+//main
+int is_whitespace(char c);
+int	len_crop(char *input, int len_token);
 
 //parsing
-void	parsing(char *input);
+void	parsing(char *input, t_list **lst);
+// char	*get_leftover(char *input, int i, t_list *lst);
+char	*get_token(char *input);
 
 //utils
 int		ft_lstsize(t_list *lst);
 void	node_add_back(t_list **lst, t_list *new);
-t_list	*new_node(int input);
+t_list	*new_node(char *input);
 void	free_lst(t_list **lst);
 void	prt_lst(t_list *lst);
-# endif
+
+#endif
