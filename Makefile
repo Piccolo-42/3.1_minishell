@@ -20,7 +20,7 @@ OBJ_DIR		= obj
 ################################################################################
 ##								  SOURCES									  ##
 
-SRC			=	# # \ 
+SRC			=	minishell.c		parsing.c	utils.c
 
 LIBFT_LIB	= $(LIBFT_DIR)/libft.a
 
@@ -29,9 +29,10 @@ LIBFT_LIB	= $(LIBFT_DIR)/libft.a
 ##								 ARGUMENTS									  ##
 
 
-NAME		= # 
+NAME		= minishell
 CC			= gcc
 CFLAGS		= -Wall -Werror -Wextra -I$(MLX_DIR) -I$(LIBFT_DIR)
+LFLAGS		= -lreadline 
 #LFLAGS		= -L$(MLX_DIR) -L$(LIBFT_DIR) -lmlx -lXext -lX11 -lm -lft
 OBJ			= $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 RM			= rm -f
@@ -42,7 +43,7 @@ AR			= ar -rcs
 ##								   RULES									  ##
 
 $(NAME): $(OBJ) $(LIBFT_LIB)
-	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) $(LIBFT_LIB) -o $(NAME) $(LFLAGS)
 	echo $(NAME) "compiled"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
@@ -59,7 +60,7 @@ $(LIBFT_LIB):
 all: $(NAME)
 
 clean:
-	$(RM) $(OBJ_DIR)
+	rm -rf $(OBJ_DIR)
 	echo $(NAME) "obj removed"
 	$(MAKE) -C $(LIBFT_DIR) clean
 
