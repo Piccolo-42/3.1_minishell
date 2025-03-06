@@ -15,10 +15,8 @@
 int main(void)
 {
     char	*input;
-    t_list	*lst;
+    t_ast   *ast;
 
-	lst = NULL;
-	ft_printf("\n");
     while (1)
     {
         input = readline(">: ");
@@ -26,12 +24,7 @@ int main(void)
             break;
         if (*input)
             add_history(input);
-        // printf("input: %s\n", input);
-        parsing(input, &lst);
-		if (!lst)
-			ft_printf("no list pointed\n");
-		else
-			prt_lst(lst);
+        parsing(input, ast);
         // Example of modifying input (replaces current line with "Modified Input")
         // rl_replace_line("Modified Input", 0);
         // rl_redisplay();
@@ -40,23 +33,6 @@ int main(void)
         // printf("\n");
     }
     rl_clear_history();
-	free_lst(&lst);
     return 0;
 }
 
-int is_whitespace(char c)
-{
-	if (c == ' ' || (9 <= c && c <= 13))
-		return (1);
-	return (0);
-}
-
-int	len_crop(char *input, int len_token)
-{
-	int	i;
-
-	i = len_token;
-	while (input[i] && is_whitespace(input[i]))
-		i++;
-	return (i);
-}

@@ -27,19 +27,20 @@
 
 typedef struct s_list
 {
-	char			*input;
-	char			*type;
+	char			*content;
+	t_type			*type;
 	struct s_list	*next;
 }	t_list;
 
 typedef enum e_type {
 	CMD,      
-	PIPE,      // |
-	REDIR_IN,  // <
-	REDIR_OUT, // >
-	APPEND,    // >>
-	HEREDOC,   // <<
-	ARG,       // flags, files
+	PIPE,		// |
+	REDIR_IN,	// <
+	REDIR_OUT,	// >
+	APPEND,		// >>
+	HEREDOC,	// <<
+	ARG,		// flags, files
+	NONE,		// default, not assigned yet
 }	t_type;
 
 typedef struct s_ast {
@@ -51,19 +52,25 @@ typedef struct s_ast {
 }	t_ast;
 
 //main
-int is_whitespace(char c);
-int	len_crop(char *input, int len_token);
+
 
 //parsing
-void	parsing(char *input, t_list **lst);
-// char	*get_leftover(char *input, int i, t_list *lst);
+void	parsing(char *input, t_ast *ast);
+void	tokenisation(char *input, t_list **lst);
 char	*get_token(char *input);
 
-//utils
-int		ft_lstsize(t_list *lst);
-void	node_add_back(t_list **lst, t_list *new);
+//utils_lst
 t_list	*new_node(char *input);
+void	node_add_back(t_list **lst, t_list *new);
 void	free_lst(t_list **lst);
+// int		ft_lstsize(t_list *lst);
 void	prt_lst(t_list *lst);
+
+//utils_ast
+t_ast	*new_ast_node(char *value, t_type type);
+
+//utils_pars
+int is_whitespace(char c);
+int	len_crop(char *input, int len_token);
 
 #endif

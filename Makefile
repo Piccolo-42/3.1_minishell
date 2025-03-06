@@ -20,7 +20,7 @@ OBJ_DIR		= obj
 ################################################################################
 ##								  SOURCES									  ##
 
-SRC			=	minishell.c		parsing.c	utils_lst.c
+SRC			=	minishell.c		parsing.c	utils_lst.c	utils_ast.c	utils_pars.c
 
 LIBFT_LIB	= $(LIBFT_DIR)/libft.a
 
