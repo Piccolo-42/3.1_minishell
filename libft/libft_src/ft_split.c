@@ -25,7 +25,7 @@ static void	free_all(char **dest)
 	free(dest);
 }
 
-static int	ft_wordcount(char const *str, char c)
+static int	ft_wrdcnt(char const *str, char c)
 {
 	int			i;
 	static int	count;
@@ -77,7 +77,7 @@ char	**ft_split(char const *str, char c)
 
 	if (!str)
 		return (0);
-	dest = malloc(sizeof(char *) * (ft_wordcount(str, c) + 1));
+	dest = malloc(sizeof(char *) * (ft_wrdcnt(str, c) + 1));
 	if (!dest)
 		return (0);
 	if (!ft_split2(str, c, dest))

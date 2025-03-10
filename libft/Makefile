@@ -23,15 +23,17 @@ LIBFT_SRCS	= 	ft_isalpha.c	ft_isdigit.c	ft_isalnum.c		ft_isascii.c		\
     			ft_strmapi.c	ft_striteri.c	ft_putchar_fd.c		ft_putstr_fd.c		\
 				ft_putendl_fd.c	ft_putnbr_fd.c					
 
-EXT_SRC		=	utils.c
+EXT_SRCS	=	utils.c
 ##########################################################################################
 ##									ARGUMENTS											##
 
 PRINTF_DIR	= printf_src
 LIBFT_DIR	= libft_src
 SRCS		= $(addprefix $(PRINTF_DIR)/, $(PRINTF_SRCS)) 								\
+			  $(addprefix $(GNL_DIR)/, $(GNL_SRCS))										\
 			  $(addprefix $(LIBFT_DIR)/, $(LIBFT_SRCS))									\
-			  $(addprefix $(GNL_DIR)/, $(GNL_SRCS))
+			  $(addprefix $(EXT_DIR)/, $(EXT_SRCS))										
+
 OBJS		= $(SRCS:.c=.o)
 NAME		= libft.a
 CC			= gcc 

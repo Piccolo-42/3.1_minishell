@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft_src/libft.h"
+#include "libft.h"
 
 /**
  * @param str str in base 10
@@ -73,4 +73,46 @@ int	ft_wordcount(char *str, char c)
 		i++;
 	}
 	return (count);
+}
+
+int	is_whitespace(char c)
+{
+	if (c == ' ' || (9 <= c && c <= 13))
+		return (1);
+	return (0);
+}
+
+/**
+ * @brief crops all whitespaces from str, frees old str
+ * @param crop 0 for front, 1 for back, 2 for both
+ * @return new cropped string
+ * @warning malloc
+ */
+char	*crop_whitespace(char *str, int crop)
+{
+	int		start;
+	int		end;
+	char	*dest;
+
+	if (!str || crop < 0 || crop > 2)
+		return (NULL);
+	start = 0;
+	if (crop == 0 || crop == 2)
+	{
+		while (str[start] && is_whitespace(str[start]))
+			start++;
+	}
+	end = ft_strlen(str) - 1;
+	if (crop == 1 || crop == 2)
+	{
+		while (end >= start && is_whitespace(str[end]))
+			end--;
+	}
+	if (end < start)
+		return (free(str), ft_strdup(""));
+	dest = ft_substr(str, start, end - start + 1);
+	if (!dest)
+		return (NULL);
+	free(str);
+	return (dest);
 }

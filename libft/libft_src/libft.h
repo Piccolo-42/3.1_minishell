@@ -17,6 +17,13 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+//ext
+int		ft_atoi_base16(const char *str);
+void	free_split(char **str);
+int		ft_wordcount(char *str, char c);
+int		is_whitespace(char c);
+char	*crop_whitespace(char *str, int crop);
+
 //char_is_to
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);

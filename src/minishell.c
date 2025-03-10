@@ -12,27 +12,31 @@
 
 #include "minishell.h"
 
-int main(void)
+int	main(void)
 {
-    char	*input;
-    t_ast   *ast;
+	char	*input;
+	t_ast	*ast;
 
-    while (1)
-    {
-        input = readline(">: ");
-        if (!input || !ft_strncmp(input, "exit", 4))
-            break;
-        if (*input)
-            add_history(input);
-        parsing(input, ast);
-        // Example of modifying input (replaces current line with "Modified Input")
-        // rl_replace_line("Modified Input", 0);
-        // rl_redisplay();
-        // input = readline("Enter command2: ");
-        // printf("mod: %s\n", input);
-        // printf("\n");
-    }
-    rl_clear_history();
-    return 0;
+	while (1)
+	{
+		input = readline(">: ");
+		if (!input || !ft_strncmp(input, "exit", 4))
+			break ;
+		if (*input)
+			add_history(input);
+		ast = NULL;
+		ast = parsing(input);
+		//	process AST
+
+		// Example of modifying input (replaces current line with "Modified Input")
+		// rl_replace_line("Modified Input", 0);
+		// rl_redisplay();
+		// input = readline("Enter command2: ");
+		// printf("mod: %s\n", input);
+		// printf("\n");
+		if (ast)
+			free_ast(ast);
+	}
+	rl_clear_history();
+	return (0);
 }
-
