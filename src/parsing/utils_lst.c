@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 11:45:05 by sravizza          #+#    #+#             */
-/*   Updated: 2025/03/05 13:50:03 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/03/10 15:17:58 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,13 @@ t_list	*new_node(char *content, t_type type)
 	if (!(dest->content))
 		return (NULL);
 	dest->type = NONE;
+	dest->subtype = NONE;
 	if (type != NONE)
 		dest->type = type;
+	// if (subtype != NONE)
+	// 	dest->subtype = subtype;
 	dest->next = NULL;
+	dest->args = NULL;
 	return (dest);
 }
 
@@ -58,28 +62,6 @@ void	free_lst(t_list **lst)
 		free(temp);
 	}
 	*lst = NULL;
-	return ;
-}
-
-void	clean_up_lst(t_list **lst)
-{
-	t_list	*current;
-	t_list	*prev;
-
-	if (!lst || !*lst)
-		return ;
-	current = *lst;
-	prev = NULL;
-	while (current)
-	{
-		if (current->type == RM)
-			remove_node(lst, prev, &current);
-		else
-		{
-			prev = current;
-			current = current->next;
-		}
-	}
 	return ;
 }
 

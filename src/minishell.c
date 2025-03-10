@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 14:09:51 by sravizza          #+#    #+#             */
-/*   Updated: 2025/03/05 13:51:18 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/03/10 15:57:08 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ int	main(void)
 		// printf("mod: %s\n", input);
 		// printf("\n");
 		if (ast)
-			free_ast(ast);
+			printf("END");
+		// 	free_ast(ast);
 	}
 	rl_clear_history();
 	return (0);

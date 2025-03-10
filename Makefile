@@ -26,7 +26,8 @@ SRC_MAIN	=	minishell.c
 				
 
 SRC_PARS	=	parsing.c 		token.c			ast.c			zgeg.c			\
-				utils_lst.c		utils_ast.c		utils_pars.c	utils_token.c
+				utils_lst.c		utils_ast.c		utils_pars.c	utils_token.c   \
+				utils_clean_lst.c
 
 #SRC_EXE	=	
 
