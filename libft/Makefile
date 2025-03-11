@@ -9,7 +9,8 @@ EXT_DIR		= ext_src
 ##########################################################################################
 ##									SOURCES												##
 
-PRINTF_SRCS	=	ft_printf.c		ft_printnbr.c	ft_itoa_to_base.c	ft_unitoa.c
+PRINTF_SRCS	=	ft_printf.c		ft_printnbr.c	ft_itoa_to_base.c	ft_unitoa.c			\
+				ft_ext.c
 
 GNL_SRCS	=	get_next_line.c	
 
@@ -37,7 +38,7 @@ SRCS		= $(addprefix $(PRINTF_DIR)/, $(PRINTF_SRCS)) 								\
 OBJS		= $(SRCS:.c=.o)
 NAME		= libft.a
 CC			= gcc 
-CFLAGS		= -Werror -Wall -Wextra
+CFLAGS		= -Werror -Wall -Wextra -I$(PRINTF_DIR) -I$(GNL_DIR) -I$(LIBFT_DIR)
 RM			= rm -f
 AR			= ar -rcs
 

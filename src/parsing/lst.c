@@ -12,7 +12,11 @@
 
 #include "minishell.h"
 
-t_list	*tokenisation(char *input)
+/**
+ * @brief creates t_list, skips whitespaces in input
+ * @returns pointer on first node of lst
+ */
+t_list	*make_lst(char *input)
 {
 	t_list	*lst;
 	int	i;
@@ -29,6 +33,10 @@ t_list	*tokenisation(char *input)
 	return (lst);
 }
 
+/**
+ * @brief *char to t_list node 
+ * @returns strlen(token)
+ */
 int	process_token(char *input, t_list **lst)
 {
 	int		i;
@@ -45,19 +53,30 @@ int	process_token(char *input, t_list **lst)
 	return (i);
 }
 
+/**
+ * @param i pointer on token length
+ * @returns type of token
+ */
 t_type	get_type(char *input, int *i)
 {
 	if (input[*i] == '\"' || input[*i] == '\'')
 		return (handle_quotes(input, i));
 	if (input[*i] == '|')
-	{
-		(*i)++;
-		return (PIPE);
-	}
-		// return (handle_pipe(i));
+		return (handle_pipe(i));
 	if (input[*i] == '<' || input[*i] == '>')
 		return (handle_redir(input, i));
 	if (input[*i] == '$')
 		return (handle_env(input, i));
 	return (handle_words(input, i));
+}
+
+/**
+ * @brief removes quotes, reassigns types and sublinks args
+ */
+void	clean_up_lst(t_list **lst)
+{
+	remove_type_rm(lst);
+	update_quotes(lst);
+	assign_word_type(lst);
+	return ;
 }

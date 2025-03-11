@@ -63,7 +63,7 @@ int	ft_conversion(va_list args, char conv)
 	else if (conv == '%')
 		return (ft_printchar('%'));
 	else if (conv == 't')
-		return (ft_printtype(va_args(args, t_type)));
+		return (ft_printtype(va_arg(args, int)));
 	return (0);
 }
 

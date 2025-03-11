@@ -17,6 +17,7 @@
 # include <stdarg.h>
 # include <stdint.h>
 # include "../libft_src/libft.h"
+// # include "../../include/minishell.h"
 
 int		ft_printf(const char *format, ...);
 int		ft_conversion(va_list args, char conv);
@@ -31,6 +32,6 @@ char	*ft_unitoa(unsigned int n);
 
 typedef enum e_type t_type;
 
-ft_printe(t_type type);
+int		ft_printtype(t_type type);
 
 #endif

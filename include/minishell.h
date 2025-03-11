@@ -54,8 +54,7 @@ typedef struct s_list
 
 typedef struct s_ast
 {
-	t_type			type;		// Type of node (command, pipe, etc.)
-	char			*value;
+	t_list			*lst;
 	t_list			*args;		// Linked list of arguments (for commands)
 	struct s_ast	*parent;	// root
 	struct s_ast	*left;		// Left child (used for pipes and redirections)
@@ -64,31 +63,39 @@ typedef struct s_ast
 
 // main
 
-// zgeg
-void	prt_lst(t_list *lst);
-char	*get_type_name(t_type type);
-void	print_ast_basic(t_ast *ast, int level);
-void	print_ast_graphic(t_ast *ast, int level, int indent);
 
-// ast
-t_ast	*ast_build(t_list **lst);
-
-// parsing
+// parsing (main)
 t_ast	*parsing(char *input);
 
-// token
-t_list	*tokenisation(char *input);
+// ast (Abstract Syntax Tree build)
+t_ast	*ast_build(t_list **lst);
+
+// lst (t_list with tokens)
+t_list	*make_lst(char *input);
 int		process_token(char *input, t_list **lst);
 t_type	get_type(char *input, int *i);
-// void	define_words(t_list	**lst);
+void	clean_up_lst(t_list **lst);
 
-// utils_ast
-t_ast	*new_ast_node(char *value, t_type type);
-void	add_args_to_node(t_ast **ast, t_ast *arg);
-void	add_child_to_node(t_ast	**ast, t_ast *child, int side);
-void	free_ast(t_ast	*ast);
+// hndl_type (handle token type)
+t_type	handle_quotes(char *input, int *i);
+t_type	handle_redir(char *input, int *i);
+t_type	handle_env(char *input, int *i);
+t_type	handle_words(char *input, int *i);
+t_type	handle_pipe(int	*i);
 
-// utils_clean_lst
+// utl_ast (utils ast make/build)
+t_ast	*new_ast_node(t_list *lst);
+// void	add_args_to_node(t_ast **ast, t_ast *arg);
+// void	add_child_to_node(t_ast	**ast, t_ast *child, int side);
+// void	free_ast(t_ast	*ast);
+
+// utl_lst_mk (utils list make/build)
+t_list	*new_node(char *input, t_type type);
+void	node_add_back(t_list **lst, t_list *new);
+void	free_lst(t_list **lst);
+void	remove_node(t_list **lst, t_list *prev, t_list **current);
+
+// utl_lst_cln (utils list clean up )
 void	clean_up_lst(t_list **lst);
 void	remove_type_rm(t_list **lst);
 void	update_quotes(t_list **lst);
@@ -96,23 +103,15 @@ void	assign_word_type(t_list **lst);
 void	add_args_to_cmd(t_list **lst);
 void	unlink_end_of_args(t_list **cmd);
 
-// utils_lst
-t_list	*new_node(char *input, t_type type);
-void	node_add_back(t_list **lst, t_list *new);
-void	free_lst(t_list **lst);
-void	clean_up_lst(t_list **lst);
-void	remove_node(t_list **lst, t_list *prev, t_list **current);
-
-// utils_pars
+// utl_pars (utils general)
 int		is_whitespace(char c);
 int		is_redir(t_type	type);
-// char	*crop_whitespace(char *str, int crop);
+int		is_operator(t_type type);
 
-// utils_token
-t_type	handle_quotes(char *input, int *i);
-t_type	handle_redir(char *input, int *i);
-t_type	handle_env(char *input, int *i);
-t_type	handle_words(char *input, int *i);
-t_type	handle_pipe(int	*i);
+// prt_test (print tests)
+void	prt_lst(t_list *lst);
+char	*get_type_name(t_type type);
+void	print_ast_basic(t_ast *ast, int level);
+void	print_ast_graphic(t_ast *ast, int level, int indent);
 
 #endif

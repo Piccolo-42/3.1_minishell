@@ -93,9 +93,9 @@ void	prt_lst(t_list *lst)
 			ft_printf("%d: %s", i, lst->content);
 		else
 			ft_printf("no content");
-		// ft_printf(" , (%t)", lst->type);
-		// if(lst->subtype == SNG_Q || lst->subtype == DBL_Q)
-			// ft_printf(", (%s)", get_type_name(lst->subtype));
+		ft_printf(" , (%t)", lst->type);
+		if(lst->subtype == SNG_Q || lst->subtype == DBL_Q)
+			ft_printf(", (%t)", lst->subtype);
 		if (lst->args)
 		{
 			ft_printf(", args-> ");

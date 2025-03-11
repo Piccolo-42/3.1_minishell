@@ -12,15 +12,9 @@
 
 #include "minishell.h"
 
-void	clean_up_lst(t_list **lst)
-{
-	remove_type_rm(lst);
-	update_quotes(lst);
-	assign_word_type(lst);
-	add_args_to_cmd(lst);
-	return ;
-}
-
+/**
+ * @brief removes nodes with type RM (solitary quotes)
+ */
 void	remove_type_rm(t_list **lst)
 {
 	t_list	*current;
@@ -43,6 +37,10 @@ void	remove_type_rm(t_list **lst)
 	return ;
 }
 
+/**
+ * @brief removes actual quotes from str, 
+ * reassign type to WORD and subtype to SNG_Q or DBL_Q
+ */
 void	update_quotes(t_list **lst)
 {
 	t_list	*node;
@@ -69,10 +67,17 @@ void	update_quotes(t_list **lst)
 	return ;
 }
 
+/**
+ * @brief assigns types to WORDs: 
+ * FL after redir.
+ * else CMD, and following words are ARGS 
+ */
 void	assign_word_type(t_list **lst)
 {
 	t_list	*node;
 
+	if(!lst || !*lst)
+		return ;
 	node = *lst;
 	while (node)
 	{
@@ -85,15 +90,15 @@ void	assign_word_type(t_list **lst)
 	return ;
 }
 
+/**
+ * @brief assigns CMD to words that are not FL, ARG to following words. 
+ * @brief \n CMD's linked list of args are now pointed to by cmd->args 
+ */
 void	add_args_to_cmd(t_list **node)
 {
 	t_list	*cmd;
 	t_list	*temp;
 
-	// if (!lst || !*lst)
-	// 	return ;
-	// if ((*lst)->type != WORD)
-	// 	return;
 	cmd = *node;
 	cmd->type = CMD;
 	if (!cmd->next)
@@ -112,19 +117,23 @@ void	add_args_to_cmd(t_list **node)
 	return ;
 }
 
+/**
+ * @brief unlinks the rest of the lst (not args) from the last arg
+ */
 void	unlink_end_of_args(t_list **cmd)
 {
-	t_list	*node;
+	t_list	*arg;
 
-	if (!cmd || !*cmd)
-		return;
-	node = (*cmd)->args;
-	while(node)
+	if (!(*cmd)->args)
+		return ;
+	arg = (*cmd)->args;
+	while(arg)
 	{
-		if ((node->next)->type != ARG)
-			break;
-		node = node->next;
+		if (arg->next && (arg->next)->type != ARG)
+			break ;
+		arg = arg->next;
 	}
-	node->next = NULL;
+	if (arg)
+		arg->next = NULL;
 	return ;
 }

@@ -12,16 +12,21 @@
 
 #include "minishell.h"
 
-//Fix:
-// empty cmd end of list
-//
-// ToDo:
-// 
-// 
-// 
-// assign ast
-// maybe point to content and type on list?
+/** FIX
+ * empty cmd end of list
+ */
+/** ToDo
+ * make interactive and gnl mode, with test file and diff file
+ * multiple redirections
+ * redirection between cmd and arg
+ * error if wrong syntax
+ * build ast
+ */
 
+/**
+ * @brief creates t_list and t_ast
+ * @return pointer on the first ast node
+ */
 t_ast	*parsing(char *input)
 {
 	t_list	*lst;
@@ -29,10 +34,10 @@ t_ast	*parsing(char *input)
 
 	ast = NULL;
 	lst = NULL;
-	lst = tokenisation(input);
+	lst = make_lst(input);
 	prt_lst(lst);
 	// ast = ast_build(&lst);
-	free_lst(&lst);
+	// free_lst(&lst);
 	// print_ast_basic(ast, 0);
 	// ft_printf("\n\n\n");
 	// print_ast_graphic(ast, 0, 0);

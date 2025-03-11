@@ -25,9 +25,9 @@ EXE_DIR		=	exe
 SRC_MAIN	=	minishell.c		
 				
 
-SRC_PARS	=	parsing.c 		token.c			ast.c			zgeg.c			\
-				utils_lst.c		utils_ast.c		utils_pars.c	utils_token.c   \
-				utils_clean_lst.c
+SRC_PARS	=	parsing.c 			lst.c			ast.c			prt_test.c	   \
+				utl_lst_cln.c		utl_ast.c		utl_pars.c		utl_lst_mk.c   \
+				hndl_type.c
 
 #SRC_EXE	=	
 

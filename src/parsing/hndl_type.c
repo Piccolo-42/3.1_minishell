@@ -85,8 +85,8 @@ t_type	handle_words(char *input, int *i)
 	return (WORD);
 }
 
-// t_type	handle_pipe(int	*i)
-// {
-// 	(*i)++;
-// 	return (PIPE);
-// }
+t_type	handle_pipe(int	*i)
+{
+	(*i)++;
+	return (PIPE);
+}

@@ -12,27 +12,35 @@
 
 #include "minishell.h"
 
-t_ast	*build_ast(t_list **lst)
-{
-	t_list	*node;
-	t_ast	*ast;
+// new node create
+// link child and parent (left or right), link2way
+// check is pipredir
 
-	if (!lst || !*lst)
-		return (NULL);
-	node = *lst;
-	// if (node->type == WORD)
-	// {
-	// 	ast = new_ast_node(node->content,)
-	// }
-	// while (node && node->type != PIPE)
-	// 	node = node->next;
-	if (node && node->type == PIPE)
-	{
-		ast = new_ast_node(node->content, PIPE);
-		if (!ast)
-			return (NULL);
-		ast->left = build_ast(lst);
-		ast->right = build_ast(&node->next);
-	}
-	return (ast);
-}
+/**
+ * @brief builds ast from lst
+ * @returns pointer on first element to execute
+ */
+// t_ast	*ast_build(t_list **lst)
+// {
+// 	t_list	*node;
+// 	t_ast	*ast;
+
+// 	if (!lst || !*lst)
+// 		return (NULL);
+// 	node = *lst;
+// 	// if (node->type == WORD)
+// 	// {
+// 	// 	ast = new_ast_node(node->content,)
+// 	// }
+// 	// while (node && node->type != PIPE)
+// 	// node = node->next;
+// 	if (node && node->type == PIPE)
+// 	{
+// 		ast = new_ast_node(node->content, PIPE);
+// 		if (!ast)
+// 			return (NULL);
+// 		ast->left = build_ast(lst);
+// 		ast->right = build_ast(&node->next);
+// 	}
+// 	return (ast);
+// }
