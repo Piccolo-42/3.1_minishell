@@ -12,9 +12,13 @@
 
 #include "minishell.h"
 
-// ToDo
-// trim quotes from string
-// add word type (cmd, file, arg)
+//Fix:
+// empty cmd end of list
+//
+// ToDo:
+// 
+// 
+// 
 // assign ast
 // maybe point to content and type on list?
 

@@ -45,89 +45,86 @@ void	remove_type_rm(t_list **lst)
 
 void	update_quotes(t_list **lst)
 {
-	t_list	*plst;
+	t_list	*node;
 	char	*dest;
 
 	dest = NULL;
-	plst = *lst;
-	while (plst)
+	node = *lst;
+	while (node)
 	{
-		if (plst->type == DBL_Q || plst->type == SNG_Q)
+		if (node->type == DBL_Q || node->type == SNG_Q)
 		{
-			plst->subtype = plst->type;
-			plst->type = WORD;
-			if (plst->subtype == DBL_Q)
-				dest = ft_strtrim(plst->content,"\"");
-			else if (plst->subtype == SNG_Q)
-				dest = ft_strtrim(plst->content, "\'");
-			free(plst->content);
-			plst->content = dest;
+			node->subtype = node->type;
+			node->type = WORD;
+			if (node->subtype == DBL_Q)
+				dest = ft_strtrim(node->content,"\"");
+			else if (node->subtype == SNG_Q)
+				dest = ft_strtrim(node->content, "\'");
+			free(node->content);
+			node->content = dest;
 			dest = NULL;
 		}
-		plst = plst->next;
+		node = node->next;
 	}
 	return ;
 }
 
 void	assign_word_type(t_list **lst)
 {
-	t_list	*plst;
+	t_list	*node;
 
-	plst = *lst;
-	while (plst)
+	node = *lst;
+	while (node)
 	{
-		if (is_redir(plst->type))
-		{
-			// plst = plst->next;
-			(plst->next)->type = FL;
-		}
-		if (plst->type == WORD)
-			add_args_to_cmd(&plst);
-		plst = plst->next;
+		if (is_redir(node->type))
+			(node->next)->type = FL;
+		if (node->type == WORD)
+			add_args_to_cmd(&node);
+		node = node->next;
 	}
 	return ;
 }
 
-void	add_args_to_cmd(t_list **lst)
+void	add_args_to_cmd(t_list **node)
 {
 	t_list	*cmd;
-	t_list	*not_arg;
+	t_list	*temp;
 
-	if (!lst || !*lst)
-		return ;
-	if ((*lst)->type != WORD)
-		return;
-	cmd = *lst;
+	// if (!lst || !*lst)
+	// 	return ;
+	// if ((*lst)->type != WORD)
+	// 	return;
+	cmd = *node;
 	cmd->type = CMD;
 	if (!cmd->next)
 		return;
 	if ((cmd->next)->type != WORD)
 		return;
-	not_arg = cmd->next;
-	while (not_arg && not_arg->type == WORD)
+	temp = cmd->next;
+	while (temp && temp->type == WORD)
 	{
-		not_arg->type = ARG;
-		not_arg = not_arg->next;			
+		temp->type = ARG;
+		temp = temp->next;			
 	}
 	cmd->args = cmd->next;
-	cmd->next = not_arg;
+	cmd->next = temp;
 	unlink_end_of_args(&cmd);
 	return ;
 }
 
 void	unlink_end_of_args(t_list **cmd)
 {
-	t_list	*plst;
+	t_list	*node;
 
 	if (!cmd || !*cmd)
 		return;
-	plst = (*cmd)->args;
-	while(plst)
+	node = (*cmd)->args;
+	while(node)
 	{
-		if ((plst->next)->type != ARG)
+		if ((node->next)->type != ARG)
 			break;
-		plst = plst->next;
+		node = node->next;
 	}
-	plst->next = NULL;
+	node->next = NULL;
 	return ;
 }

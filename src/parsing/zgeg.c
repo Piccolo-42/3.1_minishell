@@ -93,9 +93,9 @@ void	prt_lst(t_list *lst)
 			ft_printf("%d: %s", i, lst->content);
 		else
 			ft_printf("no content");
-		ft_printf(" , (%s)", get_type_name(lst->type));
-		if(lst->subtype == SNG_Q || lst->subtype == DBL_Q)
-			ft_printf(", (%s)", get_type_name(lst->subtype));
+		// ft_printf(" , (%t)", lst->type);
+		// if(lst->subtype == SNG_Q || lst->subtype == DBL_Q)
+			// ft_printf(", (%s)", get_type_name(lst->subtype));
 		if (lst->args)
 		{
 			ft_printf(", args-> ");
@@ -114,35 +114,3 @@ void	prt_lst(t_list *lst)
 	return ;
 }
 
-char	*get_type_name(t_type type)
-{
-	if (type == FL)
-		return ("FL");
-	if (type == CMD)
-		return ("CMD");
-	if (type == PIPE)
-		return ("PIPE");
-	if (type == REDIR_IN)
-		return ("REDIR_IN");
-	if (type == REDIR_OUT)
-		return ("REDIR_OUT");
-	if (type == APPEND)
-		return ("APPEND");
-	if (type == HEREDOC)
-		return ("HEREDOC");
-	if (type == ARG)
-		return ("ARG");
-	if (type == ENV)
-		return ("ENV");
-	if (type == SNG_Q)
-		return ("SNG_Q");
-	if (type == DBL_Q)
-		return ("DBL_Q");
-	if (type == WORD)
-		return ("WORD");
-	if (type == NONE)
-		return ("NONE");
-	if (type == RM)
-		return ("RM"); 
-	return ("UNKNOWN");
-}

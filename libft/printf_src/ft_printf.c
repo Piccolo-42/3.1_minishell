@@ -62,6 +62,8 @@ int	ft_conversion(va_list args, char conv)
 		return (ft_printhex(va_arg(args, int), conv));
 	else if (conv == '%')
 		return (ft_printchar('%'));
+	else if (conv == 't')
+		return (ft_printtype(va_args(args, t_type)));
 	return (0);
 }
 

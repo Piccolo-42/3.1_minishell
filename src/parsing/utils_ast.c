@@ -12,25 +12,25 @@
 
 #include "minishell.h"
 
-// t_ast	*new_ast_node(char *value, t_type type)
-// {
-// 	t_ast	*dest;
+t_ast	*new_ast_node(char *value, t_type type)
+{
+	t_ast	*dest;
 
-// 	dest = malloc(sizeof(t_ast));
-// 	if (!dest)
-// 		return (NULL);
-// 	dest->value = ft_strdup(value);
-// 	if (!(dest->value))
-//     {
-//         free(dest);
-//         return (NULL);
-//     }
-// 	dest->type = type;
-// 	dest->left = NULL;
-// 	dest->right = NULL;
-// 	dest->args = NULL;
-// 	return (dest);
-// }
+	dest = malloc(sizeof(t_ast));
+	if (!dest)
+		return (NULL);
+	dest->value = ft_strdup(value);
+	if (!(dest->value))
+    {
+        free(dest);
+        return (NULL);
+    }
+	dest->type = type;
+	dest->left = NULL;
+	dest->right = NULL;
+	dest->args = NULL;
+	return (dest);
+}
 
 // void	add_args_to_node(t_ast **ast, t_ast *arg)
 // {
