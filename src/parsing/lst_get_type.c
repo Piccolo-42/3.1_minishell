@@ -1,16 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_token.c                                      :+:      :+:    :+:   */
+/*   lst_hndl_typ.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 14:36:02 by sravizza          #+#    #+#             */
-/*   Updated: 2025/03/07 14:36:02 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/03/24 13:05:47 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/**
+ * @param i pointer on token length
+ * @returns type of token
+ */
+t_type	get_type(char *input, int *i)
+{
+	if (input[*i] == '\"' || input[*i] == '\'')
+		return (handle_quotes(input, i));
+	if (input[*i] == '|')
+		return ((*i)++, PIPE);
+	if (input[*i] == '<' || input[*i] == '>')
+		return (handle_redir(input, i));
+	if (input[*i] == '$')
+		return (handle_env(input, i));
+	return (handle_words(input, i));
+}
 
 t_type	handle_quotes(char *input, int *i)
 {
@@ -83,10 +100,4 @@ t_type	handle_words(char *input, int *i)
 		(*i)++;
 	}
 	return (WORD);
-}
-
-t_type	handle_pipe(int	*i)
-{
-	(*i)++;
-	return (PIPE);
 }

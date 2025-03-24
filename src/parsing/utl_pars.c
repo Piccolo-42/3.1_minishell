@@ -13,21 +13,12 @@
 #include "minishell.h"
 
 /**
- * @brief is space or whitespace (9-13 incl)
- */
-// int	is_whitespace(char c)
-// {
-// 	if (c == ' ' || (9 <= c && c <= 13))
-// 		return (1);
-// 	return (0);
-// }
-
-/**
  * @brief is  < << >> > ?
  */
 int	is_redir(t_type	type)
 {
-	if (type == REDIR_IN || type == REDIR_OUT || type == APPEND || type == HEREDOC)
+	if (type == REDIR_IN || type == REDIR_OUT
+		|| type == APPEND || type == HEREDOC)
 		return (1);
 	return (0);
 }

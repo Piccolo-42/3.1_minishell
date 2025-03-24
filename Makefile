@@ -25,9 +25,11 @@ EXE_DIR		=	exe
 SRC_MAIN	=	minishell.c		
 				
 
-SRC_PARS	=	_parsing.c 			lst_.c			ast_.c			prt_test.c	   \
-				lst_clean.c			utl_pars.c		utl_lst.c	   \
-				lst_hndl_typ.c		lst_word_typ.c
+SRC_PARS	=	_parsing.c 				   								\
+				ast_link_rw.c			ast_file_check.c	  		  \
+				lst_clean.c		lst_get_type.c  						 \
+				utl_lst_mk.c	utl_lst_rm.c	utl_pars.c   		\
+				X_prt_test.c
 
 #SRC_EXE	=	
 

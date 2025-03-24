@@ -54,65 +54,49 @@ typedef struct s_list
 	struct s_list	*write;
 }	t_list;
 
-// typedef struct s_ast
-// {
-// 	t_list			*lst;
-// 	t_list			*args;		// Linked list of arguments (for commands)
-// 	struct s_ast	*parent;	// root
-// 	struct s_ast	*left;		// Left child (used for pipes and redirections)
-// 	struct s_ast	*right;		// Right child (used for pipes and redirections)
-// }	t_ast;
-
-// main
-
 
 // parsing (main)
 t_list	*parsing(char *input);
-
-// ast (Abstract Syntax Tree build)
-t_list	*ast_build(t_list **lst);
-t_list *process_redirs(t_list *cmd, t_list *redir);
-t_list	*next_cmd(t_list **lst);
-void	link_redirs_to_cmd(t_list **lst);
-void	link_cmd_and_pipes(t_list **lst);
-
-
-// lst_ (t_list with tokens)
-t_list	*make_lst(char *input);
-int		process_token(char *input, t_list **lst);
-t_type	get_type(char *input, int *i);
+t_list	*token_lst(char *input);
 void	clean_up_lst(t_list **lst);
+t_list	*ast_build(t_list **lst);
 
 // lst_hndl_type (handle token type)
+t_type	get_type(char *input, int *i);
 t_type	handle_quotes(char *input, int *i);
 t_type	handle_redir(char *input, int *i);
 t_type	handle_env(char *input, int *i);
 t_type	handle_words(char *input, int *i);
-t_type	handle_pipe(int	*i);
 
 // lst_clean (utils list clean up )
 void	remove_type_rm(t_list **lst);
 void	update_quotes(t_list **lst);
 void	assign_word_type(t_list **lst);
+void	assign_cmd_or_arg(t_list **cmd, t_list *node);
+int		process_cmd_and_args(t_list **cmd, t_list **node);
 
-// lst_word_typ
-void	assign_file(t_list **node);
-void	assign_cmd_and_args(t_list **cmd, t_list *node);
-int		process_word(t_list **cmd, t_list **node);
-// void	append_arg_to_cmd(t_list *cmd, t_list *arg);
+// ast (Abstract Syntax Tree build)
+t_list *process_redirs(t_list *cmd, t_list *redir);
+t_list	*next_cmd(t_list **lst);
+void	link_redirs_to_cmd(t_list **lst);
+void	link_cmd_and_pipes(t_list **lst);
 
-// utl_ast (utils ast build)
-// t_ast	*new_ast_node(t_list *lst);
-// void	add_args_to_node(t_ast **ast, t_ast *arg);
-// void	add_child_to_node(t_ast	**ast, t_ast *child, int side);
-// void	free_ast(t_ast	*ast);
+// ast_file_check
+int		check_files(t_list *lst);
+int		check_infile(t_list *node);
+int		file_exists_and_is_readable(char *file);
+int		check_outfile(t_list *node);
+int		file_ok_or_create(char *file, t_type type);
 
-// utl_lst (utils list build)
+// utl_lst_mk (utils list build)
+int		create_token(char *input, t_list **lst);
 t_list	*new_node(char *input, t_type type);
 void	node_add_back(t_list **lst, t_list *new);
-void	remove_node(t_list **lst, t_list **node);
 void	add_arg(t_list *node, char *arg);
 int		lstlen(t_list *lst);
+
+// utl_lst_rm (utils list remove/free)
+void	remove_node(t_list **lst, t_list **node);
 void	free_lst(t_list **lst);
 void	free_lst_redir(t_list *node);
 
@@ -122,7 +106,7 @@ int		is_operator(t_type type);
 
 // prt_test (print tests)
 void	prt_ast(t_list *lst);
-// void	prt_lst(t_list *lst);
-// void	rev_prt_lst(t_list *lst);
+void	prt_lst(t_list *lst);
+void	rev_prt_lst(t_list *lst);
 
 #endif

@@ -80,7 +80,7 @@ void	prt_ast_content(t_list *lst, int i, int lst_len)
 		ft_printf("\n\t\t\t  %s", lst->content[0]);
 		n = 1;
 		while (lst->content[n])
-			ft_printf(" %s", lst->content[n++]);
+			ft_printf(" \"%s\"", lst->content[n++]);
 		prt_ast_write(lst, i, lst_len);
 	}
 }
@@ -105,69 +105,69 @@ void	prt_ast(t_list *lst)
     return;
 }
 
-// void prt_lst(t_list *lst)
-// {
-//     int n;
+void prt_lst(t_list *lst)
+{
+    int n;
 
-//     if (!lst)
-//         return;
-//     ft_printf("\n");
-//     while (lst)
-//     {
-//         // Print the main command/token
-//         ft_printf("\t\t\t  %s", lst->content[0]);
-//         ft_printf(" (%t)", lst->type);
-//         if (lst->subtype == DBL_Q || lst->subtype == SNG_Q)
-//             ft_printf(", (%t)", lst->subtype);
+    if (!lst)
+        return;
+    ft_printf("\n");
+    while (lst)
+    {
+        // Print the main command/token
+        ft_printf("\t\t\t  %s", lst->content[0]);
+        ft_printf(" (%t)", lst->type);
+        if (lst->subtype == DBL_Q || lst->subtype == SNG_Q)
+            ft_printf(", (%t)", lst->subtype);
         
-//         // Print arguments if any
-//         if (lst->content[1])
-//             ft_printf("\n\t\t\t\targs:");
-//         n = 1;
-//         while (lst->content[n])
-//             ft_printf(" \"%s\"", lst->content[n++]);
+        // Print arguments if any
+        if (lst->content[1])
+            ft_printf("\n\t\t\t\targs:");
+        n = 1;
+        while (lst->content[n])
+            ft_printf(" \"%s\"", lst->content[n++]);
         
-//         // Print read redirections if any
-//         if (lst->read)
-//         {
-//             t_list *read_node = lst->read;
-// 			ft_printf("\n\t\t\t\tread:");
-// 			ft_printf(" %s", read_node->content[0]);
-//             if (read_node && is_redir(read_node->type))
-// 				ft_printf("%s", read_node->content[1]);
-// 			read_node = read_node->next;
-//             while (read_node && is_redir(read_node->type))
-//             {
-// 				ft_printf(" %s", read_node->content[0]);
-// 				ft_printf("%s", read_node->content[1]);
-//                 read_node = read_node->next;
-//             }
-//         }
+        // Print read redirections if any
+        if (lst->read)
+        {
+            t_list *read_node = lst->read;
+			ft_printf("\n\t\t\t\tread:");
+			ft_printf(" %s", read_node->content[0]);
+            if (read_node && is_redir(read_node->type))
+				ft_printf("%s", read_node->content[1]);
+			read_node = read_node->next;
+            while (read_node && is_redir(read_node->type))
+            {
+				ft_printf(" %s", read_node->content[0]);
+				ft_printf("%s", read_node->content[1]);
+                read_node = read_node->next;
+            }
+        }
         
-//         // Print write redirections if any
-//         if (lst->write)
-//         {
-//             t_list *write_node = lst->write;
-//             ft_printf("\n\t\t\t\twrite:");
-// 			ft_printf(" %s", write_node->content[0]);
-// 			if (write_node && is_redir(write_node->type))
-// 				ft_printf("%s", write_node->content[1]);
-//             write_node = write_node->next;
-//             while (write_node && is_redir(write_node->type))
-//             {
-// 				ft_printf(" %s", write_node->content[0]);
-// 				ft_printf("%s", write_node->content[1]);
-//                 write_node = write_node->next;
-//             }
-//         }
+        // Print write redirections if any
+        if (lst->write)
+        {
+            t_list *write_node = lst->write;
+            ft_printf("\n\t\t\t\twrite:");
+			ft_printf(" %s", write_node->content[0]);
+			if (write_node && is_redir(write_node->type))
+				ft_printf("%s", write_node->content[1]);
+            write_node = write_node->next;
+            while (write_node && is_redir(write_node->type))
+            {
+				ft_printf(" %s", write_node->content[0]);
+				ft_printf("%s", write_node->content[1]);
+                write_node = write_node->next;
+            }
+        }
         
-//         ft_printf("\n");
-// 		ft_printf("\n");
-//         lst = lst->next;
-//     }
-//     ft_printf("\n");
-//     return;
-// }
+        ft_printf("\n");
+		ft_printf("\n");
+        lst = lst->next;
+    }
+    ft_printf("\n");
+    return;
+}
 
 void	rev_prt_lst(t_list *lst)
 {

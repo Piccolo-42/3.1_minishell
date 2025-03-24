@@ -1,21 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_lst.c                                        :+:      :+:    :+:   */
+/*   utl_lst_mk.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 11:45:05 by sravizza          #+#    #+#             */
-/*   Updated: 2025/03/10 15:17:58 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/03/24 14:42:09 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/**
+ * @brief *char to t_list node 
+ * @returns strlen(token)
+ */
+int	create_token(char *input, t_list **lst)
+{
+	int		i;
+	t_type	type;
+	char	*token;
+
+	i = 0;
+	type = get_type(input, &i);
+	token = ft_substr(input, 0, i);
+	if (!token)
+		return (0);
+	node_add_back(lst, new_node(token, type));
+	free(token);
+	return (i);
+}
+
 t_list	*new_node(char *token, t_type ttype)
 {
 	t_list	*dest;
 
+	if (!token || !*token)
+		return (NULL);
 	dest = malloc(sizeof(t_list));
 	if (!dest)
 		return (NULL);
@@ -39,6 +61,8 @@ void	node_add_back(t_list **lst, t_list *new)
 {
 	t_list	*tmp;
 
+	if (!new)
+		return ;
 	if (!*lst)
 	{
 		*lst = new;
@@ -72,31 +96,10 @@ void	add_arg(t_list *node, char *arg)
 	}
 	new_content[i] = ft_strdup(arg);
 	if (!new_content[i])
-		return (void)free(new_content);
+		return ((void)free(new_content));
 	new_content[i + 1] = NULL;
 	free(node->content);
 	node->content = new_content;
-}
-
-void	remove_node(t_list **lst, t_list **node)
-{
-	t_list	*remove;
-	t_list	*next;
-
-	if (!*node)
-		return ;
-	remove = *node;
-	next = (*node)->next;
-	if (remove->prev)
-		(remove->prev)->next = next;
-	else
-		*lst = next;
-	if (next)
-		next->prev = remove->prev;
-	free_double(remove->content);
-	free(remove);
-	*node = next;
-	return ;
 }
 
 int	lstlen(t_list *lst)
@@ -110,60 +113,4 @@ int	lstlen(t_list *lst)
 		i++;
 	}
 	return (i);
-}
-
-//stack overflow
-void	free_lst(t_list **lst)
-{
-	t_list	*node;
-	t_list	*next;
-
-	if (!lst || !*lst)
-		return ;
-	node = *lst;
-	while (node)
-	{
-		next = node->next;
-		free_lst_redir(node);
-		free_double(node->content);
-		free(node);
-		node = next;
-	}
-	*lst = NULL;
-	return ;
-}
-
-void	free_lst_redir(t_list *node)
-{
-	// t_list	*temp;
-	// t_list	*next;
-
-	if (!node)
-		return ;
-	// if (node->read)
-	// {
-	// 	temp = node->read;
-	// 	while (temp)
-	// 	{
-	// 		next = temp->next;
-	// 		if (temp->content)
-	// 			free_double(temp->content);
-	// 		free(temp);
-	// 		temp = next;
-	// 	}
-	// 	node->read = NULL;
-	// }
-	// if (node->write)
-	// {
-	// 	temp = node->write;
-	// 	while (temp)
-	// 	{
-	// 		next = temp->next;
-	// 		if (temp->content)
-	// 			free_double(temp->content);
-	// 		free(temp);
-	// 		temp = next;
-	// 	}
-	// 	node->write = NULL;
-	// }
 }
