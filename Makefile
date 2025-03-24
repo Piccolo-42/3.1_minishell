@@ -25,9 +25,9 @@ EXE_DIR		=	exe
 SRC_MAIN	=	minishell.c		
 				
 
-SRC_PARS	=	parsing.c 			lst.c			ast.c			prt_test.c	   \
-				utl_lst_cln.c		utl_ast.c		utl_pars.c		utl_lst_mk.c   \
-				hndl_type.c
+SRC_PARS	=	_parsing.c 			lst_.c			ast_.c			prt_test.c	   \
+				lst_clean.c			utl_pars.c		utl_lst.c	   \
+				lst_hndl_typ.c		lst_word_typ.c
 
 #SRC_EXE	=	
 
@@ -45,7 +45,7 @@ LIBFT_LIB	=	$(LIBFT_DIR)/libft.a
 NAME		= 	minishell
 CC			= 	gcc
 CFLAGS		= 	-Wall -Werror -Wextra -I$(INCL_DIR) -I$(LIBFT_DIR)
-LFLAGS		= 	-lreadline 
+LFLAGS		= 	-lreadline -Llibft -lft
 #LFLAGS		= 	-L$(MLX_DIR) -L$(LIBFT_DIR) -lmlx -lXext -lX11 -lm -lft
 OBJ			= 	$(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 RM			= 	rm -f
@@ -96,11 +96,9 @@ fclean: clean
 
 re: clean all
 
-#debug: $(OBJ) $(MLX_LIB) $(LIBFT_LIB)
-#	$(CC) $(CFLAGS) -g $(OBJ) -o $(NAME) $(LFLAGS)
-#	echo $(NAME) "compiled"
-
-#red: clean debug
+debug: CFLAGS += -g
+debug: re
+	echo $(NAME) "compiled in debug mode"
 
 .SILENT:
 

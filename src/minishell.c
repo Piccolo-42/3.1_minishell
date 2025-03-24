@@ -15,7 +15,7 @@
 int	main(void)
 {
 	char	*input;
-	t_ast	*ast;
+	t_list	*ast;
 
 	while (1)
 	{
@@ -35,8 +35,10 @@ int	main(void)
 		// printf("mod: %s\n", input);
 		// printf("\n");
 		if (ast)
-			printf("END");
-		// 	free_ast(ast);
+		{
+			prt_ast(ast);
+			free_lst(&ast);
+		}
 	}
 	rl_clear_history();
 	return (0);

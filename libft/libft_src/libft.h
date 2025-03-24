@@ -19,7 +19,7 @@
 
 //ext
 int		ft_atoi_base16(const char *str);
-void	free_split(char **str);
+void	free_double(char **str);
 int		ft_wordcount(char *str, char c);
 int		is_whitespace(char c);
 char	*crop_whitespace(char *str, int crop);

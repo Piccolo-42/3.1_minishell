@@ -17,7 +17,7 @@
 # include <stdarg.h>
 # include <stdint.h>
 # include "../libft_src/libft.h"
-// # include "../../include/minishell.h"
+# include "../../include/minishell.h"
 
 int		ft_printf(const char *format, ...);
 int		ft_conversion(va_list args, char conv);

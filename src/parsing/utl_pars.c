@@ -15,12 +15,12 @@
 /**
  * @brief is space or whitespace (9-13 incl)
  */
-int	is_whitespace(char c)
-{
-	if (c == ' ' || (9 <= c && c <= 13))
-		return (1);
-	return (0);
-}
+// int	is_whitespace(char c)
+// {
+// 	if (c == ' ' || (9 <= c && c <= 13))
+// 		return (1);
+// 	return (0);
+// }
 
 /**
  * @brief is  < << >> > ?
