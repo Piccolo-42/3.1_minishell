@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 14:37:30 by sravizza          #+#    #+#             */
-/*   Updated: 2025/03/24 14:41:18 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/03/25 15:19:35 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,8 @@ void	assign_word_type(t_list **lst)
 	cmd = NULL;
 	while (node)
 	{
-		if (is_redir(node->type) && (node->next))
-		{
-			(node->next)->type = FIL;
-			add_arg(node, (node->next)->content[0]);
-			remove_node(lst, &node->next);
-		}
+		if (is_redir(node->type))
+			assign_redir_and_file(node);
 		else if (node->type == WORD && process_cmd_and_args(&cmd, &node))
 			continue ;
 		else if (node->type == PIPE)

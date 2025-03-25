@@ -3,6 +3,9 @@
 	"files.associations": {
 		"minishell.h": "c",
 		"libft.h": "c",
-		"_tree_view": "cpp"
+		"_tree_view": "cpp",
+		"stdlib.h": "c",
+		"unistd.h": "c",
+		"string.h": "c"
 	}
 }

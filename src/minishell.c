@@ -19,14 +19,19 @@ int	main(void)
 
 	while (1)
 	{
-		input = readline(">: ");
-		if (!input || !ft_strncmp(input, "exit", 4))
+		input = read_input();
+		if (!input)
 			break ;
 		if (*input)
 			add_history(input);
-		ast = NULL;
 		ast = parsing(input);
-		//	process AST
+		prt_ast(ast);
+		free_lst(&ast);
+
+		//exe_cmd(ast)
+
+
+		// more readline functions
 
 		// Example of modifying input (replaces current line with "Modified Input")
 		// rl_replace_line("Modified Input", 0);
@@ -34,11 +39,6 @@ int	main(void)
 		// input = readline("Enter command2: ");
 		// printf("mod: %s\n", input);
 		// printf("\n");
-		if (ast)
-		{
-			prt_ast(ast);
-			free_lst(&ast);
-		}
 	}
 	rl_clear_history();
 	return (0);

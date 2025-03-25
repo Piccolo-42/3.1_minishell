@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 11:11:42 by sravizza          #+#    #+#             */
-/*   Updated: 2025/03/24 16:55:01 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/03/25 16:59:55 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ void	clean_up_lst(t_list **lst)
 	remove_type_rm(lst);
 	update_quotes(lst);
 	assign_word_type(lst);
-	// check_syntax(lst);
 	return ;
 }
 
@@ -78,11 +77,35 @@ t_list	*ast_build(t_list **lst)
 {
 	link_redirs_to_cmd(lst);
 	link_cmd_and_pipes(lst);
-	if (!check_files(*lst))
-	{
-		printf("FILE ERROR\n");
-		return (NULL);
-	}
-	printf("Files OK\n");
+	check_syntax(lst);
 	return (*lst);
+}
+
+void	check_syntax(t_list **lst)
+{
+	t_list *node;
+	int		cmd;
+
+	cmd = 0;
+	node = *lst;
+	while (node)
+	{
+		if (node->type == CMD && cmd == 1)
+		{
+			//error
+			printf("wrong syntax, tooo many cmd\n");
+			break ;
+		}
+		else if (node->type == CMD && cmd == 0)
+			cmd = 1;
+		else if (node->type == PIPE && cmd == 0)
+		{
+			//error
+			printf("wrong syntax, missing cmd\n");
+			break ;
+		}
+		else if (node->type == PIPE && cmd == 1)
+			cmd = 0;
+		node = node->next;
+	}
 }

@@ -45,8 +45,8 @@
  *	
  * ___________________________________________________________________________________________
  * 
- * 3- sublink  		add pipes and redirection as separate pointers, 
- * 	  read & write:	i.e. create subbranches
+ * 3- sublink  		add pipes and redirection in read and write pointers for cmds., 
+ * 	  read & write:	
  * 
  * 
  * 			 			grep hello <test.txt | grep h | wc -l >outfile

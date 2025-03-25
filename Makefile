@@ -16,25 +16,29 @@ LIBFT_DIR	=	libft
 SRC_DIR		=	src
 OBJ_DIR		=	obj
 INCL_DIR	=	include
+RL_DIR		=	readline
 PARS_DIR	=	parsing
 EXE_DIR		=	exe
 
 ################################################################################
 ##								  SOURCES									  ##
 
-SRC_MAIN	=	minishell.c		
+SRC_MAIN	=	minishell.c
 				
+SRC_RL		=	_readline.c														\
+			 	utils_rl.c
 
-SRC_PARS	=	_parsing.c 				   								\
-				ast_link_rw.c			ast_file_check.c	  		  \
-				lst_clean.c		lst_get_type.c  						 \
-				utl_lst_mk.c	utl_lst_rm.c	utl_pars.c   		\
+SRC_PARS	=	_parsing.c 				   										\
+				ast_link_rw.c		  		  					\
+				lst_clean.c		lst_get_type.c  	lst_file_redir.c			\
+				utl_lst_mk.c	utl_lst_rm.c		utl_pars.c   				\
 				X_prt_test.c
 
 #SRC_EXE	=	
 
 SRC			=	$(SRC_MAIN)													   \
 				$(addprefix $(PARS_DIR)/, $(SRC_PARS))						   \
+				$(addprefix $(RL_DIR)/, $(SRC_RL))							   \
 				$(addprefix $(EXE_DIR)/, $(SRC_EXE))
 
 LIBFT_LIB	=	$(LIBFT_DIR)/libft.a
@@ -70,8 +74,11 @@ $(OBJ_DIR)/%.o: $(PARS_DIR)/%.c | create_obj_dirs
 $(OBJ_DIR)/%.o: $(EXE_DIR)/%.c | create_obj_dirs
 	$(CC) $(CFLAGS) -c $< -o $@
 
+$(OBJ_DIR)/%.o: $(RL_DIR)/%.c | create_obj_dirs
+	$(CC) $(CFLAGS) -c $< -o $@
+
 create_obj_dirs:
-	mkdir -p $(OBJ_DIR)/parsing $(OBJ_DIR)/exe
+	mkdir -p $(OBJ_DIR)/$(PARS_DIR) $(OBJ_DIR)/$(EXE_DIR) $(OBJ_DIR)/$(RL_DIR)
 
 #$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 #	mkdir -p $(OBJ_DIR)
