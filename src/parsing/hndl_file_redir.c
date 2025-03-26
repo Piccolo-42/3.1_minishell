@@ -12,6 +12,9 @@
 
 #include "minishell.h"
 
+/**
+ * @brief after redir: WORD = FILE. checks/creates files
+ */
 void	assign_redir_and_file(t_list *redir)
 {
 	if (!redir->next )
@@ -96,27 +99,3 @@ void	handle_here_doc(t_list *redir)
 	printf("here_doc, doc:\n%s", redir->content[2]);
 }
 
-void	gnl_doc(char *limiter)
-{
-	char	*line;
-	int		doc;
-
-	doc = open(".tmp_doc", O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (doc == -1)
-		printf("open tmp fail\n"); //error
-	ft_printf("> ");
-	line = get_next_line(STDIN_FILENO);
-	while (line)
-	{
-		if (!ft_strncmp(line, limiter, ft_strlen(limiter)) // stop if line == limiter\n
-			&& line[ft_strlen(limiter)] == '\n')
-			break ;
-		write(doc, line, ft_strlen(line));
-		write(doc, "\n", 1);
-		free(line);
-		ft_printf("> ");
-		line = get_next_line(STDIN_FILENO);
-	}
-	free(line);
-	close(doc);
-}

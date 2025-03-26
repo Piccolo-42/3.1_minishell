@@ -1,66 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_clean.c                                        :+:      :+:    :+:   */
+/*   get_word_type.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/10 14:37:30 by sravizza          #+#    #+#             */
-/*   Updated: 2025/03/25 15:19:35 by sravizza         ###   ########.fr       */
+/*   Created: 2025/03/26 09:47:46 by sravizza          #+#    #+#             */
+/*   Updated: 2025/03/26 09:47:46 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/**
- * @brief removes nodes with type RM (solitary quotes) and empty nodes
- */
-void	remove_type_rm(t_list **lst)
-{
-	t_list	*node;
-
-	if (!lst || !*lst)
-		return ;
-	node = *lst;
-	while (node)
-	{
-		if (node->type == RM || !(*node->content))
-			remove_node(lst, &node);
-		else
-			node = node->next;
-	}
-	return ;
-}
-
-/**
- * @brief removes actual quotes from str, 
- * reassign type to WORD and subtype to SNG_Q or DBL_Q
- */
-void	update_quotes(t_list **lst)
-{
-	t_list	*node;
-	char	*dest;
-
-	dest = NULL;
-	node = *lst;
-	while (node)
-	{
-		if (node->type == DBL_Q || node->type == SNG_Q)
-		{
-			node->subtype = node->type;
-			node->type = WORD;
-			if (node->subtype == DBL_Q)
-				dest = ft_strtrim(node->content[0], "\"");
-			else if (node->subtype == SNG_Q)
-				dest = ft_strtrim(node->content[0], "\'");
-			free(node->content[0]);
-			node->content[0] = dest;
-			dest = NULL;
-		}
-		node = node->next;
-	}
-	return ;
-}
 
 /**
  * @brief assigns types to WORDs: 

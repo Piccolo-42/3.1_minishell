@@ -12,6 +12,10 @@
 
 #include "minishell.h"
 
+/**
+ * @brief	removes redirs from main list, 
+ * 			attaches them on read/write branch of cmd
+ */
 void	link_redirs_to_cmd(t_list **lst)
 {
 	t_list	*cmd;
@@ -52,6 +56,7 @@ t_list	*next_cmd(t_list **lst)
 	return (NULL);
 }
 
+//review
 t_list	*process_redirs(t_list *cmd, t_list *redir)
 {
     t_list	**redir_list;
@@ -89,6 +94,9 @@ t_list	*process_redirs(t_list *cmd, t_list *redir)
     return next_node;
 }
 
+/**
+ * @brief links cmd's and pipe's read/write branches when no redirs
+ */
 void	link_cmd_and_pipes(t_list **lst)
 {
 	t_list	*node;

@@ -42,7 +42,7 @@ t_type	handle_quotes(char *input, int *i)
 	if (input[*i] != quote)
 	{
 		*i = start + 1;
-		return (RM);
+		return (RM); // error msg?
 	}
 	(*i)++;
 	if (input[*i - 1] == '\"')

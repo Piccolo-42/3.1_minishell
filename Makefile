@@ -18,6 +18,7 @@ OBJ_DIR		=	obj
 INCL_DIR	=	include
 RL_DIR		=	readline
 PARS_DIR	=	parsing
+BI_DIR		=	builtins
 EXE_DIR		=	exe
 
 ################################################################################
@@ -29,16 +30,18 @@ SRC_RL		=	_readline.c														\
 			 	utils_rl.c
 
 SRC_PARS	=	_parsing.c 				   										\
-				ast_link_rw.c		  		  					\
-				lst_clean.c		lst_get_type.c  	lst_file_redir.c			\
-				utl_lst_mk.c	utl_lst_rm.c		utl_pars.c   				\
+				get_type.c	get_word_type.c	hndl_file_redir.c	link_read_write.c \
+				utl_clean.c	utl_lst_mk.c	utl_lst_rm.c		utl_pars.c  	\
 				X_prt_test.c
+
+SRC_BI		=	_builtins.c
 
 #SRC_EXE	=	
 
 SRC			=	$(SRC_MAIN)													   \
-				$(addprefix $(PARS_DIR)/, $(SRC_PARS))						   \
 				$(addprefix $(RL_DIR)/, $(SRC_RL))							   \
+				$(addprefix $(PARS_DIR)/, $(SRC_PARS))						   \
+				$(addprefix $(BI_DIR)/, $(SRC_BI))						   \
 				$(addprefix $(EXE_DIR)/, $(SRC_EXE))
 
 LIBFT_LIB	=	$(LIBFT_DIR)/libft.a
@@ -52,7 +55,6 @@ NAME		= 	minishell
 CC			= 	gcc
 CFLAGS		= 	-Wall -Werror -Wextra -I$(INCL_DIR) -I$(LIBFT_DIR)
 LFLAGS		= 	-lreadline -Llibft -lft
-#LFLAGS		= 	-L$(MLX_DIR) -L$(LIBFT_DIR) -lmlx -lXext -lX11 -lm -lft
 OBJ			= 	$(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 RM			= 	rm -f
 AR			= 	ar -rcs
@@ -68,21 +70,21 @@ $(NAME): $(OBJ) $(LIBFT_LIB)
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | create_obj_dirs
 	$(CC) $(CFLAGS) -c $< -o $@
 
+$(OBJ_DIR)/%.o: $(RL_DIR)/%.c | create_obj_dirs
+	$(CC) $(CFLAGS) -c $< -o $@
+
 $(OBJ_DIR)/%.o: $(PARS_DIR)/%.c | create_obj_dirs
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJ_DIR)/%.o: $(BI_DIR)/%.c | create_obj_dirs
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJ_DIR)/%.o: $(EXE_DIR)/%.c | create_obj_dirs
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(OBJ_DIR)/%.o: $(RL_DIR)/%.c | create_obj_dirs
-	$(CC) $(CFLAGS) -c $< -o $@
-
 create_obj_dirs:
-	mkdir -p $(OBJ_DIR)/$(PARS_DIR) $(OBJ_DIR)/$(EXE_DIR) $(OBJ_DIR)/$(RL_DIR)
-
-#$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-#	mkdir -p $(OBJ_DIR)
-#	$(CC) $(CFLAGS) -c $< -o $@
+	mkdir -p	$(OBJ_DIR)/$(RL_DIR) $(OBJ_DIR)/$(PARS_DIR) 				\
+				$(OBJ_DIR)/$(EXE_DIR) $(OBJ_DIR)/$(BI_DIR)
 
 $(LIBFT_LIB):
 	$(MAKE) -C $(LIBFT_DIR) > /dev/null
