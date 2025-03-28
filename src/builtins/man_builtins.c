@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   _builtins.c                                        :+:      :+:    :+:   */
+/*   man_builtins.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 11:02:11 by sravizza          #+#    #+#             */
-/*   Updated: 2025/03/26 11:02:11 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/03/28 15:04:23 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,3 +38,25 @@
 - "echo" & "exit" → Both involve simple argument handling.
 - "cd" alone → Needs careful path handling.
 - "unset" & "export" → Both modify envp, so they should be tackled together.
+
+
+//allowed functions
+readline, rl_clear_history, rl_on_new_line,
+rl_replace_line, rl_redisplay, add_history,
+
+printf, malloc, free,
+
+write, read, access, open, close, unlink,
+
+execve, fork, pipe, dup, dup2, wait, waitpid, wait3, wait4,
+
+exit, strerror, perror, getenv, getcwd, 
+
+signal, sigaction, sigemptyset, sigaddset, kill,
+
+chdir, opendir, readdir, closedir, stat, lstat, fstat,
+
+
+ttyname, ttyslot, ioctl,  isatty,
+tcsetattr, tcgetattr, tgetent, tgetflag,
+tgetnum, tgetstr, tgoto, tputs

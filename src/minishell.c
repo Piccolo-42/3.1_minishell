@@ -16,6 +16,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	char	*input;
 	t_list	*ast;
+	int		exit_status;
 
 	(void)argc;
 	(void)argv;

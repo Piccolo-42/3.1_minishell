@@ -29,12 +29,15 @@
 # define GREEN "\033[0;32m"
 # define RED "\033[0;31m"
 # define WHITE "\033[0m"
+# define INT_MIN -2147483648
+# define INT_MAX 2147483647
 
 // readline
 char	*read_input(void);
-
-//utils_rl
 char	last_char(char *str);
 
+//builtins
+void	bi_exit(t_list *cmd, int *exit_status);
+int		count_args(t_list *node);
 
 #endif

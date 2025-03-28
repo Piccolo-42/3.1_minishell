@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 11:11:42 by sravizza          #+#    #+#             */
-/*   Updated: 2025/03/25 16:59:55 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/03/28 13:42:47 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 /**
  * @brief creates token list and transforms it into (simili-) ast
- * @return pointer on the first ast node
+ * @return pointer on the first cmd node
  */
 t_list	*parsing(char *input)
 {
