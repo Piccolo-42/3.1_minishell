@@ -57,7 +57,7 @@
  * 			    			/  |  \			   /  |  \ 			  /  |  \
  * node->read:  		test   |   \        PIPE  |   \   	   PIPE  |   \
  * node->content[1]:		"hello" \            "h"   \		    "-l"  \
- * node->write:        	      		 PIPE               PIPE               out.txt
+ * node->write:        	      		 PIPE         -      PIPE               out.txt
  *  
  * __________________________________________________________________________________________
  * 

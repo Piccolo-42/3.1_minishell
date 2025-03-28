@@ -50,6 +50,7 @@ t_list	*new_node(char *token, t_type ttype)
 	dest->content[1] = NULL;
 	dest->type = ttype;
 	dest->subtype = NONE;
+	dest->print = 1;
 	dest->prev = NULL;
 	dest->next = NULL;
 	dest->read = NULL;

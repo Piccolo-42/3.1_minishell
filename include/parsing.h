@@ -86,7 +86,16 @@ char	*ft_strjoin_free_one(char *str1, char *str2);
 // X_prt_test (print tests)
 
 void	prt_ast(t_list *lst);
+void	prt_ast_read(t_list *lst, int i);
+void	prt_ast_write(t_list *lst, int i, int lst_len);
+void	prt_ast_content(t_list *lst, int i, int lst_len);
+
 void	prt_lst(t_list *lst);
 void	rev_prt_lst(t_list *lst);
+
+void	prt_ast_colored(t_list *lst);
+void	set_rest_red(t_list *lst);
+void	set_rest_green(t_list *lst);
+void	check_print(t_list *lst);
 
 #endif

@@ -37,6 +37,7 @@ typedef struct s_list
 	char			**content;
 	t_type			type;
 	t_type			subtype;
+	int				print;
 	struct s_list	*prev;
 	struct s_list	*next;
 	struct s_list	*read;

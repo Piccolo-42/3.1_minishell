@@ -24,7 +24,7 @@ EXE_DIR		=	exe
 ################################################################################
 ##								  SOURCES									  ##
 
-SRC_MAIN	=	minishell.c
+SRC_MAIN	=	minishell.c	error.c
 				
 SRC_RL		=	_readline.c														\
 			 	utils_rl.c
@@ -32,11 +32,11 @@ SRC_RL		=	_readline.c														\
 SRC_PARS	=	_parsing.c 				   										\
 				get_type.c	get_word_type.c	hndl_file_redir.c	link_read_write.c \
 				utl_clean.c	utl_lst_mk.c	utl_lst_rm.c		utl_pars.c  	\
-				X_prt_test.c
+				X_prt_test.c				XX_color_prt.c
 
 SRC_BI		=	_builtins.c
 
-#SRC_EXE	=	
+SRC_EXE		=	builtin_tester.c	
 
 SRC			=	$(SRC_MAIN)													   \
 				$(addprefix $(RL_DIR)/, $(SRC_RL))							   \
