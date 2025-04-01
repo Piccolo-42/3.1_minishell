@@ -24,7 +24,7 @@ EXE_DIR		=	exe
 ################################################################################
 ##								  SOURCES									  ##
 
-SRC_MAIN	=	minishell.c	error.c
+SRC_MAIN	=	minishell.c	error.c			utils_ms.c
 				
 SRC_RL		=	_readline.c	utils_rl.c
 

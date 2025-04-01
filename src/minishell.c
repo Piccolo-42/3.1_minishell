@@ -28,6 +28,7 @@ int	main(int argc, char **argv, char **envp)
 	data->envp = copy_envp(envp);
 	if (!data->envp)
 		return (free(data), 1);
+	// mini_unset(&data->envp,"_");
 	while (1)
 	{
 		data->input = read_input();
@@ -38,8 +39,8 @@ int	main(int argc, char **argv, char **envp)
 		data->ast = parsing(data->input);
 		if (!data->ast)
 			return (1); //free
-		prt_ast_colored(data->ast);
-		// builtin_tester(&ast);
+		// prt_ast_colored(data->ast);
+		builtin_tester(&data);
 		//exe_cmd(ast)
 		
 		free_lst(&(data->ast));

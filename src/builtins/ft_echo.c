@@ -6,13 +6,13 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 15:01:03 by sravizza          #+#    #+#             */
-/*   Updated: 2025/03/31 15:01:03 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/04/01 14:52:26 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_echo(char **ags)
+void	ft_echo(char **args)
 {
 	int	i;
 	int	j;

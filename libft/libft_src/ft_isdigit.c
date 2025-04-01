@@ -18,3 +18,17 @@ int	ft_isdigit(int c)
 		return (1);
 	return (0);
 }
+
+int	ft_isdigit_str(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!('0' <= str[i] && str[i] <= '9'))
+			return (0);
+		i++;
+	}
+	return (1); 
+}

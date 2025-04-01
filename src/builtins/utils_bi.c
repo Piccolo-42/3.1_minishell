@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 14:55:24 by sravizza          #+#    #+#             */
-/*   Updated: 2025/03/28 15:22:13 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/04/01 13:57:08 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,14 @@ int		count_args(t_list *node)
 	while (node->content[i])
 		i++;
 	return (i - 1);
+}
+
+int	ft_varlen(char *name)
+{
+	int	i;
+
+	i = 0;
+	while (name[i] && name[i] != '=')
+		i++;
+	return (i);
 }

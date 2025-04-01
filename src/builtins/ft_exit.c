@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   _builtins.c                                        :+:      :+:    :+:   */
+/*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 14:47:37 by sravizza          #+#    #+#             */
-/*   Updated: 2025/03/28 15:57:23 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/04/01 16:23:34 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_exit(t_list *cmd, int *exit_status)
 	exit_code = ft_atol(exit_arg);
 	if (arg_count == 0)
 		exit(*exit_status);
-	if (!ft_isdigit(exit_arg))
+	if (!ft_isdigit_str(exit_arg))
 	{
 		ft_printf("minishell: exit: %s: numeric argument required\n", exit_arg);
 		exit(2);

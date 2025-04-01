@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 15:00:42 by sravizza          #+#    #+#             */
-/*   Updated: 2025/03/31 15:00:42 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/04/01 16:18:33 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ void	ft_cd(char **args, char ***envp)
 	if (!newpwd)
 		ft_putstr_fd("cd: error retrieving new directory\n", 2);
 	if (oldpwd)
-		ft_export(envp, ft_strjoin("OLDPWD=", oldpwd));
+		mini_export(envp, ft_strjoin("OLDPWD=", oldpwd));
 	if (newpwd)
-		ft_export(envp, ft_strjoin("PWD=", newpwd));
+		mini_export(envp, ft_strjoin("PWD=", newpwd));
 	free(oldpwd);
 	free(newpwd);
 }

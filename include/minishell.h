@@ -40,15 +40,21 @@ char	last_char(char *str);
 void	ft_cd(char **args, char ***envp);
 char	*get_dir(char **args, char **envp);
 char	*ft_getenv(char **envp, char *name);
-void	ft_echo(char **ags);
+void	ft_echo(char **args);
 void	ft_env(char **envp);
 int		ft_pwd(void);
 void	ft_exit(t_list *cmd, int *exit_status);
 int		count_args(t_list *node);
-void	ft_export(char **envp, char *name);
+void	ft_export(char ***envp, char **args);
+int		ft_varlen(char *name);
+void	ft_unset(char ***evnp, char **args);
+void	print_export(char **envp);
+void	mini_export(char ***envp, char *var);
+void	mini_unset(char ***envp, char *name);
 
 
 //main
+void	builtin_tester(t_data **data);
 char **copy_envp(char **envp);
 
 #endif

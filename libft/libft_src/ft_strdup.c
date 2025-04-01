@@ -27,3 +27,23 @@ char	*ft_strdup(const char *src)
 	ft_strlcpy(dest, src, srclen);
 	return (dest);
 }
+
+char **ft_strdup_double_add_n_free_old(char **str, int n)
+{
+	char	**dest;
+	int		i;
+	int		len;
+
+	len = ft_strlen_double(str);
+	dest = ft_calloc((len + n + 1), sizeof(char *));
+	if (!dest)
+		return (NULL);
+	i = 0;
+	while (str[i])
+	{
+		dest[i] = ft_strdup(str[i]);
+		i++;
+	}
+	free_double(str);	
+	return (dest);
+}
