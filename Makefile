@@ -33,7 +33,8 @@ SRC_PARS	=	_parsing.c 				   										\
 				utl_clean.c	utl_lst_mk.c	utl_lst_rm.c		utl_pars.c  	\
 				X_prt_test.c				XX_color_prt.c
 
-SRC_BI		=	_builtins.c utils_bi.c
+SRC_BI		=	ft_cd.c		ft_echo.c		ft_env.c			ft_exit.c		\
+				ft_export.c	ft_pwd.c		ft_unset.c			utils_bi.c	
 
 SRC_EXE		=	builtin_tester.c	
 

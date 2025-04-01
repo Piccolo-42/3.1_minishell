@@ -24,6 +24,7 @@ int		ft_wordcount(char *str, char c);
 int		is_whitespace(char c);
 char	*crop_whitespace(char *str, int crop);
 long	ft_atol(const char *str);
+int		ft_strlen_double(char **str);
 
 //char_is_to
 int		ft_isalpha(int c);

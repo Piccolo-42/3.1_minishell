@@ -44,4 +44,11 @@ typedef struct s_list
 	struct s_list	*write;
 }	t_list;
 
+typedef struct s_data
+{
+	char	**envp;
+	char	*input;
+	t_list	*ast;
+	int		error;
+}	t_data;
 #endif

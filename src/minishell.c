@@ -14,27 +14,35 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	*input;
-	t_list	*ast;
-	int		exit_status;
+	// char	*input;
+	// t_list	*ast;
+	// int		exit_status;
+	t_data	*data;
 
 	(void)argc;
 	(void)argv;
-
-	(void)envp;
+	// (void)envp;
+	data = malloc(sizeof(t_data));
+	if (!data)
+		return (1);
+	data->envp = copy_envp(envp);
+	if (!data->envp)
+		return (free(data), 1);
 	while (1)
 	{
-		input = read_input();
-		if (!input)
+		data->input = read_input();
+		if (!data->input)
 			break ;
-		if (*input)
-			add_history(input);
-		ast = parsing(input);
-		prt_ast_colored(ast);
+		if (*(data->input))
+			add_history(data->input);
+		data->ast = parsing(data->input);
+		if (!data->ast)
+			return (1); //free
+		prt_ast_colored(data->ast);
 		// builtin_tester(&ast);
 		//exe_cmd(ast)
 		
-		free_lst(&ast);
+		free_lst(&(data->ast));
 	}
 	rl_clear_history();
 	return (0);

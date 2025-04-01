@@ -37,7 +37,18 @@ char	*read_input(void);
 char	last_char(char *str);
 
 //builtins
-void	bi_exit(t_list *cmd, int *exit_status);
+void	ft_cd(char **args, char ***envp);
+char	*get_dir(char **args, char **envp);
+char	*ft_getenv(char **envp, char *name);
+void	ft_echo(char **ags);
+void	ft_env(char **envp);
+int		ft_pwd(void);
+void	ft_exit(t_list *cmd, int *exit_status);
 int		count_args(t_list *node);
+void	ft_export(char **envp, char *name);
+
+
+//main
+char **copy_envp(char **envp);
 
 #endif
