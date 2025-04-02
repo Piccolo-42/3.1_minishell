@@ -51,10 +51,12 @@ void	ft_unset(char ***evnp, char **args);
 void	print_export(char **envp);
 void	mini_export(char ***envp, char *var);
 void	mini_unset(char ***envp, char *name);
-
+char	**sort_export(char **envp);
 
 //main
 void	builtin_tester(t_data **data);
-char **copy_envp(char **envp);
+char	**copy_envp(char **envp);
+void	freef(char *format, ...);
+void	ft_free(char *str);
 
 #endif

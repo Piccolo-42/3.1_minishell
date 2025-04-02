@@ -12,20 +12,22 @@
 
 #include "minishell.h"
 
+//no +1 because we are removing the varaible _=./minishell (if strcmp)
 char	**copy_envp(char **envp)
 {
 	char	**dest;
 	int		i;
 
 	i = ft_strlen_double(envp);
-	dest = malloc(sizeof(char *) * (i + 1));
+	dest = malloc(sizeof(char *) * (i));
 	if (!dest)
 		return (NULL);
 	dest[i] = NULL;
 	i = 0;
 	while (envp[i])
 	{
-		dest[i] = ft_strdup(envp[i]);
+		if (ft_strncmp(envp[i], "_=", 2))
+			dest[i] = ft_strdup(envp[i]);
 		i++;
 	}
 	return (dest);

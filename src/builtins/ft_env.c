@@ -19,7 +19,8 @@ void	ft_env(char **envp)
 	i = 0;
 	while (envp[i])
 	{
-		printf("%s\n", envp[i]);
+		if (strchr(envp[i], '='))
+			printf("%s\n", envp[i]);
 		i++;
 	}
 	return ;

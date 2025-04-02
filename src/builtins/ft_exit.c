@@ -12,6 +12,7 @@
 
 #include "minishell.h"
 
+//check when !cmd, and no content
 void	ft_exit(t_list *cmd, int *exit_status)
 {
 	long	exit_code;

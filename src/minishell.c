@@ -22,13 +22,15 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	// (void)envp;
+	// int i = 0;
+	// while (envp[i])
+	// 	printf("%s\n", envp[i++]);
 	data = malloc(sizeof(t_data));
 	if (!data)
 		return (1);
 	data->envp = copy_envp(envp);
 	if (!data->envp)
 		return (free(data), 1);
-	// mini_unset(&data->envp,"_");
 	while (1)
 	{
 		data->input = read_input();

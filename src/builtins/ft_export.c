@@ -50,6 +50,29 @@ void	ft_export(char ***envp, char **args)
 void	print_export(char **envp)
 {
 	int		i;
+	char	*equal;
+
+	envp = sort_export(envp);
+	i = 0;
+	while (envp[i])
+	{
+		equal = ft_strchr(envp[i], '=');
+		if (equal)
+		{
+			*equal = 0;
+			printf("declare -x %s=\"%s\"\n", envp[i], equal + 1);
+			*equal = '=';
+		}
+		else
+			printf("declare -x %s\n", envp[i]);
+		i++;
+	}
+	return ;
+}
+
+char	**sort_export(char **envp)
+{
+	int		i;
 	int		j;
 	char	*temp;
 
@@ -69,8 +92,5 @@ void	print_export(char **envp)
 		}
 		i++;
 	}
-	i = 0;
-	while (envp[i])
-		printf("declare -x %s\n", envp[i++]);
-	return ;
+	return (envp);
 }
