@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   get_word_type.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 09:47:46 by sravizza          #+#    #+#             */
-/*   Updated: 2025/03/26 09:47:46 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/04/04 11:07:13 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /**
- * @brief assigns types to WORDs: 
+ * @brief assigns types to WORDs:
  * FL after redir.
- * else CMD, and following words are ARGS 
+ * else CMD, and following words are ARGS
  */
 void	assign_word_type(t_list **lst)
 {

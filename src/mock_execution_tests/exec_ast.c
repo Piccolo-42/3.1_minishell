@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ext.c                                           :+:      :+:    :+:   */
+/*   exec_ast.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/11 09:27:49 by sravizza          #+#    #+#             */
-/*   Updated: 2025/04/04 10:40:14 by emurillo         ###   ########.fr       */
+/*   Created: 2025/04/05 15:21:17 by emurillo          #+#    #+#             */
+/*   Updated: 2025/04/05 15:26:33 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../../include/minishell.h"
 
-int	ft_printtype(t_type type)
+void	ft_exec_ast(t_data *data)
 {
-	const char *type_str[] = {
-		"PIPE", "REDIR_IN", "REDIR_OUT", "APPEND", "HEREDOC",
-		"CMD", "FIL", "ARG", "ENV", "SNG_Q", "DBL_Q",
-		"WORD", "RM", "NONE"
-	};
+	t_list *node;
 
-	if (type < PIPE || type > NONE)
-		return (ft_printstr("UNKNOWN"));
-	return (ft_printstr((char *)type_str[type]));
+	node = data->ast;
+
+	while (node)
+	{
+		if (node->type == CMD)
+		{
+			ft_exec_simple()
+		}
+	}
 }
-

@@ -1,8 +1,8 @@
 /**
- * Stages of parsing: 
- * 
+ * Stages of parsing:
+ *
  * ___________________________________________________________________________________________
- * 
+ *
  * >: 		grep hello <test.txt | grep h | wc -l >outfile
  *
  *
@@ -23,65 +23,66 @@
  *                         wc -l
  *                           \
  *                           >outfile
- * 
+ *
  * ___________________________________________________________________________________________
- * 
- * 1- tokenisation: create linked list (t_list *lst), 
+ *
+ * 1- tokenisation: create linked list (t_list *lst),
  * 					one node per element
- * 					give general type (WORD, REDIR, PIPE) 
- * 
+ * 					give general type (WORD, REDIR, PIPE)
+ *
  * 	node->value:	"grep" -> "hello" ->    "<"   -> "test.txt" -> "|"  -> [...] -> "outfile"
  * 	node->type: 	 WORD  ->  WORD   -> REDIR_IN ->    WORD    -> PIPE -> [...] -> WORD
- * 
+ *
  * ___________________________________________________________________________________________
- * 
- * 2- add args: 	redefine WORDs as CMD, ARGs or FILES, 
+ *
+ * 2- add args: 	redefine WORDs as CMD, ARGs or FILES,
  * 					add args to node->content[1+]
- * 
+ *
  *	node->content[0]:	"grep" ->    "<"    ->  "|"  -> [...] -> ">"
  *					 	  |           |                           |
  *						  V           V                           V
  * 	node->content[1]:	"hello"   "test.txt"                    out.txt
- *	
+ *
  * ___________________________________________________________________________________________
- * 
- * 3- sublink  		add pipes and redirection in read and write pointers for cmds., 
- * 	  read & write:	
- * 
- * 
+ *
+ * 3- sublink  		add pipes and redirection in read and write pointers for cmds.,
+ * 	  read & write:
+ *
+ *
  * 			 			grep hello <test.txt | grep h | wc -l >outfile
- * 
- * 
+ *
+ *
  * 									   next					next
  * node->content[0]:		"grep"      ->      "grep"       ->     "wc"
  * 			    			/  |  \			   /  |  \ 			  /  |  \
  * node->read:  		test   |   \        PIPE  |   \   	   PIPE  |   \
  * node->content[1]:		"hello" \            "h"   \		    "-l"  \
  * node->write:        	      		 PIPE         -      PIPE               out.txt
- *  
+ *
  * __________________________________________________________________________________________
- * 
+ *
  * <in1<in2 grep hello | wc -l >out1>out2
  *
  *														  (next)
  *                            <in2 <in1				<in2    ->    <in1
  *                            /				  (read) /
- *                          grep hello             grep hello 
+ *                          grep hello             grep hello
  *                          /                      /(next, write)
  *                         /                      / (prev, read)
  *                   PIPE |                  PIPE |
  *                         \                       \ (next, write)
  *                          \                       \ (prev, read)
  *                          wc -l                   wc -l
- *                            \               (write) \      
+ *                            \               (write) \
  *                            >out2 >out1             >out2    ->    >out1
  *                                                           (next)
- * 
+ *
  * __________________________________________________________________________________________
  * __________________________________________________________________________________________
- * 
- * 
+ *
+ *
  * >:  <in1   grep <    in2<in3 hello     <in4 >out1| grep h |<in5      wc -l >out2>out3
+ * >: <in4 grep hello >out1 ; <in5 wc -l >out3
  *
  *
  *                           <in4 <in3 <in2 <in1
@@ -102,9 +103,9 @@
  *                           \
  *                           >out3 >out2
  *
- * 
+ *
  * __________________________________________________________________________________________
- * 
+ *
  * >: grep 42
  *
  *                            <stdin
@@ -112,7 +113,7 @@
  *                          grep 42
  *                            \
  *                            >stdout
- * 
+ *
  * __________________________________________________________________________________________
- * 
+ *
  */

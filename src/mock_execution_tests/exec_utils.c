@@ -1,27 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ext.c                                           :+:      :+:    :+:   */
+/*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/11 09:27:49 by sravizza          #+#    #+#             */
-/*   Updated: 2025/04/04 10:40:14 by emurillo         ###   ########.fr       */
+/*   Created: 2025/04/05 15:25:47 by emurillo          #+#    #+#             */
+/*   Updated: 2025/04/05 15:29:02 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../../include/minishell.h"
 
-int	ft_printtype(t_type type)
+/**
+ *
+ * @brief Simple version of the exec function, used to execute the comands, no built-ins added.
+ * @param node The node command list structure
+ * @param envp Environmment 
+ *
+ */
+void	ft_exec_simple(t_list *node, char **envp)
 {
-	const char *type_str[] = {
-		"PIPE", "REDIR_IN", "REDIR_OUT", "APPEND", "HEREDOC",
-		"CMD", "FIL", "ARG", "ENV", "SNG_Q", "DBL_Q",
-		"WORD", "RM", "NONE"
-	};
+	pid_t	pid = fork();
 
-	if (type < PIPE || type > NONE)
-		return (ft_printstr("UNKNOWN"));
-	return (ft_printstr((char *)type_str[type]));
+	if (pid == 0)
+	{
+		execvp(node->content[0], node->content);
+		perror("excecvp");
+		exit(1);
+	}
+	else
+		wait(NULL);
 }
-
