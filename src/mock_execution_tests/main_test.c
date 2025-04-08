@@ -1,34 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_utils.c                                       :+:      :+:    :+:   */
+/*   main_test.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/05 15:25:47 by emurillo          #+#    #+#             */
-/*   Updated: 2025/04/07 08:36:13 by emurillo         ###   ########.fr       */
+/*   Created: 2025/04/07 14:19:21 by emurillo          #+#    #+#             */
+/*   Updated: 2025/04/07 14:29:57 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
-/**
- *
- * @brief Simple version of the exec function, used to execute the comands, no built-ins added.
- * @param *node The node command list structure.
- * @param **envp Environmment variables.
- *
- */
-void	ft_exec_simple(t_list *node, char **envp)
+int main(int argc, char **argv, char **envp)
 {
-	pid_t	pid = fork();
+	t_data	data;
 
-	if (pid == 0)
+	void(argc);
+	void(argv);
+	data.envp = copy_envp(envp);
+	data.error = 0;
+	while (1)
 	{
-		execvp(node->content[0], node->content);
-		perror("excecvp");
-		exit(1);
+		data.input = readline("minishell$ ");
+		if (!data.input)
+			break ;
+		if (*data.input)
+			add_history(data.input)
 	}
-	else
-		wait(NULL);
 }
