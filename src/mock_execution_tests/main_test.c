@@ -6,15 +6,14 @@
 /*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 14:19:21 by emurillo          #+#    #+#             */
-/*   Updated: 2025/04/08 17:01:57 by emurillo         ###   ########.fr       */
+/*   Updated: 2025/04/08 21:21:31 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 // to compile use the following commands
-//	gcc main_test.c exec_utils.c ../parsing/*.c ../utils_ms.c -lreadline -I../../include -I../../libft -L../../libft -lft -o test_main_with_parser
-
+//	gcc main_test.c exec_utils.c exec_pipe.c ../parsing/*.c ../utils_ms.c -lreadline -I../../include -I../../libft -L../../libft -lft -o test_main_with_parser
 
 int main(int argc, char **argv, char **envp)
 {

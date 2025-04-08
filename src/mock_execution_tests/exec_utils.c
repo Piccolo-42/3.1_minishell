@@ -6,7 +6,7 @@
 /*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 15:25:47 by emurillo          #+#    #+#             */
-/*   Updated: 2025/04/08 17:24:34 by emurillo         ###   ########.fr       */
+/*   Updated: 2025/04/08 21:20:11 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,16 @@ void	ft_exec_simple(t_list *node, char **envp)
 
 	if (pid == 0)
 	{
+		//this is to be removed, only checks the arguments when one CMD is given.
+		int	j = 0;
+		while (node->content[j])
+		{
+			ft_printf("arg[%d]: %s\n", j, node->content[j]);
+			j++;
+		}
 		execvp(node->content[0], node->content);
 		perror("excecvp");
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	else
 		wait(NULL);
@@ -56,56 +63,21 @@ void	ft_exec_ast(t_data *data)
 
 	while (node)
 	{
-		if (node->type == CMD && node->next && node->next->type == PIPE)
+		if (node->type == CMD && node->next && node->next->type == PIPE &&
+			node->next->next && node->next->next->type == CMD)
 		{
 			ft_exec_pipe(node, node->next->next, data->envp);
-			node = node->next->next;
+			node = node->next->next->next;
 		}
-		if (node->type == CMD)
+		else if (node->type == CMD)
 		{
 			ft_exec_simple(node, data->envp);
+			node = node->next;
 		}
-		node = node->next;
+		else
+			node = node->next;
 	}
 }
-
-void	ft_exec_pipe(t_list *left, t_list *right, char **envp)
-{
-	int		fd[2];
-	pid_t	pid1;
-	pid_t	pid2;
-
-	if (pipe(fd) == -1)
-	{
-		perror("pipe");
-		return ;
-	}
-	pid1 = fork();
-	if (pid1 == 0)
-	{
-		dup2(fd[1], STDOUT_FILENO);
-		close(fd[0]);
-		close(fd[1]);
-		execvp(left->content[0], left->content);
-		perror("execvp left");
-		exit(1);
-	}
-	pid2 = fork();
-	if (pid2 == 0)
-	{
-		dup2(fd[0], STDIN_FILENO);
-		close(fd[1]);
-		close(fd[0]);
-		execvp(right->content[0], right->content);
-		perror("execvp left");
-		exit(1);
-	}
-	close(fd[0]);
-	close(fd[1]);
-	waitpid(pid1, NULL, 0);
-	waitpid(pid2, NULL, 0);
-}
-
 
 /**
  * @brief Prints the structure of the AST to the terminal.

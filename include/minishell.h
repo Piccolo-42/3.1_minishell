@@ -33,10 +33,12 @@
 # define INT_MAX 2147483647
 
 // readline
+
 char	*read_input(void);
 char	last_char(char *str);
 
 //builtins
+
 void	ft_cd(char **args, char ***envp);
 char	*get_dir(char **args, char **envp);
 char	*ft_getenv(char **envp, char *name);
@@ -54,9 +56,12 @@ void	mini_unset(char ***envp, char *name);
 char	**sort_export(char **envp);
 
 //execs
+
 void	ft_exec_ast(t_data *data);
+void	ft_exec_pipe(t_list *left, t_list *right, char **envp);
 
 //main
+
 void	builtin_tester(t_data **data);
 char	**copy_envp(char **envp);
 void	freef(char *format, ...);
