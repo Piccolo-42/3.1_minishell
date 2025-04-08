@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 // <infile grep hello | grep world | wc -l >outfile
 // <in1   grep <    in2<in3 hello     <in4 >out1| grep world |<in5      wc -l >out2>out3
@@ -31,14 +31,14 @@ void prt_lst(t_list *lst)
         ft_printf(" (%t)", lst->type);
         if (lst->subtype == DBL_Q || lst->subtype == SNG_Q)
             ft_printf(", (%t)", lst->subtype);
-        
+
         // Print arguments if any
         if (lst->content[1])
             ft_printf("\n\t\t\t\targs:");
         n = 1;
         while (lst->content[n])
             ft_printf(" \"%s\"", lst->content[n++]);
-        
+
         // Print read redirections if any
         if (lst->read)
         {
@@ -55,7 +55,7 @@ void prt_lst(t_list *lst)
                 read_node = read_node->next;
             }
         }
-        
+
         // Print write redirections if any
         if (lst->write)
         {
@@ -72,7 +72,7 @@ void prt_lst(t_list *lst)
                 write_node = write_node->next;
             }
         }
-        
+
         ft_printf("\n");
 		ft_printf("\n");
         lst = lst->next;

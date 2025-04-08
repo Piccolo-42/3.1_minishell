@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utl_lst_rm.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 13:14:29 by sravizza          #+#    #+#             */
-/*   Updated: 2025/03/24 15:25:16 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/04/08 15:12:42 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 void	remove_node(t_list **lst, t_list **node)
 {

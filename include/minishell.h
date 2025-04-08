@@ -53,10 +53,14 @@ void	mini_export(char ***envp, char *var);
 void	mini_unset(char ***envp, char *name);
 char	**sort_export(char **envp);
 
+//execs
+void	ft_exec_ast(t_data *data);
+
 //main
 void	builtin_tester(t_data **data);
 char	**copy_envp(char **envp);
 void	freef(char *format, ...);
 void	ft_free(char *str);
+
 
 #endif
