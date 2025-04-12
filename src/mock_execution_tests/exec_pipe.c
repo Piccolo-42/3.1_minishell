@@ -6,12 +6,21 @@
 /*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 20:46:20 by emurillo          #+#    #+#             */
-/*   Updated: 2025/04/08 21:17:26 by emurillo         ###   ########.fr       */
+/*   Updated: 2025/04/09 12:17:51 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+/**
+ * @brief Creates a pipe and returns the file descriptors.
+ *
+ * This function creates a pipe using the pipe() system call and returns the
+ * file descriptors used for reading and writing to the pipe.
+ *
+ * @param fd A pointer to an array of two integers to store the pipe file descriptors.
+ * @return int Returns EXIT_SUCCESS on success, EXIT_FAILURE on failure.
+ */
 int	ft_create_pipe(int fd[2])
 {
 	if (pipe(fd) == -1)

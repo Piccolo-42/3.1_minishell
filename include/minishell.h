@@ -59,6 +59,7 @@ char	**sort_export(char **envp);
 
 void	ft_exec_ast(t_data *data);
 void	ft_exec_pipe(t_list *left, t_list *right, char **envp);
+void ft_exec_pipes(t_list **cmd, int n, char **envp);
 
 //main
 
