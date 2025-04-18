@@ -6,7 +6,7 @@
 /*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 13:49:27 by emurillo          #+#    #+#             */
-/*   Updated: 2025/04/12 16:54:28 by emurillo         ###   ########.fr       */
+/*   Updated: 2025/04/18 13:58:15 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,10 @@ static void	fork_and_dup(t_list *start, pid_t pid, int n_cmd, int pipe_fd[])
 			perror("fork() error.\n");
 		if (pid == 0)
 		{
-			if (i == 0)
-				dup2(pipe_fd[1], STDOUT_FILENO);
-			else
-				dup2(pipe_fd[i - 1 * 2], STDIN_FILENO);
-			if (i == n_cmd - 1)
+			if (i != 0)
 				dup2(pipe_fd[2 * (i - 1)], STDIN_FILENO);
-			else
-				dup2(pipe_fd[i * 2 + 1], STDOUT_FILENO);
+			if (i != n_cmd -1)
+				dup2(pipe_fd[(i * 2) + 1], STDOUT_FILENO);
 		}
 		close_all(n_cmd, pipe_fd);
 	}
