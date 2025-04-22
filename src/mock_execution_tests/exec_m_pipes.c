@@ -6,13 +6,13 @@
 /*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 13:49:27 by emurillo          #+#    #+#             */
-/*   Updated: 2025/04/19 16:40:57 by emurillo         ###   ########.fr       */
+/*   Updated: 2025/04/22 16:16:54 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static int	count_cmd(t_list *start, t_data *data);
+int	count_cmd(t_list *start, t_data *data);
 static void	fork_and_dup(t_list *start, pid_t pid, t_data *data, int pipe_fd[]);
 
 void free_all(char **str)
@@ -82,10 +82,12 @@ void	ft_exec_pipeline(t_list *start, t_data *data)
 
 static void	fork_and_dup(t_list *start, pid_t pid, t_data *data, int pipe_fd[])
 {
-	int	i;
-	int	n_cmd;
+	int		i;
+	int		n_cmd;
+	t_list	*node;
 
 	i = 0;
+	node = start;
 	n_cmd = count_cmd(start, data);
 	while(i < n_cmd)
 	{
@@ -98,13 +100,23 @@ static void	fork_and_dup(t_list *start, pid_t pid, t_data *data, int pipe_fd[])
 				dup2(pipe_fd[2 * (i - 1)], STDIN_FILENO);
 			if (i != n_cmd -1)
 				dup2(pipe_fd[(i * 2) + 1], STDOUT_FILENO);
+			while (node && node->type != CMD)
+				node = node->next;
+			if (!node || !node->content)
+				exit(1);
+			execmd(node->content, data);
+			if (!node || !node->content)
+				exit(1);
 		}
+		node = node->next;
 		close_all(n_cmd, pipe_fd);
-		execmd(start->content, data);
+		while (node && node->type != CMD)
+			node = node->next;
+		i++;
 	}
 }
 
-static int	count_cmd(t_list *start, t_data *data)
+int	count_cmd(t_list *start, t_data *data)
 {
 	int n_cmd;
 	t_list	*node;
@@ -114,7 +126,7 @@ static int	count_cmd(t_list *start, t_data *data)
 	while (node != NULL)
 	{
 		if (node->type == CMD)
-		n_cmd++;
+			n_cmd++;
 		node = node->next;
 	}
 	return (n_cmd);

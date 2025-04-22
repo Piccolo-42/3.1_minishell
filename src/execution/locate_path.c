@@ -6,7 +6,7 @@
 /*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 15:14:45 by emurillo          #+#    #+#             */
-/*   Updated: 2025/04/19 16:31:49 by emurillo         ###   ########.fr       */
+/*   Updated: 2025/04/22 18:24:13 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,5 @@ char	*pathfinder(char *cmd, t_data *data)
 		free(path);
 		i++;
 	}
-	free_all(all_paths);
 	return (NULL);
 }

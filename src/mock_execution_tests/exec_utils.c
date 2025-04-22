@@ -6,7 +6,7 @@
 /*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 15:25:47 by emurillo          #+#    #+#             */
-/*   Updated: 2025/04/09 14:24:51 by emurillo         ###   ########.fr       */
+/*   Updated: 2025/04/22 18:18:00 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	ft_exec_ast(t_data *data)
 		if (node->type == CMD && node->next && node->next->type == PIPE &&
 			node->next->next && node->next->next->type == CMD)
 		{
-			ft_exec_pipes(node, node->next->next, data->envp);
+			ft_exec_pipe(node, node->next->next, data->envp);
 			node = node->next->next->next;
 		}
 		else if (node->type == CMD)

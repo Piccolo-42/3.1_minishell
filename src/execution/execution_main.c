@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_test.c                                        :+:      :+:    :+:   */
+/*   execution_main.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/07 14:19:21 by emurillo          #+#    #+#             */
-/*   Updated: 2025/04/22 18:11:36 by emurillo         ###   ########.fr       */
+/*   Created: 2025/04/22 18:05:30 by emurillo          #+#    #+#             */
+/*   Updated: 2025/04/22 18:11:39 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ int main(int argc, char **argv, char **envp)
 		if (*data.input)
 			add_history(data.input);
 		data.ast = parsing(data.input);
-		prt_ast(data.ast);
-		ft_exec_ast(&data);
+		if (data.ast)
+			exec_pipeline(data.ast, &data);
 		free_lst(&data.ast);
 		free(data.input);
 	}
