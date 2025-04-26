@@ -6,11 +6,11 @@
 /*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 16:05:38 by emurillo          #+#    #+#             */
-/*   Updated: 2025/04/22 18:23:53 by emurillo         ###   ########.fr       */
+/*   Updated: 2025/04/26 17:45:34 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 // close the fd for the pipes after, function from PIPEX.
 void	close_all(int n_cmd, int pipe_fd[])

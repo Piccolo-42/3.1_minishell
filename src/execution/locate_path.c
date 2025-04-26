@@ -6,11 +6,23 @@
 /*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 15:14:45 by emurillo          #+#    #+#             */
-/*   Updated: 2025/04/22 18:24:13 by emurillo         ###   ########.fr       */
+/*   Updated: 2025/04/26 17:45:55 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
+
+
+void	free_split(char **arr)
+{
+	int	i;
+
+	i = 0;
+	while (arr[i])
+		free(arr[i++]);
+	free(arr);
+}
+
 
 //locate PATH in environment
 char	*pathfinder(char *cmd, t_data *data)
@@ -25,6 +37,8 @@ char	*pathfinder(char *cmd, t_data *data)
 	i = 0;
 	while (data->envp[i] && ft_strnstr(data->envp[i], "PATH=", 5) == 0)
 		i++;
+	if (!data->envp[i])
+		return (NULL);
 	all_paths = ft_split(data->envp[i] + 5, ':');
 	i = 0;
 	while (all_paths[i])
@@ -33,9 +47,13 @@ char	*pathfinder(char *cmd, t_data *data)
 		path = ft_strjoin(temp, cmd);
 		free(temp);
 		if (access(path, F_OK) == 0)
+		{
+			free_split(all_paths);
 			return (path);
+		}
 		free(path);
 		i++;
 	}
+	free_split(all_paths);
 	return (NULL);
 }
