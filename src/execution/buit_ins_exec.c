@@ -6,7 +6,7 @@
 /*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 14:07:30 by emurillo          #+#    #+#             */
-/*   Updated: 2025/04/24 15:14:04 by emurillo         ###   ########.fr       */
+/*   Updated: 2025/04/26 14:18:40 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	is_buitin(char *cmd)
 		|| !ft_strncmp(cmd, "pwd", ft_strlen("pwd"))
 		|| !ft_strncmp(cmd, "export", ft_strlen("export"))
 		|| !ft_strncmp(cmd, "unset", ft_strlen("unset"))
-		|| !ft_strncmp(cmd, "exit", ft_strlen("exit")))
+		|| !ft_strncmp(cmd, "exit", ft_strlen("exit")));
 }
 
 int	exec_buitin(t_list *node, t_data *data)
@@ -34,8 +34,8 @@ int	exec_buitin(t_list *node, t_data *data)
 	if (!node || !node->content || !node->content[0])
 		return (1);
 	cmd = node->content[0];
-	args = cmd_node->content;
-	envp = &(*data)->envp;
+	args = node->content;
+	envp = &(*data).envp;
 	if (!ft_strncmp(cmd, "cd", 2))
 		return (ft_cd(args, envp), 1);
 	else if (!ft_strncmp(cmd, "echo", 4))
@@ -49,7 +49,7 @@ int	exec_buitin(t_list *node, t_data *data)
 	else if (!ft_strncmp(cmd, "unset", 5))
 		return (ft_unset(envp, args), 1);
 	else if (!ft_strncmp(cmd, "exit", 4))
-		return (ft_exit(node, &(*data)->error), 1);
+		return (ft_exit(node, &(*data).error), 1);
 	else
 		return (0);
 }

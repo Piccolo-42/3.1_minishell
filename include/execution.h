@@ -6,7 +6,7 @@
 /*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 15:01:45 by emurillo          #+#    #+#             */
-/*   Updated: 2025/04/23 06:55:34 by emurillo         ###   ########.fr       */
+/*   Updated: 2025/04/26 14:17:18 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 //execution
 
 int		exec_pipeline(t_list *start, t_data *data);
-int		count_cmd(t_list *start, t_data *data);
+int		count_cmd(t_list *start);
 void	init_exec_t(t_exec_ctx *ctx, int *pipe_fd, t_data *data, t_list *node);
 
 

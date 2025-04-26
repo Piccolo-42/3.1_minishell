@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   man_builtins.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 11:02:11 by sravizza          #+#    #+#             */
-/*   Updated: 2025/03/28 15:04:23 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/04/26 14:28:22 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-1. "pwd" 
+ 1. "pwd"
 	Simply calls getcwd() to retrieve and print the current working directory.
 	No arguments or options to handle.
 2. "env"
@@ -50,7 +50,7 @@ write, read, access, open, close, unlink,
 
 execve, fork, pipe, dup, dup2, wait, waitpid, wait3, wait4,
 
-exit, strerror, perror, getenv, getcwd, 
+exit, strerror, perror, getenv, getcwd,
 
 signal, sigaction, sigemptyset, sigaddset, kill,
 

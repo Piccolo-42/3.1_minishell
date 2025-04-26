@@ -6,13 +6,13 @@
 /*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 06:54:01 by emurillo          #+#    #+#             */
-/*   Updated: 2025/04/23 06:54:33 by emurillo         ###   ########.fr       */
+/*   Updated: 2025/04/26 14:14:27 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	count_cmd(t_list *start, t_data *data)
+int	count_cmd(t_list *start)
 {
 	int n_cmd;
 	t_list	*node;
@@ -31,7 +31,7 @@ int	count_cmd(t_list *start, t_data *data)
 void	init_exec_t(t_exec_ctx *ctx, int *pipe_fd, t_data *data, t_list *node)
 {
 	ctx->i = 0;
-	ctx->n_cmd = count_cmd(node, data);
+	ctx->n_cmd = count_cmd(node);
 	ctx->pipe_fd = pipe_fd;
 	ctx->data = data;
 	ctx->node = node;
