@@ -6,27 +6,11 @@
 /*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:10:49 by emurillo          #+#    #+#             */
-/*   Updated: 2025/04/22 18:22:20 by emurillo         ###   ########.fr       */
+/*   Updated: 2025/04/23 11:44:05 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-int	count_cmd(t_list *start, t_data *data)
-{
-	int n_cmd;
-	t_list	*node;
-
-	n_cmd = 0;
-	node = start;
-	while (node != NULL)
-	{
-		if (node->type == CMD)
-			n_cmd++;
-		node = node->next;
-	}
-	return (n_cmd);
-}
 
 void	pipe_cmds(int n_cmd, int *pipe_fd)
 {
@@ -42,15 +26,6 @@ void	pipe_cmds(int n_cmd, int *pipe_fd)
 		}
 		i++;
 	}
-}
-
-void	init_exec_t(t_exec_ctx *ctx, int *pipe_fd, t_data *data, t_list *node)
-{
-	ctx->i = 0;
-	ctx->n_cmd = count_cmd(node, data);
-	ctx->pipe_fd = pipe_fd;
-	ctx->data = data;
-	ctx->node = node;
 }
 
 void execmd(t_list *list, t_data *data)

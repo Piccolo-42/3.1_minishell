@@ -6,7 +6,7 @@
 /*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 15:01:45 by emurillo          #+#    #+#             */
-/*   Updated: 2025/04/22 18:15:53 by emurillo         ###   ########.fr       */
+/*   Updated: 2025/04/23 06:55:34 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,9 @@
 
 //execution
 
-void	ft_exec_ast(t_data *data);
-void	ft_exec_pipe(t_list *left, t_list *right, char **envp);
 int		exec_pipeline(t_list *start, t_data *data);
 int		count_cmd(t_list *start, t_data *data);
+void	init_exec_t(t_exec_ctx *ctx, int *pipe_fd, t_data *data, t_list *node);
 
 
 // for PATH search
