@@ -21,6 +21,8 @@ char	*ft_strjoin(char const *str1, char const *str2)
 	char	*dest;
 	size_t	i;
 
+	if (!str1)
+		return (printf("RETURN\n"). ft_strdup(str2));
 	dest = malloc(sizeof(char) * (ft_strlen(str1) + ft_strlen(str2) + 1));
 	if (!dest)
 		return (0);

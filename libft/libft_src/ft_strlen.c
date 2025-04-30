@@ -31,3 +31,22 @@ int	ft_strlen_double(char **str)
 		i++;
 	return (i);
 }
+
+int	ft_strlen_double_all(char **str)
+{
+	int	i;
+	int	j;
+	int	count;
+
+	count = 0;
+	i = 0;
+	while (str[i])
+	{
+		j = 0;
+		while (str[i][j])
+			j++;
+		count += j;
+		i++;
+	}
+	return (count);
+}

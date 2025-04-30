@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utl_lst_rm.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 13:14:29 by sravizza          #+#    #+#             */
-/*   Updated: 2025/04/08 15:12:42 by emurillo         ###   ########.fr       */
+/*   Updated: 2025/04/30 14:41:52 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,45 +35,65 @@ void	remove_node(t_list **lst, t_list **node)
 
 void	free_lst(t_list **lst)
 {
-	t_list	*node;
+	// t_list	*node;
 	t_list	*next;
 
 	if (!lst || !*lst)
 		return ;
-	node = *lst;
-	while (node)
+	// node = *lst;
+	next = NULL;
+	while (*lst)
 	{
-		next = node->next;
-		free_lst_redir(node);
-		free_double(node->content);
-		free(node);
-		node = next;
+		next = (*lst)->next;
+		free_lst_read(*lst);
+		free_lst_write(*lst);
+		free_double((*lst)->content);
+		free(*lst);
+		(*lst) = NULL;
+		// ft_free((void **)(&node));
+		(*lst) = next;
 	}
 	*lst = NULL;
 	return ;
 }
 
-void	free_lst_redir(t_list *node)
+void	free_lst_read(t_list *node)
 {
 	t_list	*temp;
 	t_list	*next;
 
+	if(!node || !node->read)
+		return ;
+
 	temp = node->read;
-	while (temp && is_redir(temp->type))
+	if (is_redir(temp->type))
 	{
-		next = temp->next;
-		free_double(temp->content);
-		free(temp);
-		temp = next;
+		while (temp)
+		{
+			next = temp->next;
+			free_double(temp->content);
+			free(temp);
+			temp = next;
+		}
 	}
 	node->read = NULL;
+}
+
+void	free_lst_write(t_list *node)
+{
+	t_list	*temp;
+	t_list	*next;
+
 	temp = node->write;
-	while (temp && is_redir(temp->type))
+	if (temp && is_redir(temp->type))
 	{
-		next = temp->next;
-		free_double(temp->content);
-		free(temp);
-		temp = next;
+		while (temp)
+		{
+			next = temp->next;
+			free_double(temp->content);
+			free(temp);
+			temp = next;
+		}
 	}
 	node->write = NULL;
 }

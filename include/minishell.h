@@ -60,7 +60,7 @@ void	ft_exec_ast(t_data *data);
 void	builtin_tester(t_data **data);
 char	**copy_envp(char **envp);
 void	freef(char *format, ...);
-void	ft_free(char *str);
+void	ft_free(void **ptr);
 
 
 #endif

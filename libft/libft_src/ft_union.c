@@ -1,36 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_ms.c                                         :+:      :+:    :+:   */
+/*   ft_union.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/31 15:31:32 by sravizza          #+#    #+#             */
-/*   Updated: 2025/04/30 11:36:41 by sravizza         ###   ########.fr       */
+/*   Created: 2025/04/30 18:07:59 by sravizza          #+#    #+#             */
+/*   Updated: 2025/04/30 18:16:29 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-//no +1 because we are removing the varaible _=./minishell (if strcmp)
-char	**copy_envp(char **envp)
+char	*ft_union(char **str, char c)
 {
-	char	**dest;
+	char	*dest;
 	int		i;
+	int		j;
 	int		d;
+	int		size;
 
-	i = ft_strlen_double(envp);
-	dest = malloc(sizeof(char *) * (i));
+	size = ft_strlen_double_all(str) + ft_strlen_double(str) - 1;
+	dest = malloc(sizeof(char) * (size + 1));
 	if (!dest)
 		return (NULL);
-	i = 0;
 	d = 0;
-	while (envp[i])
+	i = 0;
+	while (str[i])
 	{
-		if (ft_strncmp(envp[i], "_=", 2))
-			dest[d++] = ft_strdup(envp[i]);
+		j = 0;
+		while(str[i][j])
+			dest[d++] = str[i][j++];
+		dest[d++] = c;
 		i++;
 	}
-	dest[d] = NULL;
 	return (dest);
 }

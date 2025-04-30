@@ -20,29 +20,33 @@ RL_DIR		=	readline
 PARS_DIR	=	parsing
 BI_DIR		=	builtins
 EXE_DIR		=	exe
+ERR_DIR		=	exit+error
 
 ################################################################################
 ##								  SOURCES									  ##
 
-SRC_MAIN	=	minishell.c	error.c			utils_ms.c
+SRC_MAIN	=	minishell.c	utils_ms.c
 				
 SRC_RL		=	_readline.c	utils_rl.c
 
 SRC_PARS	=	_parsing.c 				   										\
 				get_type.c	get_word_type.c	hndl_file_redir.c	link_read_write.c \
 				utl_clean.c	utl_lst_mk.c	utl_lst_rm.c		utl_pars.c  	\
-				X_prt_test.c				XX_color_prt.c
+				expand_env.c				X_prt_test.c		XX_color_prt.c
 
 SRC_BI		=	ft_cd.c		ft_echo.c		ft_env.c			ft_exit.c		\
 				ft_export.c	ft_pwd.c		ft_unset.c			utils_bi.c	
 
-SRC_EXE		=	builtin_tester.c	
+SRC_EXE		=	builtin_tester.c
+
+SRC_ERR		=	error.c
 
 SRC			=	$(SRC_MAIN)													   \
 				$(addprefix $(RL_DIR)/, $(SRC_RL))							   \
 				$(addprefix $(PARS_DIR)/, $(SRC_PARS))						   \
-				$(addprefix $(BI_DIR)/, $(SRC_BI))						   \
-				$(addprefix $(EXE_DIR)/, $(SRC_EXE))
+				$(addprefix $(BI_DIR)/, $(SRC_BI))							   \
+				$(addprefix $(EXE_DIR)/, $(SRC_EXE))						   \
+				$(addprefix $(ERR_DIR)/, $(SRC_ERR))
 
 LIBFT_LIB	=	$(LIBFT_DIR)/libft.a
 
@@ -82,9 +86,12 @@ $(OBJ_DIR)/%.o: $(BI_DIR)/%.c | create_obj_dirs
 $(OBJ_DIR)/%.o: $(EXE_DIR)/%.c | create_obj_dirs
 	$(CC) $(CFLAGS) -c $< -o $@
 
+$(OBJ_DIR)/%.o: $(ERR_DIR)/%.c | create_obj_dirs
+	$(CC) $(CFLAGS) -c $< -o $@
+
 create_obj_dirs:
 	mkdir -p	$(OBJ_DIR)/$(RL_DIR) $(OBJ_DIR)/$(PARS_DIR) 				\
-				$(OBJ_DIR)/$(EXE_DIR) $(OBJ_DIR)/$(BI_DIR)
+				$(OBJ_DIR)/$(EXE_DIR) $(OBJ_DIR)/$(BI_DIR) $(OBJ_DIR)/$(ERR_DIR)
 
 $(LIBFT_LIB):
 	$(MAKE) -C $(LIBFT_DIR) > /dev/null

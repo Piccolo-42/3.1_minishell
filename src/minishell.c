@@ -38,16 +38,20 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		if (*(data->input))
 			add_history(data->input);
-		data->ast = parsing(data->input);
+		data->ast = parsing(data);
 		if (!data->ast)
 			return (1); //free
 		// prt_ast_colored(data->ast);
-		builtin_tester(&data);
+		// builtin_tester(&data);
 		//exe_cmd(ast)
-		
+		// ft_printf("EXE\n");
+		basic_prt_lst(data->ast);
+		free(data->input);
 		free_lst(&(data->ast));
 	}
 	rl_clear_history();
+	free_double(data->envp);
+	free(data);
 	return (0);
 }
 

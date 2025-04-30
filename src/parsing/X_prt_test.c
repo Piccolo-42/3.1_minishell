@@ -119,3 +119,22 @@ void	rev_prt_lst(t_list *lst)
     return ;
 }
 
+void	basic_prt_lst(t_list *lst)
+{
+	int	i;
+
+	if (!lst)
+		return ;
+	ft_printf("\n");
+	while (lst)
+	{
+		i = 1;
+		ft_printf("content: %s\n", lst->content[0]);
+		while (lst->content[i])
+			ft_printf("args: %s\n", lst->content[i++]);
+		ft_printf("type: %t\n", lst->type);
+		ft_printf("subtype: %t\n", lst->subtype);
+		ft_printf("\n");
+		lst = lst->next;
+	}
+}

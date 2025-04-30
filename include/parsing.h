@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 11:16:33 by sravizza          #+#    #+#             */
-/*   Updated: 2025/03/25 17:00:12 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/04/30 18:25:17 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,13 @@
 
 // parsing (main)
 
-t_list	*parsing(char *input);
+t_list	*parsing(t_data *data);
 t_list	*token_lst(char *input);
 
+// expand_env
+void	expand_env(t_list **lst, t_data *data);
+char	*dblq_replace_env(t_data *data, char *str);
+char	*replace_env(t_data *data, char *str);
 
 // get_type (handle token type)
 
@@ -57,6 +61,7 @@ void	link_cmd_and_pipes(t_list **lst);
 
 void	remove_type_rm(t_list **lst);
 void	update_quotes(t_list **lst);
+void	update_env(t_list *node);
 void	check_syntax(t_list **lst);
 
 
@@ -73,8 +78,8 @@ int		lstlen(t_list *lst);
 
 void	remove_node(t_list **lst, t_list **node);
 void	free_lst(t_list **lst);
-void	free_lst_redir(t_list *node);
-
+void	free_lst_read(t_list *node);
+void	free_lst_write(t_list *node);
 
 // utl_pars (utils general)
 
@@ -84,6 +89,8 @@ char	*ft_strjoin_free_one(char *str1, char *str2);
 
 
 // X_prt_test (print tests)
+
+void	basic_prt_lst(t_list *lst);
 
 void	prt_ast(t_list *lst);
 void	prt_ast_read(t_list *lst, int i);

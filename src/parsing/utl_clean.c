@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_clean.c                                        :+:      :+:    :+:   */
+/*   utl_clean.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 14:37:30 by sravizza          #+#    #+#             */
-/*   Updated: 2025/03/25 15:19:35 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/04/30 17:37:36 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,20 @@ void	update_quotes(t_list **lst)
 			node->content[0] = dest;
 			dest = NULL;
 		}
+		else if (node->type == ENV)
+			update_env(node);
 		node = node->next;
 	}
 	return ;
+}
+
+/**
+ * @brief  reassign type to WORD and subtype to ENV
+ */
+void	update_env(t_list *node)
+{
+	node->type = WORD;
+	node->subtype = ENV;
 }
 
 

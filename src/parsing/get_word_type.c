@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_word_type.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 09:47:46 by sravizza          #+#    #+#             */
-/*   Updated: 2025/04/04 11:07:13 by emurillo         ###   ########.fr       */
+/*   Updated: 2025/04/30 17:46:16 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /**
  * @brief assigns types to WORDs:
- * FL after redir.
+ * FL after redir. checks files
  * else CMD, and following words are ARGS
  */
 void	assign_word_type(t_list **lst)

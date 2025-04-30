@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   _parsing.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 11:11:42 by sravizza          #+#    #+#             */
-/*   Updated: 2025/04/08 16:34:37 by emurillo         ###   ########.fr       */
+/*   Updated: 2025/04/30 18:25:28 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,14 @@
  * @brief creates token list and transforms it into (simili-) ast
  * @return pointer on the first cmd node
  */
-t_list	*parsing(char *input)
+t_list	*parsing(t_data *data)
 {
 	t_list	*lst;
 
-	lst = token_lst(input);
+	lst = token_lst(data->input);
 	remove_type_rm(&lst);
 	update_quotes(&lst);
+	expand_env( &lst, data); //maybe change position?
 	assign_word_type(&lst);
 	link_redirs_to_cmd(&lst);
 	link_cmd_and_pipes(&lst);
