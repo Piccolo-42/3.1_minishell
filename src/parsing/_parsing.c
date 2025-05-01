@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 11:11:42 by sravizza          #+#    #+#             */
-/*   Updated: 2025/04/30 18:25:28 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/01 09:38:38 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ t_list	*token_lst(char *input)
 	i = 0;
 	while (input[i])
 	{
-		while (is_whitespace(input[i]))
+		while (is_whitespace(input[i]) ) //&& input[i] != '$'
 			i++;
 		i += create_token(input + i, &lst);
 	}

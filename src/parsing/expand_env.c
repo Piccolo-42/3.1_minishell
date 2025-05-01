@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 15:26:52 by sravizza          #+#    #+#             */
-/*   Updated: 2025/04/30 18:31:51 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/01 16:32:46 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,57 +22,89 @@ void	expand_env(t_list **lst, t_data *data)
 		if (node->subtype == ENV)
 			node->content[0] = replace_env(data, node->content[0]);
 		else if (node->subtype == DBL_Q)
-			node->content[0] = dblq_replace_env(data, content[0]);
+			node->content[0] = dblq_replace_env(data, node->content[0]);
 		node = node->next;
 	}
 }
 
-char	*dblq_replace_env(t_data *data, char *str)
-{
-	char	**temp;
-	char	*dest;
-	int		i;
-	int		j;
-
-	temp = ft_split(str, ' ');
-	if (!temp)
-		return (NULL);
-	free(str);
-	while (temp[i])
-	{
-		j = 0;
-		while (is_whitespace(temp[i][j]))
-			j++;
-		if (temp[i][j] == '$')
-			temp[i] = ft_strjoin(
-				ft_substr(temp[i], 0, j), replace_env(data, temp[i]));
-		i++
-	}
-	dest = ft_union(temp, ' ');
-	if (!dest)
-		return (NULL);
-	free_double(temp);
-	return (dest);
-}
-
 char *replace_env(t_data *data, char *str)
 {
-	int	i;
-	int size;
-	int end;
+	int		i;
+	int 	size;
+	int		env_size;
+	char	*env;
 
-	size = ft_strlen(str + 1);
+	if (!str)
+		return (strdup(""));
+	size = ft_strlen(str) - 1;
 	i = 0;
 	while(data->envp[i])
 	{
-		if (ft_strncmp(envp[i], var, size))
-			break ;
+		env = ft_strchr(data->envp[i], '=');
+		if (env)
+		{
+			env_size = ft_strlen(data->envp[i]) - ft_strlen(env); 
+			if (env_size == size && !ft_strncmp(data->envp[i], str + 1, size))
+				break ;
+		}
 		i++;
 	}
 	free(str);
 	if (!data->envp[i])
-		return ("");
-	end = ft_strlen(envp[i] + size + 1);
+		return (ft_strdup(""));
+	return (ft_strdup(ft_strchr(data->envp[i], '=') + 1));
+}
+
+char	*dblq_replace_env(t_data *data, char *str)
+{
+	int		i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '$')
+		{
+			str = split_union(str, i, data);
+			if (!str)
+				return (NULL);
+		}
+		else
+			i++;
+	}
+	return (str);
+}
+
+void	ft_print(char **str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		ft_printf(">%s<\n", str[i]);
+		i++;
+	}
+}
+
+char	*split_union(char *str, int var_start, t_data *data)
+{
+	char	**temp;
+	char	*dest;
+	int		i;
+
+	temp = double_null(4);
+	if (!temp)
+		return (NULL);
+	temp[0] = ft_substr(str, 0, var_start);
+	i = var_start + 1;
+	while (str[i] && ft_isalnum(str[i]))
+		i++;
+	temp[1] = replace_env(data, ft_substr(str, var_start, i - var_start));
+	temp[2] = ft_substr(str, i, ft_strlen(str) - i);
 	free(str);
-	return (ft_substr(envp[i], size, end));
+	dest = ft_union_simple(temp);
+	free_double(temp);
+	if (!dest)
+		return (NULL);
+	return (dest);
 }

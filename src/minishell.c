@@ -28,12 +28,14 @@ int	main(int argc, char **argv, char **envp)
 	data = malloc(sizeof(t_data));
 	if (!data)
 		return (1);
+	if (!envp)
+		return (1);
 	data->envp = copy_envp(envp);
 	if (!data->envp)
 		return (free(data), 1);
 	while (1)
 	{
-		data->input = read_input();
+		data->input = read_input(data);
 		if (!data->input)
 			break ;
 		if (*(data->input))
@@ -42,10 +44,10 @@ int	main(int argc, char **argv, char **envp)
 		if (!data->ast)
 			return (1); //free
 		// prt_ast_colored(data->ast);
-		// builtin_tester(&data);
+		builtin_tester(&data);
 		//exe_cmd(ast)
 		// ft_printf("EXE\n");
-		basic_prt_lst(data->ast);
+		// basic_prt_lst(data->ast);
 		free(data->input);
 		free_lst(&(data->ast));
 	}

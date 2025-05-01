@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 10:27:00 by sravizza          #+#    #+#             */
-/*   Updated: 2025/04/30 14:23:46 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/01 09:51:41 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,4 @@
 // 	return ;
 // }
 
-void	ft_free(void **ptr)
-{
-	if (!(*ptr))
-	{
-		(*ptr) = NULL;
-		return;
-	}
-	free((*ptr));
-	return ;
-}
+

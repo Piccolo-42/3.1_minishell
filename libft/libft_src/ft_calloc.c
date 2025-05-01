@@ -27,3 +27,17 @@ void	*ft_calloc(size_t nel, size_t elsize)
 	ft_bzero(str, nel * elsize);
 	return (str);
 }
+
+char	**double_null(int n)
+{
+	int		i;
+	char	**dest;
+
+	dest = malloc(sizeof(char *) * n);
+	if (!dest)
+		return (NULL);
+	i = 0;
+	while (i < n)
+		dest[i++] = NULL;
+	return (dest);
+}

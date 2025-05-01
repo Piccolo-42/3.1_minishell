@@ -33,7 +33,10 @@
 # define INT_MAX 2147483647
 
 // readline
-char	*read_input(void);
+char	*read_input(t_data *data);
+void	prt_prompt(t_data *data);
+char	*get_session(t_data *data);
+char	*get_cwd(t_data *data);
 char	last_char(char *str);
 
 //builtins
@@ -60,7 +63,6 @@ void	ft_exec_ast(t_data *data);
 void	builtin_tester(t_data **data);
 char	**copy_envp(char **envp);
 void	freef(char *format, ...);
-void	ft_free(void **ptr);
 
 
 #endif

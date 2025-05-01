@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 15:00:42 by sravizza          #+#    #+#             */
-/*   Updated: 2025/04/01 16:18:33 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/01 16:38:10 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_cd(char **args, char ***envp)
 	{
 		perror("cd");
 		free(oldpwd);
-		return;
+		return ;
 	}
 	newpwd = getcwd(NULL, 0);
 	if (!newpwd)

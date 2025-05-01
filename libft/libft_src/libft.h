@@ -20,6 +20,9 @@
 //ext
 int		ft_atoi_base16(const char *str);
 void	free_double(char **str);
+void	ft_free_double(char **str);
+void	ft_free(char *str);
+void	ft_safe_free(void **ptr);
 int		ft_wordcount(char *str, char c);
 int		is_whitespace(char c);
 char	*crop_whitespace(char *str, int crop);
@@ -29,6 +32,8 @@ char 	**ft_strdup_double_add_n_free_old(char **str, int n);
 int		ft_isdigit_str(char *str);
 int		ft_strlen_double_all(char **str);
 char	*ft_union(char **str, char c);
+char	*ft_union_simple(char **str);
+char	**double_null(int n);
 
 //char_is_to
 int		ft_isalpha(int c);

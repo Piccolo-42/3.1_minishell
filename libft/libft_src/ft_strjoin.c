@@ -21,17 +21,18 @@ char	*ft_strjoin(char const *str1, char const *str2)
 	char	*dest;
 	size_t	i;
 
+	if (!str1 && ! str2)
+		return (ft_strdup(""));
 	if (!str1)
-		return (printf("RETURN\n"). ft_strdup(str2));
+		return (ft_strdup(str2));
+	if (!str2)
+		return (ft_strdup(str1));
 	dest = malloc(sizeof(char) * (ft_strlen(str1) + ft_strlen(str2) + 1));
 	if (!dest)
 		return (0);
-	i = 0;
-	while (str1[i])
-	{
+	i = -1;
+	while (str1[++i])
 		dest[i] = str1[i];
-		i++;
-	}
 	i = 0;
 	while (str2[i])
 	{

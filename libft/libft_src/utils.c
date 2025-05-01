@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 16:17:49 by sravizza          #+#    #+#             */
-/*   Updated: 2025/02/21 16:55:41 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/01 09:47:51 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,22 +39,6 @@ int	ft_atoi_base16(const char *str)
 		i++;
 	}
 	return (result);
-}
-
-void	free_double(char **str)
-{
-	int	i;
-
-	if (!str || !*str)
-		return ;
-	i = 0;
-	while (str[i])
-	{
-		free(str[i]);
-		i++;
-	}
-	free(str);
-	return ;
 }
 
 /**

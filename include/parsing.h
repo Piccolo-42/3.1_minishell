@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 11:16:33 by sravizza          #+#    #+#             */
-/*   Updated: 2025/04/30 18:25:17 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/01 15:04:23 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_list	*token_lst(char *input);
 void	expand_env(t_list **lst, t_data *data);
 char	*dblq_replace_env(t_data *data, char *str);
 char	*replace_env(t_data *data, char *str);
+char	*split_union(char *str, int var_start, t_data *data);
 
 // get_type (handle token type)
 
