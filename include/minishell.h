@@ -18,6 +18,7 @@
 # include "../libft/printf_src/ft_printf.h"
 # include "typedef.h"
 # include "parsing.h"
+# include "execution.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -41,6 +42,7 @@ char	*get_cwd(t_data *data);
 char	last_char(char *str);
 
 //builtins
+
 void	ft_cd(char **args, char ***envp);
 char	*get_dir(char **args, char **envp);
 char	*ft_getenv(char **envp, char *name);
@@ -58,9 +60,12 @@ void	mini_unset(char ***envp, char *name);
 char	**sort_export(char **envp);
 
 //execs
+
 void	ft_exec_ast(t_data *data);
+void	ft_exec_pipe(t_list *left, t_list *right, char **envp);
 
 //main
+
 void	builtin_tester(t_data **data);
 t_data	*init_data(char **envp);
 char	**copy_envp(char **envp);

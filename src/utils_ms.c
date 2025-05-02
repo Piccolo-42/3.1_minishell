@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_ms.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 15:31:32 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/02 11:04:28 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/02 13:35:10 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	**copy_envp(char **envp)
 	int		d;
 
 	i = ft_strlen_double(envp);
-	dest = malloc(sizeof(char *) * (i));
+	dest = malloc(sizeof(char *) * (i + 1));
 	if (!dest)
 		return (NULL);
 	i = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   typedef.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 11:24:19 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/02 10:29:07 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/02 13:31:56 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,17 @@ typedef struct s_data
 	int		exit_code;
 	char	*prompt;
 }	t_data;
+
+
+typedef struct s_exec_ctx
+{
+	int		i;
+	int		n_cmd;
+	t_list	*node;
+	int		*pipe_fd;
+	t_data	*data;
+}	t_exec_ctx;
+
 #endif
+
+
