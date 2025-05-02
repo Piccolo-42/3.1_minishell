@@ -34,7 +34,8 @@
 
 // readline
 char	*read_input(t_data *data);
-void	prt_prompt(t_data *data);
+char	*prompt(t_data *data);
+char	*custom_join(char *name, char *session, char *cwd);
 char	*get_session(t_data *data);
 char	*get_cwd(t_data *data);
 char	last_char(char *str);
@@ -63,7 +64,13 @@ void	ft_exec_ast(t_data *data);
 void	builtin_tester(t_data **data);
 t_data	*init_data(char **envp);
 char	**copy_envp(char **envp);
-void	freef(char *format, ...);
+
+//error
+void	exit_freef(t_data *data, int exit_code, char *format, ...);
+void	error_handler(t_data *data, char *msg, int exit_code);
+void	free_data(t_data *data);
+
+// void	freef(char *format, ...);
 
 
 #endif

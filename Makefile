@@ -62,6 +62,9 @@ LFLAGS		= 	-lreadline -Llibft -lft
 OBJ			= 	$(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 RM			= 	rm -f
 AR			= 	ar -rcs
+VALGRIND	=	valgrind 
+VFLAGS		=	--leak-check=full #--show-leak-kinds=all --track-origins=yes --verbose
+VSUPP		=	--suppressions=resources/a.supp --log-file="resources/leaks.log"
 
 
 ################################################################################
@@ -112,11 +115,16 @@ fclean: clean
 	echo $(NAME) "removed"
 	$(MAKE) -C $(LIBFT_DIR) fclean
 
-re: clean all
+re: fclean all
 
 debug: CFLAGS += -g
 debug: re
 	echo $(NAME) "compiled in debug mode"
+
+valgrind: CFLAGS += -g
+valgrind: re
+	$(VALGRIND) $(VFLAGS) $(VSUPP) ./$(NAME)
+
 
 .SILENT:
 

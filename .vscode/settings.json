@@ -6,6 +6,8 @@
 		"_tree_view": "cpp",
 		"stdlib.h": "c",
 		"unistd.h": "c",
-		"string.h": "c"
+		"string.h": "c",
+		"get_next_line.h": "c",
+		"ft_printf.h": "c"
 	}
 }

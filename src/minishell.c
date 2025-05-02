@@ -33,17 +33,20 @@ int	main(int argc, char **argv, char **envp)
 		data->ast = parsing(data);
 		if (!data->ast)
 			return (1); //free
-		// prt_ast_colored(data->ast);
-		builtin_tester(&data);
-		//exe_cmd(ast)
 		// ft_printf("EXE\n");
 		// basic_prt_lst(data->ast);
+		// prt_ast_colored(data->ast);
+		// builtin_tester(&data);
+		//exe_cmd(ast)
 		free(data->input);
+		data->input = NULL;
 		free_lst(&(data->ast));
+		data->ast = NULL;
 	}
-	rl_clear_history();
-	free_double(data->envp);
-	free(data);
+	exit_freef(data, 0, NULL);
+	// rl_clear_history(); //rm 
+	// free_double(data->envp); //rm
+	// free(data); //rm
 	return (0);
 }
 

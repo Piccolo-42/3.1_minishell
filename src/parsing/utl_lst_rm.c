@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 13:14:29 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/01 10:28:52 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/02 11:26:57 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	remove_node(t_list **lst, t_list **node)
 		*lst = next;
 	if (next)
 		next->prev = remove->prev;
-	free_double(remove->content);
-	free(remove);
+	ft_free_double(remove->content);
+	ft_free_ptr((void **)&remove);
 	*node = next;
 	return ;
 }
@@ -47,8 +47,8 @@ void	free_lst(t_list **lst)
 		next = (*lst)->next;
 		free_lst_read(*lst);
 		free_lst_write(*lst);
-		free_double((*lst)->content);
-		free(*lst);
+		ft_free_double((*lst)->content);
+		ft_free_ptr((void **)&(*lst));
 		(*lst) = NULL;
 		// ft_free((void **)(&node));
 		(*lst) = next;
@@ -71,8 +71,8 @@ void	free_lst_read(t_list *node)
 		while (temp)
 		{
 			next = temp->next;
-			free_double(temp->content);
-			free(temp);
+			ft_free_double(temp->content);
+			ft_free_ptr((void **)&temp);
 			temp = next;
 		}
 	}
@@ -90,8 +90,8 @@ void	free_lst_write(t_list *node)
 		while (temp)
 		{
 			next = temp->next;
-			free_double(temp->content);
-			free(temp);
+			ft_free_double(temp->content);
+			ft_free_ptr((void **)&temp);
 			temp = next;
 		}
 	}

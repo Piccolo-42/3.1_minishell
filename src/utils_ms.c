@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 15:31:32 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/01 20:34:52 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/02 11:04:28 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,7 @@ t_data	*init_data(char **envp)
 	if (!data->envp)
 		return (free(data), NULL);
 	data->exit_code = 0;
+	data->input = NULL;
+	data->prompt = NULL;
 	return (data);
 }

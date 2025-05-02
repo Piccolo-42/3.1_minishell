@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 11:16:33 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/01 21:44:03 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/02 10:47:12 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,6 @@ void	free_lst_write(t_list *node);
 
 int		is_redir(t_type	type);
 int		is_operator(t_type type);
-char	*ft_strjoin_free_one(char *str1, char *str2);
-
 
 // X_prt_test (print tests)
 

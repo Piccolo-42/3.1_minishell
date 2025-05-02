@@ -6,27 +6,11 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 09:46:17 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/01 11:40:55 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/02 11:44:17 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-void	free_double(char **str)
-{
-	int	i;
-
-	if (!str || !*str)
-		return ;
-	i = 0;
-	while (str[i])
-	{
-		free(str[i]);
-		i++;
-	}
-	free(str);
-	return ;
-}
 
 void	ft_free_double(char **str)
 {
@@ -37,27 +21,25 @@ void	ft_free_double(char **str)
 	i = 0;
 	while (str[i])
 	{
-		ft_safe_free((void **) &(str[i]));
+		ft_free(&(str[i]));
 		i++;
 	}
 	free(str);
 	return ;
 }
 
-void	ft_free(char *str)
+void	ft_free_ptr(void **ptr)
 {
-	if (!str)
-		return;
-	free(str);
+	if (!ptr || !*ptr)
+		return ;
+	free(*ptr);
+	*ptr = NULL;
 }
 
-void	ft_safe_free(void **ptr)
+void	ft_free(char **str)
 {
-	if (!(*ptr))
-	{
-		(*ptr) = NULL;
-		return;
-	}
-	free((*ptr));
-	return ;
+	if (!str || !*str)
+		return ;
+	free(*str);
+	*str = NULL;
 }

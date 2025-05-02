@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 11:22:21 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/01 21:27:50 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/02 09:09:17 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,5 @@ void	builtin_tester(t_data **data)
 
 	run
 
-	
 
 */

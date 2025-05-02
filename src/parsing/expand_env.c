@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 15:26:52 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/01 22:11:01 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/02 11:29:32 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char *replace_env(t_data *data, char *input)
 		}
 		i++;
 	}
-	free(input);
+	ft_free(&input);
 	if (!data->envp[i])
 		return (ft_strdup(""));
 	return (ft_strdup(ft_strchr(data->envp[i], '=') + 1));
@@ -116,9 +116,9 @@ char	*split_union(char *input, int var_start, t_data *data)
 		i++;
 	temp[1] = replace_env(data, ft_substr(input, var_start, i - var_start));
 	temp[2] = ft_substr(input, i, ft_strlen(input) - i);
-	free(input);
+	ft_free(&input);
 	dest = ft_union_simple(temp);
-	free_double(temp);
+	ft_free_double(temp);
 	if (!dest)
 		return (NULL);
 	return (dest);

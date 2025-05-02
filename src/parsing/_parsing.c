@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 11:11:42 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/01 09:38:38 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/02 13:10:31 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_list	*parsing(t_data *data)
 	expand_env( &lst, data); //maybe change position?
 	assign_word_type(&lst);
 	link_redirs_to_cmd(&lst);
-	link_cmd_and_pipes(&lst);
+	// link_cmd_and_pipes(&lst);
 	check_syntax(&lst);
 	return (lst);
 }

@@ -42,3 +42,65 @@ char	*ft_strjoin(char const *str1, char const *str2)
 	dest[ft_strlen(str1) + i] = 0;
 	return (dest);
 }
+
+/**
+ * @warning malloc
+ * @return str1 + str2
+ */
+char	*ft_strjoin_free_one(char *str1, char *str2)
+{
+	char	*dest;
+	size_t	i;
+
+	// if (!str1)
+	// 	return (str2);
+	dest = malloc(sizeof(char) * (ft_strlen(str1) + ft_strlen(str2) + 1));
+	if (!dest)
+		return (0);
+	i = 0;
+	while (str1[i])
+	{
+		dest[i] = str1[i];
+		i++;
+	}
+	i = 0;
+	while (str2[i])
+	{
+		dest[ft_strlen(str1) + i] = str2[i];
+		i++;
+	}
+	dest[ft_strlen(str1) + i] = 0;
+	free(str1);
+	return (dest);
+}
+
+/**
+ * @warning malloc
+ * @return str1 + str2
+ */
+char	*ft_strjoin_free_two(char *str1, char *str2)
+{
+	char	*dest;
+	size_t	i;
+
+	// if (!str1)
+	// 	return (str2);
+	dest = malloc(sizeof(char) * (ft_strlen(str1) + ft_strlen(str2) + 1));
+	if (!dest)
+		return (0);
+	i = 0;
+	while (str1[i])
+	{
+		dest[i] = str1[i];
+		i++;
+	}
+	i = 0;
+	while (str2[i])
+	{
+		dest[ft_strlen(str1) + i] = str2[i];
+		i++;
+	}
+	dest[ft_strlen(str1) + i] = 0;
+	free(str2);
+	return (dest);
+}

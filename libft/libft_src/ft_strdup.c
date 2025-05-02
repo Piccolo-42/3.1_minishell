@@ -46,6 +46,6 @@ char **ft_strdup_double_add_n_free_old(char **str, int n)
 		dest[i] = ft_strdup(str[i]);
 		i++;
 	}
-	free_double(str);	
+	ft_free_double(str);	
 	return (dest);
 }

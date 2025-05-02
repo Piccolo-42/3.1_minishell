@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 11:24:19 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/01 19:47:23 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/02 10:29:07 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,6 @@ typedef struct s_data
 	char	*input;
 	t_list	*ast;
 	int		exit_code;
+	char	*prompt;
 }	t_data;
 #endif
