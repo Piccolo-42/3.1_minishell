@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   buit_ins_exec.c                                    :+:      :+:    :+:   */
+/*   built_ins_exec.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 14:07:30 by emurillo          #+#    #+#             */
-/*   Updated: 2025/04/26 18:12:18 by emurillo         ###   ########.fr       */
+/*   Updated: 2025/05/02 13:36:46 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	exec_builtin(t_list *node, t_data *data)
 	else if (!ft_strncmp(cmd, "unset", 5) && cmd[5] == '\0')
 		return (ft_unset(envp, args), 1);
 	else if (!ft_strncmp(cmd, "exit", 4) && cmd[4] == '\0')
-		return (ft_exit(node, &data->error), 1);
+		return (ft_exit(node, &data->exit_code), 1);
 	else
 		return (0);
 }

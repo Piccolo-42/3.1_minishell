@@ -38,13 +38,15 @@ int	main(int argc, char **argv, char **envp)
 		// prt_ast_colored(data->ast);
 		// builtin_tester(&data);
 		//exe_cmd(ast)
+		if (data.ast)
+			exec_pipeline(data.ast, &data);
 		free(data->input);
 		data->input = NULL;
 		free_lst(&(data->ast));
 		data->ast = NULL;
 	}
 	exit_freef(data, 0, NULL);
-	// rl_clear_history(); //rm 
+	// rl_clear_history(); //rm
 	// free_double(data->envp); //rm
 	// free(data); //rm
 	return (0);
