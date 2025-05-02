@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 09:47:46 by sravizza          #+#    #+#             */
-/*   Updated: 2025/04/30 17:46:16 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/02 14:38:14 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	assign_word_type(t_list **lst)
 	t_list	*cmd;
 
 	if (!lst || !*lst)
-		return ;
+		exit_handler(data, "memory allocation failed", 1);
 	node = *lst;
 	cmd = NULL;
 	while (node)

@@ -6,15 +6,29 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 10:27:00 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/02 11:41:07 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/02 15:27:26 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+//errno
+//perror
+//strerror
+//global var  exit_code
+
+void	exit_handler(t_data *data, char *msg, int exit_code)
+{
+	error_handler(data, msg, exit_code);
+	rl_clear_history();
+	free_data(data);
+	exit(exit_code);
+}
+
 void	error_handler(t_data *data, char *msg, int exit_code)
 {
 	data->exit_code = exit_code;
+	ft_putstr_fd("bash: ", 2);
 	ft_putstr_fd(msg, 2);
 	ft_putstr_fd("\n", 2);
 }

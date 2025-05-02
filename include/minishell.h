@@ -27,6 +27,7 @@
 # include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <errno.h>
 # define GREEN "\033[0;32m"
 # define RED "\033[0;31m"
 # define WHITE "\033[0m"
@@ -72,6 +73,7 @@ char	**copy_envp(char **envp);
 
 //error
 void	exit_freef(t_data *data, int exit_code, char *format, ...);
+void	exit_handler(t_data *data, char *msg, int exit_code);
 void	error_handler(t_data *data, char *msg, int exit_code);
 void	free_data(t_data *data);
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_file_redir.c                                   :+:      :+:    :+:   */
+/*   hndl_file_redir.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 14:07:04 by sravizza          #+#    #+#             */
-/*   Updated: 2025/03/25 16:39:37 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/02 15:04:10 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,11 @@
 /**
  * @brief after redir: WORD = FILE. checks/creates files
  */
-void	assign_redir_and_file(t_list *redir)
+void	assign_redir_and_file(t_list *redir, t_data *data)
 {
 	if (!redir->next )
 	{
-		//error, no file
-		printf("No File\n");
+		error_handler(data, "syntax error near unexpected token 'newline'", 2);
 		return ;
 	}
 	(redir->next)->type = FIL;
@@ -34,21 +33,25 @@ void	assign_redir_and_file(t_list *redir)
 		handle_here_doc(redir);
 }
 
-void	file_exists_and_is_readable(char *file)
+void	file_exists_and_is_readable(char *file,t_data *data)
 {
 	if (access(file, F_OK) != 0)
 	{
-		//error code
-		printf("%s does not exist\n", file);
+		ft_putstr_fd(file, 2);
+		error_handler(data, ":No such file or directory", 2);
 		return;
 	}
 	if (access(file, R_OK) != 0)
 	{
-		//error code
-		printf("%s is not readable\n", file);
+		// ft_putstr_fd("cannot open ", 2);
+		// ft_putstr_fd(file, 2);
+		perror("cannot open");
+		strerror();
+		ft_putstr_fd("permission denied ", 2);
+		error_handler(data, "", 126);
 		return;
 	}
-	printf("%s OK\n", file);
+	// printf("%s OK\n", file);
 	return ;
 }
 

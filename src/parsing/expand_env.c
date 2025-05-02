@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 15:26:52 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/02 11:29:32 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/02 14:36:02 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	expand_env(t_list **lst, t_data *data)
 		else if (node->subtype == DBL_Q)
 			node->content[0] = dblq_replace_env(data, node->content[0]);
 		if (!node->content[0])
-			return ; //error
+			exit_handler(data, "memory allocation failed", 1);
 		node = node->next;
 	}
 }
@@ -81,18 +81,6 @@ char	*dblq_replace_env(t_data *data, char *content)
 			i++;
 	}
 	return (content);
-}
-
-void	ft_print(char **str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		ft_printf(">%s<\n", str[i]);
-		i++;
-	}
 }
 
 /**
