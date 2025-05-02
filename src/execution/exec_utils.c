@@ -6,7 +6,7 @@
 /*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 06:54:01 by emurillo          #+#    #+#             */
-/*   Updated: 2025/04/26 18:19:38 by emurillo         ###   ########.fr       */
+/*   Updated: 2025/05/02 18:07:33 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void	child_process(t_exec_ctx *ctx)
 		dup2(ctx->pipe_fd[2 * (ctx->i - 1)], STDIN_FILENO);
 	if (ctx->i != ctx->n_cmd - 1)
 		dup2(ctx->pipe_fd[2 * ctx->i + 1], STDOUT_FILENO);
+	if (execute_redirections(ctx->node) == -1)
+		exit(1);
 	close_all(ctx->n_cmd, ctx->pipe_fd);
 	if (!ctx->node || ctx->node->type != CMD || !ctx->node->content)
 		exit(EXIT_FAILURE);

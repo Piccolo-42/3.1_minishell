@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 14:47:37 by sravizza          #+#    #+#             */
-/*   Updated: 2025/04/01 16:23:34 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/02 16:59:21 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ void	ft_exit(t_list *cmd, int *exit_status)
 		exit(2);
 	}
 	if (arg_count > 1)
-	{	
+	{
 		printf("minishell: exit: too many arguments");
 		*exit_status = 1;
 		return ;
 	}
 	if (exit_code < 0 || exit_code > 255)
 		exit_code %= 256;
-	exit((int)exit_code);
+	exit((int)exit_code % 256);
 	return ;
 }

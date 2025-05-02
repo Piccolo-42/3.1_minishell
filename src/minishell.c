@@ -30,7 +30,7 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		if (*(data->input))
 			add_history(data->input);
-		data->ast = parsing(data);
+		data->ast = parsing(&data);
 		if (!data->ast)
 			return (1); //free
 		// ft_printf("EXE\n");
@@ -39,7 +39,7 @@ int	main(int argc, char **argv, char **envp)
 		// builtin_tester(&data);
 		//exe_cmd(ast)
 		if (data.ast)
-			exec_pipeline(data.ast, &data);
+			exec_pipeline(data->ast, &data);
 		free(data->input);
 		data->input = NULL;
 		free_lst(&(data->ast));
