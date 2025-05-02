@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 10:59:49 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/01 17:41:45 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/01 22:16:54 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,14 @@
 // 	return (input);
 // }
 
+//simple version, no "keep reading" after an open pipe (see above)
 char	*read_input(t_data *data)
 {
 	char	*line;
 
 	prt_prompt(data);
+	// if (data)
+	ft_printf(">:");
 	line = readline("");
 	if (!line)
 		return (NULL);
@@ -50,6 +53,7 @@ char	*read_input(t_data *data)
 	return (line);
 }
 
+//prints USER@c4r2s42:CWD$
 void	prt_prompt(t_data *data)
 {
 	char	*name;
@@ -65,12 +69,13 @@ void	prt_prompt(t_data *data)
 	cwd = get_cwd(data);
 	if (!cwd)
 		return ;
-	ft_printf("%s@%s:%s$MS>", name, session, cwd);
+	ft_printf("%s@%s:%s$", name, session, cwd);
 	free(name);
 	free(session);
 	free(cwd);
 }
 
+//if at 42, gets your computer location. else "c4r2s42"
 char	*get_session(t_data *data)
 {
 	char	*dest;
@@ -78,8 +83,8 @@ char	*get_session(t_data *data)
 	int		i;
 
 	env = replace_env(data, ft_strdup("$SESSION_MANAGER"));
-	if (!env)
-		return(NULL);
+	if (!env || !(*env))
+		return(ft_strdup("c4r2s42"));
 	i = 6;
 	while (env[i] && env[i] != '.')
 		i++;
@@ -90,6 +95,7 @@ char	*get_session(t_data *data)
 	return (dest);
 }
 
+// '/' root ; ~ instead of home/user ; rest is CWD
 char	*get_cwd(t_data *data)
 {
 	int		home_len;
@@ -100,8 +106,8 @@ char	*get_cwd(t_data *data)
 	cwd = replace_env(data, ft_strdup("$PWD"));
 	if (!cwd)
 		return (NULL);
-	if (ft_strlen(cwd) == 1)
-		return(free(cwd), ft_strdup("/"));
+	// if (ft_strlen(cwd) == 1)
+	// 	return(free(cwd), ft_strdup("/"));
 	home = replace_env(data, ft_strdup("$HOME"));
 	if (!home)
 		return (free(cwd), NULL);

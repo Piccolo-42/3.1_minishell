@@ -6,11 +6,17 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 10:27:00 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/01 09:51:41 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/01 20:36:48 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// void	ft_exit(t_data *data, int exit_code)
+// {
+	
+	
+// }
 
 // void	exit_freef(t_data *data, int exit_code, char *format, ...)
 // {

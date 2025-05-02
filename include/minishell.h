@@ -61,6 +61,7 @@ void	ft_exec_ast(t_data *data);
 
 //main
 void	builtin_tester(t_data **data);
+t_data	*init_data(char **envp);
 char	**copy_envp(char **envp);
 void	freef(char *format, ...);
 

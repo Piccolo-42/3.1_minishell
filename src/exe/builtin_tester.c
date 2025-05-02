@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 11:22:21 by sravizza          #+#    #+#             */
-/*   Updated: 2025/04/30 17:05:37 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/01 21:27:50 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	pick_builtin(t_list *cmd_node, t_data **data)
 	else if (!ft_strncmp(cmd, "env", 3))
 		return (ft_env(*envp), 1);
 	else if (!ft_strncmp(cmd, "exit", 4))
-		return (ft_exit(cmd_node, &(*data)->error), 1);
+		return (ft_exit(cmd_node, &(*data)->exit_code), 1);
 	else if (!ft_strncmp(cmd, "export", 6))
 		return (ft_export(envp, args), 1);
 	else if (!ft_strncmp(cmd, "pwd", 3))
@@ -45,7 +45,7 @@ void	builtin_tester(t_data **data)
 
 	lst = (*data)->ast;
 	if (!lst)
-		return;
+		return ;
 	while (lst)
 	{
 		if (lst->type == CMD)
@@ -57,3 +57,25 @@ void	builtin_tester(t_data **data)
 	}
 	return ;
 }
+
+/*
+	exec:
+
+	count cmd and pipe
+
+	create pipes
+		data->pipe_fd
+
+	create child processes for cmd
+		if (in/outfile) 
+			read/write to those
+		else if (first/last)
+			stdin/out 
+		else 
+			connect to pipe
+
+	run
+
+	
+
+*/

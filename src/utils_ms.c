@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 15:31:32 by sravizza          #+#    #+#             */
-/*   Updated: 2025/04/30 11:36:41 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/01 20:34:52 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,18 @@ char	**copy_envp(char **envp)
 	}
 	dest[d] = NULL;
 	return (dest);
+}
+
+t_data	*init_data(char **envp)
+{
+	t_data	*data;
+
+	data = malloc(sizeof(t_data));
+	if (!data)
+		return (NULL);
+	data->envp = copy_envp(envp);
+	if (!data->envp)
+		return (free(data), NULL);
+	data->exit_code = 0;
+	return (data);
 }

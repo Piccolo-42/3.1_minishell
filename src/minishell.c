@@ -14,25 +14,15 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	// char	*input;
-	// t_list	*ast;
-	// int		exit_status;
 	t_data	*data;
 
 	(void)argc;
 	(void)argv;
-	// (void)envp;
-	// int i = 0;
-	// while (envp[i])
-	// 	printf("%s\n", envp[i++]);
-	data = malloc(sizeof(t_data));
-	if (!data)
-		return (1);
 	if (!envp)
 		return (1);
-	data->envp = copy_envp(envp);
-	if (!data->envp)
-		return (free(data), 1);
+	data = init_data(envp);
+	if (!data)
+		return (1);
 	while (1)
 	{
 		data->input = read_input(data);
