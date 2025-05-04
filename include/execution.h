@@ -6,7 +6,7 @@
 /*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 15:01:45 by emurillo          #+#    #+#             */
-/*   Updated: 2025/05/02 18:06:59 by emurillo         ###   ########.fr       */
+/*   Updated: 2025/05/04 16:12:55 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	pipe_cmds(int n_cmd, int *pipe_fd);
 int		exec_builtin(t_list *node, t_data *data);
 int		is_builtin(char *cmd);
 int		execute_redirections(t_list *cmd);
+int		has_redirection(t_list *cmd);
 
 
 // for PATH search
