@@ -16,7 +16,7 @@
  * @brief	removes redirs from main list, 
  * 			attaches them on read/write branch of cmd
  */
-void	link_redirs_to_cmd(t_list **lst)
+int	link_redirs_to_cmd(t_list **lst)
 {
 	t_list	*cmd;
 	t_list	*node;
@@ -24,7 +24,7 @@ void	link_redirs_to_cmd(t_list **lst)
 
 	cmd = next_cmd(lst);
 	if (!cmd)
-		return ;
+		return (0);
 	node = *lst;
 	while (node && node->type != PIPE)
 	{
@@ -39,7 +39,7 @@ void	link_redirs_to_cmd(t_list **lst)
 	}
 	if (node && node->type == PIPE)
 		link_redirs_to_cmd(&(node->next));
-	return ;
+	return (1);
 }
 
 t_list	*next_cmd(t_list **lst)
@@ -95,7 +95,8 @@ t_list	*process_redirs(t_list *cmd, t_list *redir)
 }
 
 /**
- * @brief links cmd's and pipe's read/write branches when no redirs
+ * @brief (OLD, not in use) 
+ * links cmd's and pipe's read/write branches when no redirs
  */
 void	link_cmd_and_pipes(t_list **lst)
 {

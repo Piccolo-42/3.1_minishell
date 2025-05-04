@@ -94,3 +94,12 @@ Exit Code: 126
 126: Command found but not executable
 127: Command not found
 128-255: Fatal error signals (128 + signal number)
+
+error_handler("ast: memory allocation failed", 1)
+
+<in grep hello >out2
+-bash: in: No such file or directory
+(no out2 created)
+
+<hello_world.txt grep hello >
+-bash: syntax error near unexpected token `newline'

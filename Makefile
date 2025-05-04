@@ -19,7 +19,7 @@ INCL_DIR	=	include
 RL_DIR		=	readline
 PARS_DIR	=	parsing
 BI_DIR		=	builtins
-EXE_DIR		=	execution
+EXE_DIR		=	exe
 ERR_DIR		=	exit+error
 
 ################################################################################
@@ -35,10 +35,10 @@ SRC_PARS	=	_parsing.c 				   										\
 				expand_env.c				X_prt_test.c		XX_color_prt.c
 
 SRC_BI		=	ft_cd.c		ft_echo.c		ft_env.c			ft_exit.c		\
-				ft_export.c	ft_pwd.c		ft_unset.c			utils_bi.c		\
-				builtin_tester.c
+				ft_export.c	ft_pwd.c		ft_unset.c			utils_bi.c		
 
-SRC_EXE		=	
+SRC_EXE		=	builtin_tester.c
+
 
 SRC_ERR		=	error.c
 

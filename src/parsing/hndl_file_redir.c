@@ -15,47 +15,34 @@
 /**
  * @brief after redir: WORD = FILE. checks/creates files
  */
-void	assign_redir_and_file(t_list *redir, t_data *data)
+int	assign_redir_and_file(t_list *redir)
 {
 	if (!redir->next )
-	{
-		error_handler(data, "syntax error near unexpected token 'newline'", 2);
-		return ;
-	}
+		return (error_handler("syntax error near unexpected token 'newline'", 2), 0);
 	(redir->next)->type = FIL;
-	add_arg(redir, (redir->next)->content[0]);
+	if (!add_arg(redir, (redir->next)->content[0]))
+		return (0);
 	remove_node(&redir, &redir->next);
-	if (redir->type == REDIR_IN)
-	 	file_exists_and_is_readable(redir->content[1]);
-	if (redir->type == REDIR_OUT || redir->type == APPEND)
-		file_ok_or_create(redir->content[1], redir->type);
-	if (redir->type == HEREDOC)
-		handle_here_doc(redir);
+	if (redir->type == REDIR_IN && !file_exists_and_is_readable(redir->content[1]))
+	 	return (0);
+	if ((redir->type == REDIR_OUT || redir->type == APPEND) && !file_ok_or_create(redir->content[1], redir->type))
+		return (0);
+	if (redir->type == HEREDOC && !handle_here_doc(redir))
+		return (0);
+	return (1);
 }
 
-void	file_exists_and_is_readable(char *file,t_data *data)
+int	file_exists_and_is_readable(char *file)
 {
 	if (access(file, F_OK) != 0)
-	{
-		ft_putstr_fd(file, 2);
-		error_handler(data, ":No such file or directory", 2);
-		return;
-	}
+		return (file_error_handler(NULL, file, ":No such file or directory", 2), 0);
 	if (access(file, R_OK) != 0)
-	{
-		// ft_putstr_fd("cannot open ", 2);
-		// ft_putstr_fd(file, 2);
-		perror("cannot open");
-		strerror();
-		ft_putstr_fd("permission denied ", 2);
-		error_handler(data, "", 126);
-		return;
-	}
+		return (file_error_handler("cannot open ", file, " permission denied", 126), 0); //check
 	// printf("%s OK\n", file);
-	return ;
+	return (1);
 }
 
-void	file_ok_or_create(char *file, t_type type)
+int	file_ok_or_create(char *file, t_type type)
 {
 	int	fd;
 
@@ -64,17 +51,13 @@ void	file_ok_or_create(char *file, t_type type)
 	else
 		fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd == -1)
-	{
-		//error code
-		printf("problem opening %s\n", file);
-		return ;
-	}
-	printf("%s OK\n", file);
+		return (file_error_handler("cannot open ", file, " permission denied", 126), 0); //check
+	// printf("%s OK\n", file);
 	close(fd);
-	return ;
+	return (1);
 }
 
-void	handle_here_doc(t_list *redir)
+int	handle_here_doc(t_list *redir)
 {
 	char *line;
 	char *total;
@@ -97,8 +80,10 @@ void	handle_here_doc(t_list *redir)
 		total = ft_strjoin_free_one(total, "\n");
 		free(line);
 	}
-	add_arg(redir, total);
+	if (!add_arg(redir, total))
+		return (0);	
 	free(total);
-	printf("here_doc, doc:\n%s", redir->content[2]);
+	// printf("here_doc, doc:\n%s", redir->content[2]);
+	return (1);
 }
 

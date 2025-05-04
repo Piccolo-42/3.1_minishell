@@ -12,25 +12,56 @@
 
 #include "minishell.h"
 
-//errno
-//perror
-//strerror
-//global var  exit_code
+//errno : nbr
+//perror : print error
+//strerror : converts int to str strerror(errno)
+//global g_exit_code
 
 void	exit_handler(t_data *data, char *msg, int exit_code)
 {
-	error_handler(data, msg, exit_code);
+	error_handler(msg, exit_code);
 	rl_clear_history();
 	free_data(data);
 	exit(exit_code);
 }
 
-void	error_handler(t_data *data, char *msg, int exit_code)
+void	file_exit_handler(t_data *data, char *first, char *file, char *second, int exit_code)
 {
-	data->exit_code = exit_code;
+	file_error_handler(first, file, second, exit_code);
+	rl_clear_history();
+	free_data(data);
+	exit(exit_code);
+}
+
+void	error_handler(char *msg, int exit_code)
+{
+	g_exit_code = exit_code;
 	ft_putstr_fd("bash: ", 2);
 	ft_putstr_fd(msg, 2);
 	ft_putstr_fd("\n", 2);
+}
+
+void	file_error_handler(char *first, char *file, char *second, int exit_code)
+{
+	g_exit_code = exit_code;
+	ft_putstr_fd("bash: ", 2);
+	ft_putstr_fd(first, 2);
+	ft_putstr_fd(file, 2);
+	ft_putstr_fd(second, 2);
+	ft_putstr_fd("\n", 2);
+}
+
+void	free_data(t_data *data)
+{
+	if (!data)
+		return ;
+	ft_free_double(data->envp);
+	ft_free(&(data->input));
+	if (data->ast)
+		free_lst(&(data->ast));
+	if (data->prompt)
+		ft_free(&(data->prompt));
+	free(data);
 }
 
 void	exit_freef(t_data *data, int exit_code, char *format, ...)
@@ -58,20 +89,5 @@ void	exit_freef(t_data *data, int exit_code, char *format, ...)
 	free_data(data);
 	exit(exit_code);
 	return ;
-}
-
-void	free_data(t_data *data)
-{
-	if (!data)
-		return ;
-	if (data->envp)
-		ft_free_double(data->envp);
-	if (data->input)
-		ft_free(&(data->input));
-	if (data->ast)
-		free_lst(&(data->ast));
-	// if (data->prompt)
-	// 	free(data->prompt);
-	ft_free_ptr((void **) &data);
 }
 

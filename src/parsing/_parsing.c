@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 /** FIX
  *
@@ -31,13 +31,16 @@ t_list	*parsing(t_data *data)
 	t_list	*lst;
 
 	lst = token_lst(data->input);
-	remove_type_rm(&lst);
-	update_quotes(&lst);
-	expand_env( &lst, data); //maybe change position?
-	assign_word_type(&lst);
-	link_redirs_to_cmd(&lst);
-	// link_cmd_and_pipes(&lst);
-	check_syntax(&lst);
+	if (!remove_type_rm(&lst)
+		|| !update_quotes_and_env(&lst)
+		|| !expand_env(&lst, data) //maybe change position? during/just before exec
+		|| !assign_word_type(&lst)
+		|| !link_redirs_to_cmd(&lst)
+		|| !check_syntax(&lst))
+	{
+		free_lst(&lst);
+		return (NULL);
+	}
 	return (lst);
 }
 
@@ -49,6 +52,7 @@ t_list	*token_lst(char *input)
 {
 	t_list	*lst;
 	int		i;
+	int		token_len;
 
 	lst = NULL;
 	i = 0;
@@ -56,8 +60,10 @@ t_list	*token_lst(char *input)
 	{
 		while (is_whitespace(input[i]) ) //&& input[i] != '$'
 			i++;
-		i += create_token(input + i, &lst);
+		token_len = create_token(input + i, &lst);
+		if (token_len == -1)
+			return (free_lst(&lst), NULL);
+		i += token_len;
 	}
-	// clean_up_lst(&lst);
 	return (lst);
 }

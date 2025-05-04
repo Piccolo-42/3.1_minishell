@@ -24,7 +24,7 @@ int	ft_pwd(void)
 	}
 	else
 	{
-		perror("pwd");
+		exit_handler("cd: error retrieving directory\n", 1);
 		return (1);
 	}
 }

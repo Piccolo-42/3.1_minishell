@@ -28,7 +28,7 @@ int	pick_builtin(t_list *cmd_node, t_data **data)
 	else if (!ft_strncmp(cmd, "env", 3))
 		return (ft_env(*envp), 1);
 	else if (!ft_strncmp(cmd, "exit", 4))
-		return (ft_exit(cmd_node, &(*data)->exit_code), 1);
+		return (ft_exit(data, cmd_node) 1);
 	else if (!ft_strncmp(cmd, "export", 6))
 		return (ft_export(envp, args), 1);
 	else if (!ft_strncmp(cmd, "pwd", 3))

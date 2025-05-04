@@ -17,26 +17,33 @@
  * FL after redir. checks files
  * else CMD, and following words are ARGS
  */
-void	assign_word_type(t_list **lst)
+int	assign_word_type(t_list **lst)
 {
 	t_list	*node;
 	t_list	*cmd;
+	int		check;
 
 	if (!lst || !*lst)
-		exit_handler(data, "memory allocation failed", 1);
+		return (0);
 	node = *lst;
 	cmd = NULL;
 	while (node)
 	{
-		if (is_redir(node->type))
-			assign_redir_and_file(node);
-		else if (node->type == WORD && process_cmd_and_args(&cmd, &node))
-			continue ;
+		if (is_redir(node->type) && !assign_redir_and_file(node))
+			return (0);
+		else if (node->type == WORD)
+		{
+			check = process_cmd_and_args(&cmd, &node);
+			if (check == 1)
+				continue;
+			else if (check == -1)
+				return (0);
+		}
 		else if (node->type == PIPE)
 			cmd = NULL;
 		node = node->next;
 	}
-	return ;
+	return (1);
 }
 
 /**
@@ -50,7 +57,8 @@ int	process_cmd_and_args(t_list **cmd, t_list **node)
 	assign_cmd_or_arg(cmd, *node);
 	if (*cmd && (*node)->type == ARG)
 	{
-		add_arg(*cmd, (*node)->content[0]);
+		if (!add_arg(*cmd, (*node)->content[0]))
+			return (-1);
 		next = (*node)->next;
 		remove_node(cmd, node);
 		*node = next;

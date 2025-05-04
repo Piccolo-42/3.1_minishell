@@ -21,7 +21,7 @@ t_list	*parsing(t_data *data);
 t_list	*token_lst(char *input);
 
 // expand_env
-void	expand_env(t_list **lst, t_data *data);
+int		expand_env(t_list **lst, t_data *data);
 char	*dblq_replace_env(t_data *data, char *str);
 char	*replace_env(t_data *data, char *input);
 char	*split_union(char *str, int var_start, t_data *data);
@@ -37,16 +37,16 @@ t_type	handle_words(char *input, int *i);
 
 // get_word_type
 
-void	assign_word_type(t_list **lst);
+int		assign_word_type(t_list **lst);
 void	assign_cmd_or_arg(t_list **cmd, t_list *node);
 int		process_cmd_and_args(t_list **cmd, t_list **node);
 
 //hndl_file_redir
 
-void	assign_redir_and_file(t_list *node);
-void	file_exists_and_is_readable(char *file);
-void	file_ok_or_create(char *file, t_type type);
-void	handle_here_doc(t_list *redir);
+int		assign_redir_and_file(t_list *node);
+int		file_exists_and_is_readable(char *file);
+int		file_ok_or_create(char *file, t_type type);
+int		handle_here_doc(t_list *redir);
 void	gnl_doc(char *limiter);
 
 
@@ -54,16 +54,17 @@ void	gnl_doc(char *limiter);
 
 t_list *process_redirs(t_list *cmd, t_list *redir);
 t_list	*next_cmd(t_list **lst);
-void	link_redirs_to_cmd(t_list **lst);
+int		link_redirs_to_cmd(t_list **lst);
 void	link_cmd_and_pipes(t_list **lst);
 
 
 // utl_clean (utils list clean up)
 
-void	remove_type_rm(t_list **lst);
-void	update_quotes(t_list **lst);
+int		remove_type_rm(t_list **lst);
+int		update_quotes_and_env(t_list **lst);
+int		update_quotes(t_list *node);
 void	update_env(t_list *node);
-void	check_syntax(t_list **lst);
+int		check_syntax(t_list **lst);
 
 
 // utl_lst_mk (utils list build)
@@ -71,7 +72,7 @@ void	check_syntax(t_list **lst);
 int		create_token(char *input, t_list **lst);
 t_list	*new_node(char *input, t_type type);
 void	node_add_back(t_list **lst, t_list *new);
-void	add_arg(t_list *node, char *arg);
+int		add_arg(t_list *node, char *arg);
 int		lstlen(t_list *lst);
 
 

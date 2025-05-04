@@ -21,14 +21,18 @@ int	create_token(char *input, t_list **lst)
 	int		i;
 	t_type	type;
 	char	*token;
+	t_list	*node;
 
 	i = 0;
 	type = get_type(input, &i);
 	token = ft_substr(input, 0, i);
 	if (!token)
-		return (0);
-	node_add_back(lst, new_node(token, type));
+		return (error_handler("ast: token: memory allocation failed", 1), -1);
+	node = new_node(token, type);
+	if (!node)
+		return (error_handler("ast: new_node: memory allocation failed", 1), -1);
 	free(token);
+	node_add_back(lst, node);
 	return (i);
 }
 
@@ -76,19 +80,19 @@ void	node_add_back(t_list **lst, t_list *new)
 	new->prev = tmp;
 }
 
-void	add_arg(t_list *node, char *arg)
+int	add_arg(t_list *node, char *arg)
 {
 	int		i;
 	char	**new_content;
 
 	if (!node || !arg)
-		return ;
+		return (0);
 	i = 0;
 	while (node->content[i])
 		i++;
 	new_content = malloc(sizeof(char *) * (i + 2));
 	if (!new_content)
-		return ;
+		return (error_handler("ast: arg: memory allocation failed", 1), 0);
 	i = 0;
 	while (node->content[i])
 	{
@@ -97,10 +101,11 @@ void	add_arg(t_list *node, char *arg)
 	}
 	new_content[i] = ft_strdup(arg);
 	if (!new_content[i])
-		return ((void)free(new_content));
+		return (error_handler("ast: arg: memory allocation failed", 1), free(new_content), 0);
 	new_content[i + 1] = NULL;
 	free(node->content);
 	node->content = new_content;
+	return (1);
 }
 
 int	lstlen(t_list *lst)

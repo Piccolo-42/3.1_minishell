@@ -14,7 +14,7 @@
 /**
  * @brief goes through lst, expands subtype $ENV and envs in "DBLQ"
  */
-void	expand_env(t_list **lst, t_data *data)
+int	expand_env(t_list **lst, t_data *data)
 {
 	t_list *node;
 
@@ -26,14 +26,16 @@ void	expand_env(t_list **lst, t_data *data)
 		else if (node->subtype == DBL_Q)
 			node->content[0] = dblq_replace_env(data, node->content[0]);
 		if (!node->content[0])
-			exit_handler(data, "memory allocation failed", 1);
+			return (0);
 		node = node->next;
 	}
+	return (1);
 }
 /**
  * @brief looks for "input" in data->envp 
  * @param input format: "$NAME"
- * @return !input || !value  ? "" : value
+ * @return !input || !value  ? "" : value 
+ * @returns (or global exit code of $?)
  */
 char *replace_env(t_data *data, char *input)
 {
@@ -44,6 +46,8 @@ char *replace_env(t_data *data, char *input)
 
 	if (!input)
 		return (strdup(""));
+	if (!ft_strncmp(input, "$?", 2))
+		return(ft_free(&input), strdup(ft_itoa(g_exit_code)));
 	size = ft_strlen(input) - 1;
 	i = 0;
 	while(data->envp[i])
@@ -57,10 +61,9 @@ char *replace_env(t_data *data, char *input)
 		}
 		i++;
 	}
-	ft_free(&input);
 	if (!data->envp[i])
-		return (ft_strdup(""));
-	return (ft_strdup(ft_strchr(data->envp[i], '=') + 1));
+		return (ft_free(&input), ft_strdup(""));
+	return (ft_free(&input), ft_strdup((ft_strchr(data->envp[i], '=') + 1)));
 }
 
 //expands all $ENV in "double quotes" node

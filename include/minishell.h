@@ -34,6 +34,8 @@
 # define INT_MIN -2147483648
 # define INT_MAX 2147483647
 
+extern int g_exit_code;
+
 // readline
 char	*read_input(t_data *data);
 char	*prompt(t_data *data);
@@ -50,7 +52,7 @@ char	*ft_getenv(char **envp, char *name);
 void	ft_echo(char **args);
 void	ft_env(char **envp);
 int		ft_pwd(void);
-void	ft_exit(t_list *cmd, int *exit_status);
+void	ft_exit(t_data *data, t_list *cmd);
 int		count_args(t_list *node);
 void	ft_export(char ***envp, char **args);
 int		ft_varlen(char *name);
@@ -74,7 +76,8 @@ char	**copy_envp(char **envp);
 //error
 void	exit_freef(t_data *data, int exit_code, char *format, ...);
 void	exit_handler(t_data *data, char *msg, int exit_code);
-void	error_handler(t_data *data, char *msg, int exit_code);
+void	file_error_handler(char *first, char *file, char *second, int exit_code);
+void	error_handler(char *msg, int exit_code);
 void	free_data(t_data *data);
 
 // void	freef(char *format, ...);
