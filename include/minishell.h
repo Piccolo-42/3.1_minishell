@@ -46,13 +46,13 @@ char	last_char(char *str);
 
 //builtins
 
-void	ft_cd(char **args, char ***envp);
+int		ft_cd(char **args, char ***envp, t_data *data);
 char	*get_dir(char **args, char **envp);
 char	*ft_getenv(char **envp, char *name);
 void	ft_echo(char **args);
 void	ft_env(char **envp);
-int		ft_pwd(void);
-void	ft_exit(t_data *data, t_list *cmd);
+int		ft_pwd(t_data *data);
+void	ft_exit(t_list *cmd, t_data *data);
 int		count_args(t_list *node);
 void	ft_export(char ***envp, char **args);
 int		ft_varlen(char *name);
@@ -77,6 +77,7 @@ char	**copy_envp(char **envp);
 void	exit_freef(t_data *data, int exit_code, char *format, ...);
 void	exit_handler(t_data *data, char *msg, int exit_code);
 void	file_error_handler(char *first, char *file, char *second, int exit_code);
+void	file_exit_handler(t_data *data, char *first, char *file, char *second, int exit_code);
 void	error_handler(char *msg, int exit_code);
 void	free_data(t_data *data);
 

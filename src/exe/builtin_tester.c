@@ -22,17 +22,17 @@ int	pick_builtin(t_list *cmd_node, t_data **data)
 	args = cmd_node->content;
 	envp = &(*data)->envp;
 	if (!ft_strncmp(cmd, "cd", 2))
-		return (ft_cd(args, envp), 1);
+		return (ft_cd(args, envp, *data), 1);
 	else if (!ft_strncmp(cmd, "echo", 4))
 		return (ft_echo(args), 1);
 	else if (!ft_strncmp(cmd, "env", 3))
 		return (ft_env(*envp), 1);
 	else if (!ft_strncmp(cmd, "exit", 4))
-		return (ft_exit(data, cmd_node) 1);
+		return (ft_exit(cmd_node, *data), 1);
 	else if (!ft_strncmp(cmd, "export", 6))
 		return (ft_export(envp, args), 1);
 	else if (!ft_strncmp(cmd, "pwd", 3))
-		return (ft_pwd(), 1);
+		return (ft_pwd(*data), 1);
 	else if (!ft_strncmp(cmd, "unset", 5))
 		return (ft_unset(envp, args), 1);
 	else
