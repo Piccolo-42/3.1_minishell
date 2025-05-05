@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 15:26:52 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/02 14:36:02 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/05 17:48:44 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ int	expand_env(t_list **lst, t_data *data)
 }
 
 /**
- * @brief looks for "input" in data->envp 
+ * @brief looks for "input" in data->envp
  * @param input format: "$NAME"
- * @return !input || !value  ? "" : value 
+ * @return !input || !value  ? "" : value
  * @returns (or global exit code of $?)
  */
 char	*replace_env(t_data *data, char *input)

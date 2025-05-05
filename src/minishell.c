@@ -44,9 +44,9 @@ int	main(int argc, char **argv, char **envp)
 			{
 				data->prt = 1;
 				// basic_prt_lst(data->ast);
-				prt_ast_colored(data->ast);
+				// prt_ast_colored(data->ast);
 				// builtin_tester(&data);
-				// 	exec_pipeline(data->ast, data);
+			 	exec_pipeline(data->ast, data);
 				free_lst(&(data->ast));
 			}
 		}

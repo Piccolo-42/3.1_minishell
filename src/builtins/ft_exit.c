@@ -6,7 +6,7 @@
 /*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 14:47:37 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/05 17:35:27 by emurillo         ###   ########.fr       */
+/*   Updated: 2025/05/05 17:37:25 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,6 @@ void	ft_exit(t_list *cmd, t_data *data)
 		exit_handler(data, NULL, 2);
 	}
 	if (arg_count > 1)
-	{
-		printf("minishell: exit: too many arguments");
-		*exit_status = 1;
 	{
 		error_handler("exit: too many arguments", 1);
 		return ;

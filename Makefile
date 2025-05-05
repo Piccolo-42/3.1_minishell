@@ -19,14 +19,14 @@ INCL_DIR	=	include
 RL_DIR		=	readline
 PARS_DIR	=	parsing
 BI_DIR		=	builtins
-EXE_DIR		=	exe
+EXE_DIR		=	execution
 ERR_DIR		=	exit+error
 
 ################################################################################
 ##								  SOURCES									  ##
 
 SRC_MAIN	=	minishell.c	utils_ms.c	signals.c
-				
+
 SRC_RL		=	_readline.c	utils_rl.c
 
 SRC_PARS	=	_parsing.c 				   										\
@@ -35,9 +35,10 @@ SRC_PARS	=	_parsing.c 				   										\
 				expand_env.c				X_prt_test.c		XX_color_prt.c
 
 SRC_BI		=	ft_cd.c		ft_echo.c		ft_env.c			ft_exit.c		\
-				ft_export.c	ft_pwd.c		ft_unset.c			utils_bi.c		
+				ft_export.c	ft_pwd.c		ft_unset.c			utils_bi.c
 
-SRC_EXE		=	builtin_tester.c
+SRC_EXE		=	built_ins_exec.c	close_wait.c exec_pipeline.c exec_utils.c		\
+				locate_path.c redirections.c
 
 
 SRC_ERR		=	error.c
@@ -63,7 +64,7 @@ LFLAGS		= 	-lreadline -Llibft -lft
 OBJ			= 	$(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 RM			= 	rm -f
 AR			= 	ar -rcs
-VALGRIND	=	valgrind 
+VALGRIND	=	valgrind
 VFLAGS		=	--leak-check=full #--show-leak-kinds=all --track-origins=yes --verbose
 VSUPP		=	--suppressions=resources/a.supp --log-file="resources/leaks.log"
 
@@ -100,7 +101,7 @@ create_obj_dirs:
 $(LIBFT_LIB):
 	$(MAKE) -C $(LIBFT_DIR) > /dev/null
 
-	
+
 ################################################################################
 ##								   COMMANDS									  ##
 
