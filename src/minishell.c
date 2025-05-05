@@ -12,6 +12,8 @@
 
 #include "minishell.h"
 
+int	g_exit_code = 0;
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	*data;
@@ -19,10 +21,10 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	if (!envp)
-		return (1);
+		exit_handler(NULL, "envp not set", 1);
 	data = init_data(envp);
 	if (!data)
-		return (1);
+		exit_handler(NULL, "data: memory allocation failed", 1);
 	while (1)
 	{
 		data->input = read_input(data);
@@ -32,23 +34,18 @@ int	main(int argc, char **argv, char **envp)
 			add_history(data->input);
 		data->ast = parsing(data);
 		if (!data->ast)
-			return (1); //free
-		// ft_printf("EXE\n");
-		// basic_prt_lst(data->ast);
-		// prt_ast_colored(data->ast);
-		// builtin_tester(&data);
-		//exe_cmd(ast)
-		if (data.ast)
-			exec_pipeline(data.ast, &data);
-		free(data->input);
-		data->input = NULL;
-		free_lst(&(data->ast));
-		data->ast = NULL;
+			error_handler("ast: memory allocation failed", 1);
+		else
+		{
+			basic_prt_lst(data->ast);
+			// prt_ast_colored(data->ast);
+			// builtin_tester(&data);
+			// 	exec_pipeline(data->ast, data);
+			free_lst(&(data->ast));
+		}
+		ft_free(&(data->input));
 	}
-	exit_freef(data, 0, NULL);
-	// rl_clear_history(); //rm
-	// free_double(data->envp); //rm
-	// free(data); //rm
+	exit_handler(data, NULL, 0);
 	return (0);
 }
 

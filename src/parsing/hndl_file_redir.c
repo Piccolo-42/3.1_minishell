@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_file_redir.c                                   :+:      :+:    :+:   */
+/*   hndl_file_redir.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 14:07:04 by sravizza          #+#    #+#             */
-/*   Updated: 2025/03/25 16:39:37 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/02 15:04:10 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,44 +15,38 @@
 /**
  * @brief after redir: WORD = FILE. checks/creates files
  */
-void	assign_redir_and_file(t_list *redir)
+int	assign_redir_and_file(t_list *redir)
 {
-	if (!redir->next )
-	{
-		//error, no file
-		printf("No File\n");
-		return ;
-	}
+	if (!redir->next)
+		return (error_handler(
+				"syntax error near unexpected token 'newline'", 2), 0);
 	(redir->next)->type = FIL;
-	add_arg(redir, (redir->next)->content[0]);
+	if (!add_arg(redir, (redir->next)->content[0]))
+		return (0);
 	remove_node(&redir, &redir->next);
-	if (redir->type == REDIR_IN)
-	 	file_exists_and_is_readable(redir->content[1]);
-	if (redir->type == REDIR_OUT || redir->type == APPEND)
-		file_ok_or_create(redir->content[1], redir->type);
-	if (redir->type == HEREDOC)
-		handle_here_doc(redir);
+	if (redir->type == REDIR_IN
+		&& !file_exists_and_is_readable(redir->content[1]))
+		return (0);
+	if ((redir->type == REDIR_OUT || redir->type == APPEND)
+		&& !file_ok_or_create(redir->content[1], redir->type))
+		return (0);
+	if (redir->type == HEREDOC && !handle_here_doc(redir))
+		return (0);
+	return (1);
 }
 
-void	file_exists_and_is_readable(char *file)
+int	file_exists_and_is_readable(char *file)
 {
 	if (access(file, F_OK) != 0)
-	{
-		//error code
-		printf("%s does not exist\n", file);
-		return;
-	}
+		return (file_error_handler(
+				NULL, file, ":No such file or directory", 2), 0);
 	if (access(file, R_OK) != 0)
-	{
-		//error code
-		printf("%s is not readable\n", file);
-		return;
-	}
-	printf("%s OK\n", file);
-	return ;
+		return (file_error_handler(
+				"cannot open ", file, " permission denied", 126), 0); //check
+	return (1);
 }
 
-void	file_ok_or_create(char *file, t_type type)
+int	file_ok_or_create(char *file, t_type type)
 {
 	int	fd;
 
@@ -61,30 +55,25 @@ void	file_ok_or_create(char *file, t_type type)
 	else
 		fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd == -1)
-	{
-		//error code
-		printf("problem opening %s\n", file);
-		return ;
-	}
-	printf("%s OK\n", file);
+		return (file_error_handler(
+				"cannot open ", file, " permission denied", 126), 0); //check
 	close(fd);
-	return ;
+	return (1);
 }
 
-void	handle_here_doc(t_list *redir)
+int	handle_here_doc(t_list *redir)
 {
-	char *line;
-	char *total;
-	char *limiter;
+	char	*line;
+	char	*total;
+	char	*limiter;
 
 	limiter = redir->content[1];
-	// printf("here_doc, limiter: %s\n", limiter);
 	total = ft_calloc(1, 1);
 	total = NULL;
 	while (1)
 	{
 		line = readline(">: ");
-		if (line && !ft_strncmp(line, limiter, ft_strlen(limiter)) 
+		if (line && !ft_strncmp(line, limiter, ft_strlen(limiter))
 			&& ft_strlen(line) == ft_strlen(limiter))
 		{
 			free(line);
@@ -94,8 +83,8 @@ void	handle_here_doc(t_list *redir)
 		total = ft_strjoin_free_one(total, "\n");
 		free(line);
 	}
-	add_arg(redir, total);
+	if (!add_arg(redir, total))
+		return (0);
 	free(total);
-	printf("here_doc, doc:\n%s", redir->content[2]);
+	return (1);
 }
-

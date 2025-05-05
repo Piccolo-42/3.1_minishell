@@ -30,7 +30,7 @@ char	*ft_strdup(const char *src)
 	return (dest);
 }
 
-char **ft_strdup_double_add_n_free_old(char **str, int n)
+char	**ft_strdup_double_add_n_free_old(char **str, int n)
 {
 	char	**dest;
 	int		i;
@@ -46,6 +46,6 @@ char **ft_strdup_double_add_n_free_old(char **str, int n)
 		dest[i] = ft_strdup(str[i]);
 		i++;
 	}
-	ft_free_double(str);	
+	ft_free_double(str);
 	return (dest);
 }

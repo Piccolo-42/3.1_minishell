@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 15:26:52 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/02 11:29:32 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/02 14:36:02 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 /**
  * @brief goes through lst, expands subtype $ENV and envs in "DBLQ"
  */
-void	expand_env(t_list **lst, t_data *data)
+int	expand_env(t_list **lst, t_data *data)
 {
-	t_list *node;
+	t_list	*node;
 
 	node = *lst;
 	while (node)
@@ -26,41 +26,45 @@ void	expand_env(t_list **lst, t_data *data)
 		else if (node->subtype == DBL_Q)
 			node->content[0] = dblq_replace_env(data, node->content[0]);
 		if (!node->content[0])
-			return ; //error
+			return (0);
 		node = node->next;
 	}
+	return (1);
 }
+
 /**
  * @brief looks for "input" in data->envp 
  * @param input format: "$NAME"
- * @return !input || !value  ? "" : value
+ * @return !input || !value  ? "" : value 
+ * @returns (or global exit code of $?)
  */
-char *replace_env(t_data *data, char *input)
+char	*replace_env(t_data *data, char *input)
 {
 	int		i;
-	int 	size;
+	int		size;
 	int		env_size;
 	char	*env;
 
 	if (!input)
 		return (strdup(""));
+	if (!ft_strncmp(input, "$?", 2))
+		return (ft_free(&input), strdup(ft_itoa(g_exit_code)));
 	size = ft_strlen(input) - 1;
 	i = 0;
-	while(data->envp[i])
+	while (data->envp[i])
 	{
 		env = ft_strchr(data->envp[i], '=');
 		if (env)
 		{
-			env_size = ft_strlen(data->envp[i]) - ft_strlen(env); 
+			env_size = ft_strlen(data->envp[i]) - ft_strlen(env);
 			if (env_size == size && !ft_strncmp(data->envp[i], input + 1, size))
 				break ;
 		}
 		i++;
 	}
-	ft_free(&input);
 	if (!data->envp[i])
-		return (ft_strdup(""));
-	return (ft_strdup(ft_strchr(data->envp[i], '=') + 1));
+		return (ft_free(&input), ft_strdup(""));
+	return (ft_free(&input), ft_strdup((ft_strchr(data->envp[i], '=') + 1)));
 }
 
 //expands all $ENV in "double quotes" node
@@ -81,18 +85,6 @@ char	*dblq_replace_env(t_data *data, char *content)
 			i++;
 	}
 	return (content);
-}
-
-void	ft_print(char **str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		ft_printf(">%s<\n", str[i]);
-		i++;
-	}
 }
 
 /**

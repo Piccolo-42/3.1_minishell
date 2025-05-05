@@ -35,9 +35,10 @@ SRC_PARS	=	_parsing.c 				   										\
 				expand_env.c				X_prt_test.c		XX_color_prt.c
 
 SRC_BI		=	ft_cd.c		ft_echo.c		ft_env.c			ft_exit.c		\
-				ft_export.c	ft_pwd.c		ft_unset.c			utils_bi.c	
+				ft_export.c	ft_pwd.c		ft_unset.c			utils_bi.c		
 
 SRC_EXE		=	builtin_tester.c
+
 
 SRC_ERR		=	error.c
 

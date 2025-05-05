@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	ft_cd(char **args, char ***envp)
+int	ft_cd(char **args, char ***envp, t_data *data)
 {
 	char	*oldpwd;
 	char	*newpwd;
@@ -20,25 +20,22 @@ void	ft_cd(char **args, char ***envp)
 
 	oldpwd = getcwd(NULL, 0);
 	if (!oldpwd)
-		ft_putstr_fd("cd: error retrieving current directory\n", 2);
+		return (exit_handler(data,
+				"cd: error retrieving current directory\n", 1), 0);
 	dir = get_dir(args, *envp);
 	if (!dir)
-		return ;
+		return (0);
 	if (chdir(dir) == -1)
-	{
-		perror("cd");
-		free(oldpwd);
-		return ;
-	}
+		return (ft_free(&oldpwd), error_handler("exec failed", 126), 0);
 	newpwd = getcwd(NULL, 0);
 	if (!newpwd)
-		ft_putstr_fd("cd: error retrieving new directory\n", 2);
-	if (oldpwd)
-		mini_export(envp, ft_strjoin("OLDPWD=", oldpwd));
-	if (newpwd)
-		mini_export(envp, ft_strjoin("PWD=", newpwd));
-	free(oldpwd);
-	free(newpwd);
+		return (ft_free(&oldpwd),
+			exit_handler(data, "cd: error retrieving new directory\n", 1), 0);
+	mini_export(envp, ft_strjoin("OLDPWD=", oldpwd));
+	mini_export(envp, ft_strjoin("PWD=", newpwd));
+	ft_free(&oldpwd);
+	ft_free(&newpwd);
+	return (1);
 }
 
 char	*get_dir(char **args, char **envp)
@@ -46,12 +43,12 @@ char	*get_dir(char **args, char **envp)
 	char	*home;
 
 	if (args[2])
-		return (NULL); //error
+		return (error_handler("cd: too many arguments", 1), NULL);
 	if (args[1])
 		return (args[1]);
 	home = ft_getenv(envp, "HOME");
 	if (!home)
-		ft_putstr_fd("cd: HOME not set\n", 2);
+		return (NULL);
 	return (home);
 }
 
@@ -66,9 +63,9 @@ char	*ft_getenv(char **envp, char *name)
 	i = 0;
 	while (envp[i])
 	{
-		if (!ft_strncmp(envp[i], name, len) &&  envp[i][len] == '=')
-			return (envp[i] +  len + 1);
+		if (!ft_strncmp(envp[i], name, len) && envp[i][len] == '=')
+			return (envp[i] + len + 1);
 		i++;
 	}
-	return (NULL);
+	return (file_error_handler(NULL, name, " not set", 1), NULL);
 }

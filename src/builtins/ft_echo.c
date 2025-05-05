@@ -16,11 +16,11 @@ void	ft_echo(char **args)
 {
 	int	i;
 	int	j;
-	int newline;
+	int	newline;
 
 	i = 1;
 	newline = 1;
-	while(args[i] && args[i][0] == '-' && args[i][1] == 'n')
+	while (args[i] && args[i][0] == '-' && args[i][1] == 'n')
 	{
 		j = 1;
 		while (args[i][j] == 'n')

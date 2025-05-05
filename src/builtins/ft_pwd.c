@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	ft_pwd(void)
+int	ft_pwd(t_data *data)
 {
 	char	*cwd;
 
@@ -24,7 +24,7 @@ int	ft_pwd(void)
 	}
 	else
 	{
-		perror("pwd");
+		exit_handler(data, "pwd: error retrieving directory", 1);
 		return (1);
 	}
 }

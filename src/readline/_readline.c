@@ -40,18 +40,52 @@
 char	*read_input(t_data *data)
 {
 	char	*line;
+	char	*prompt_malloc;
+	char	prompt_fixed[128];
 
-	// data->prompt = prompt(data);
-	line = readline(">:");
+	if (!data)	
+		return (NULL);
+	prompt_malloc = prompt(data);
+	if (!prompt_malloc)
+		line = readline("minishell$");
+	else
+	{
+		ft_strlcpy(prompt_fixed, prompt_malloc, 127);
+		ft_free(&(prompt_malloc));
+		line = readline(prompt_fixed);
+	}
 	if (!line)
 		return (NULL);
 	if (!ft_strncmp(line, "exit", 4))
-		return (ft_free(&(data->prompt)), ft_free(&line),  NULL);
+		return (ft_free(&line),  NULL); //ft_free(&(data->prompt)), 
 
 	return (line);
 }
 
-//joins up  "name" @ "session" : "cwd" $ ; +4 size for '@' ':' '$' \0 (+3 for MS$)
+//prints USER@c4r2s42:CWD$
+char	*prompt(t_data *data)
+{
+	char	*name;
+	char	*session;
+	char	*cwd;
+	char	*dest;
+
+	name = replace_env(data, ft_strdup("$USER"));
+	if (!name)
+		return (NULL);
+	session = get_session(data);
+	if (!session)
+		return (ft_free(&(name)), NULL);
+	cwd = get_cwd(data);
+	if (!cwd)
+		return (ft_free(&(name)), ft_free(&(session)), NULL);
+	dest = custom_join(name, session, cwd);	
+	free(name);
+	free(session);
+	free(cwd);
+	return (dest);
+}
+
 char	*custom_join(char *name, char *session, char *cwd)
 {
 	char	*dest;
@@ -60,6 +94,8 @@ char	*custom_join(char *name, char *session, char *cwd)
 	int		size;
 
 	size = ft_strlen(name) + ft_strlen(session) + ft_strlen(cwd) + 4 + 3;
+	if (size > 127)
+		return (NULL);
 	dest = malloc(sizeof(char) * size);
 	if (!dest)
 		return (NULL);
@@ -83,30 +119,6 @@ char	*custom_join(char *name, char *session, char *cwd)
 	return (dest);
 }
 
-//prints USER@c4r2s42:CWD$
-char	*prompt(t_data *data)
-{
-	char	*name;
-	char	*session;
-	char	*cwd;
-	char	*dest;
-
-	name = replace_env(data, ft_strdup("$USER"));
-	if (!name)
-		return (NULL);
-	session = get_session(data);
-	if (!session)
-		return (NULL);
-	cwd = get_cwd(data);
-	if (!cwd)
-		return (NULL);
-	dest = custom_join(name, session, cwd);
-	free(name);
-	free(session);
-	free(cwd);
-	return (dest);
-}
-
 //if at 42, gets your computer location. else "c4r2s42"
 char	*get_session(t_data *data)
 {
@@ -116,7 +128,7 @@ char	*get_session(t_data *data)
 
 	env = replace_env(data, ft_strdup("$SESSION_MANAGER"));
 	if (!env || !(*env))
-		return(ft_strdup("c4r2s42"));
+		return(free(env), ft_strdup("c4r2s42"));
 	i = 6;
 	while (env[i] && env[i] != '.')
 		i++;

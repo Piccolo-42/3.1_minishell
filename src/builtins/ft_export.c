@@ -25,10 +25,17 @@ void	mini_export(char ***envp, char *var)
 	{
 		(*envp) = ft_strdup_double_add_n_free_old((*envp), 1);
 		if (!(*envp))
-			return ; //error
+		{
+			error_handler("export: memory allocation failed", 1);
+			return ;
+		}
 	}
 	(*envp)[i] = ft_strdup(var);
-
+	if (!((*envp)[i]))
+	{
+		error_handler("export: memory allocation failed", 1);
+		return ;
+	}
 	return ;
 }
 
@@ -77,10 +84,10 @@ char	**sort_export(char **envp)
 	char	*temp;
 
 	i = 0;
-	while(envp[i])
+	while (envp[i])
 	{
 		j = i + 1;
-		while(envp[j])
+		while (envp[j])
 		{
 			if (ft_strncmp(envp[i], envp[j], ft_strlen(envp[i])) > 0)
 			{

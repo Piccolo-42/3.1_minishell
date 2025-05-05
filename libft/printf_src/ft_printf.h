@@ -30,7 +30,7 @@ int		ft_printhex(int nbr, char conv);
 char	*ft_itoa_to_base(long nbr, char *base);
 char	*ft_unitoa(unsigned int n);
 
-typedef enum e_type t_type;
+typedef enum e_type	t_type;
 
 int		ft_printtype(t_type type);
 
