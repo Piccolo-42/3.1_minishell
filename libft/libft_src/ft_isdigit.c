@@ -23,7 +23,11 @@ int	ft_isdigit_str(char *str)
 {
 	int	i;
 
+	if (!str || !*str)
+		return (0);
 	i = 0;
+	if (str[i] == '+' || str[i] == '-')
+		i++;
 	while (str[i])
 	{
 		if (!('0' <= str[i] && str[i] <= '9'))
