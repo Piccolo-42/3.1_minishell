@@ -28,6 +28,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <errno.h>
+# include <signal.h>
 # define GREEN "\033[0;32m"
 # define RED "\033[0;31m"
 # define WHITE "\033[0m"
@@ -72,14 +73,20 @@ void	ft_exec_pipe(t_list *left, t_list *right, char **envp);
 void	builtin_tester(t_data **data);
 t_data	*init_data(char **envp);
 char	**copy_envp(char **envp);
+char	**empty_envp(void);
 
 //error
 void	exit_freef(t_data *data, int exit_code, char *format, ...);
 void	exit_handler(t_data *data, char *msg, int exit_code);
+void	silent_exit(t_data *data, int exit_code);
 void	file_error_handler(char *first, char *file, char *second, int exit_code);
 void	file_exit_handler(t_data *data, char *str, char *file, int exit_code);
 void	error_handler(char *msg, int exit_code);
 void	free_data(t_data *data);
+
+//signals
+void	signal_init(t_data *data);
+void	handle_signint(int signum);
 
 // void	freef(char *format, ...);
 

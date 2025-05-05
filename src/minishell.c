@@ -12,6 +12,9 @@
 
 #include "minishell.h"
 
+// "real" tabs
+// when !envp, check for built-ins
+//always write "exit"?
 int	g_exit_code = 0;
 
 int	main(int argc, char **argv, char **envp)
@@ -20,8 +23,9 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	if (!envp)
-		exit_handler(NULL, "envp not set", 1);
+	// if (!envp)
+	// 	exit_handler(NULL, "envp not set", 1);
+	//	envp = NULL;
 	data = init_data(envp);
 	if (!data)
 		exit_handler(NULL, "data: memory allocation failed", 1);
@@ -31,17 +35,19 @@ int	main(int argc, char **argv, char **envp)
 		if (!data->input)
 			break ;
 		if (*(data->input))
-			add_history(data->input);
-		data->ast = parsing(data);
-		if (!data->ast)
-			error_handler("ast: memory allocation failed", 1);
-		else
 		{
-			basic_prt_lst(data->ast);
-			// prt_ast_colored(data->ast);
-			// builtin_tester(&data);
-			// 	exec_pipeline(data->ast, data);
-			free_lst(&(data->ast));
+			add_history(data->input);
+			data->ast = parsing(data);
+			if (!data->ast)
+				error_handler("ast: memory allocation failed", 1);
+			else
+			{
+				basic_prt_lst(data->ast);
+				// prt_ast_colored(data->ast);
+				// builtin_tester(&data);
+				// 	exec_pipeline(data->ast, data);
+				free_lst(&(data->ast));
+			}
 		}
 		ft_free(&(data->input));
 	}

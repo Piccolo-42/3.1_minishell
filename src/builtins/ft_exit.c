@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 14:47:37 by sravizza          #+#    #+#             */
-/*   Updated: 2025/04/01 16:23:34 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/05 16:35:37 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void	ft_exit(t_list *cmd, t_data *data)
 		exit(g_exit_code);
 	if (!ft_isdigit_str(exit_arg))
 	{
-		file_error_handler("exit: ", exit_arg, ": numeric argument required", 2);
+		file_error_handler("exit: ",
+			exit_arg, ": numeric argument required", 2);
 		exit_handler(data, NULL, 2);
 	}
 	if (arg_count > 1)
@@ -37,6 +38,6 @@ void	ft_exit(t_list *cmd, t_data *data)
 	}
 	if (exit_code < 0 || exit_code > 255)
 		exit_code %= 256;
-	exit((int)exit_code);
+	silent_exit(data, (int)exit_code);
 	return ;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_ms.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 15:31:32 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/02 13:35:10 by emurillo         ###   ########.fr       */
+/*   Updated: 2025/05/05 16:25:00 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ char	**copy_envp(char **envp)
 	int		i;
 	int		d;
 
+	if (!envp)
+		return (empty_envp());
 	i = ft_strlen_double(envp);
 	dest = malloc(sizeof(char *) * (i + 1));
 	if (!dest)
@@ -48,5 +50,18 @@ t_data	*init_data(char **envp)
 	data->exit_code = 0;
 	data->input = NULL;
 	data->prompt = NULL;
+	signal_init(data);
 	return (data);
 }
+
+char	**empty_envp(void)
+{
+	char	**dest;
+
+	dest = malloc(sizeof(char *) * 1);
+	if (!dest)
+		return (NULL);
+	dest[0] = NULL;
+	return (dest);
+}
+

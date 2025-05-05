@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 10:27:00 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/02 15:27:26 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/05 16:14:05 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,17 @@ void	exit_handler(t_data *data, char *msg, int exit_code)
 	exit(exit_code);
 }
 
-void	file_exit_handler(t_data *data, char *str, char *file, int exit_code)
+// void	file_exit_handler(t_data *data, char *str, char *file, int exit_code)
+// {
+// 	file_error_handler(str, file, NULL, exit_code);
+// 	rl_clear_history();
+// 	free_data(data);
+// 	exit(exit_code);
+// }
+
+void	silent_exit(t_data *data, int exit_code)
 {
-	file_error_handler(str, file, NULL, exit_code);
+	g_exit_code = exit_code;
 	rl_clear_history();
 	free_data(data);
 	exit(exit_code);

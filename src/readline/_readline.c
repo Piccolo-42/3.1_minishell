@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 10:59:49 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/02 13:16:25 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/05 16:20:40 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,18 @@ char	*read_input(t_data *data)
 		line = readline(prompt_fixed);
 	}
 	if (!line)
+	{
+		ft_putendl_fd("exit", 2);
+		silent_exit(data, 0);
 		return (NULL);
-	if (!ft_strncmp(line, "exit", 4))
-		return (ft_free(&line),  NULL); //ft_free(&(data->prompt)), 
-
+	}
+	
 	return (line);
 }
+// if (!ft_strncmp(line, "exit", 4))
+// 	return (ft_free(&line),  NULL); //ft_free(&(data->prompt)), 
 
-//prints USER@c4r2s42:CWD$
+//prints USER@cSESSION:CWD$
 char	*prompt(t_data *data)
 {
 	char	*name;

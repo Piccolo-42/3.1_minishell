@@ -25,7 +25,7 @@ ERR_DIR		=	exit+error
 ################################################################################
 ##								  SOURCES									  ##
 
-SRC_MAIN	=	minishell.c	utils_ms.c
+SRC_MAIN	=	minishell.c	utils_ms.c	signals.c
 				
 SRC_RL		=	_readline.c	utils_rl.c
 
