@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 14:07:04 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/02 15:04:10 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/05 17:20:10 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /**
  * @brief after redir: WORD = FILE. checks/creates files
  */
-int	assign_redir_and_file(t_list *redir)
+int	assign_redir_and_file(t_list *redir, t_data *data)
 {
 	if (!redir->next)
 		return (error_handler(
@@ -26,23 +26,36 @@ int	assign_redir_and_file(t_list *redir)
 	remove_node(&redir, &redir->next);
 	if (redir->type == REDIR_IN
 		&& !file_exists_and_is_readable(redir->content[1]))
+	{
+		data->prt = 0;
 		return (0);
+	}
 	if ((redir->type == REDIR_OUT || redir->type == APPEND)
 		&& !file_ok_or_create(redir->content[1], redir->type))
+	{
+		data->prt = 0;
 		return (0);
+	}
 	if (redir->type == HEREDOC && !handle_here_doc(redir))
+	{
+		data->prt = 0;
 		return (0);
+	}
 	return (1);
 }
 
 int	file_exists_and_is_readable(char *file)
 {
 	if (access(file, F_OK) != 0)
-		return (file_error_handler(
-				NULL, file, ":No such file or directory", 2), 0);
+	{
+		file_error_handler(NULL, file, ": No such file or directory", 2);
+		return (0);
+	}
 	if (access(file, R_OK) != 0)
-		return (file_error_handler(
-				"cannot open ", file, " permission denied", 126), 0); //check
+	{
+		file_error_handler("cannot open ", file, " permission denied", 126);
+		return (0); //check
+	}
 	return (1);
 }
 
@@ -55,8 +68,10 @@ int	file_ok_or_create(char *file, t_type type)
 	else
 		fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd == -1)
-		return (file_error_handler(
-				"cannot open ", file, " permission denied", 126), 0); //check
+	{
+		file_error_handler("cannot open ", file, " permission denied", 126);
+		return (0); //check
+	}
 	close(fd);
 	return (1);
 }

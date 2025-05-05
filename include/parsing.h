@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 11:16:33 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/02 10:47:12 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/05 17:07:32 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,13 @@ t_type	handle_words(char *input, int *i);
 
 // get_word_type
 
-int		assign_word_type(t_list **lst);
+int		assign_word_type(t_list **lst, t_data *data);
 void	assign_cmd_or_arg(t_list **cmd, t_list *node);
 int		process_cmd_and_args(t_list **cmd, t_list **node);
 
 //hndl_file_redir
 
-int		assign_redir_and_file(t_list *node);
+int		assign_redir_and_file(t_list *node, t_data *data);
 int		file_exists_and_is_readable(char *file);
 int		file_ok_or_create(char *file, t_type type);
 int		handle_here_doc(t_list *redir);

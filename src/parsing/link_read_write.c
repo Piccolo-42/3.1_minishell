@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 11:38:39 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/05 16:39:06 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/05 17:23:25 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,42 +56,46 @@ t_list	*next_cmd(t_list **lst)
 	return (NULL);
 }
 
-//review
+t_list	*process_redirs_bis(t_list *next_node, t_list *redir)
+{
+	t_list	*file_node;
+	t_list	*after_file;
+
+	file_node = next_node;
+	after_file = file_node->next;
+	if (file_node->prev)
+		file_node->prev->next = file_node->next;
+	if (file_node->next)
+		file_node->next->prev = file_node->prev;
+	file_node->prev = redir;
+	file_node->next = NULL;
+	redir->next = file_node;
+	return (after_file);
+}
+
 t_list	*process_redirs(t_list *cmd, t_list *redir)
 {
 	t_list	**redir_list;
 	t_list	*next_node;
-	t_list	*file_node;
-	t_list	*after_file;
-    
-    next_node = redir->next;
-    if (redir->prev)
-        redir->prev->next = redir->next;
-    if (redir->next)
-        redir->next->prev = redir->prev;
-    if (redir->type == REDIR_IN || redir->type == HEREDOC)
-        redir_list = &(cmd->read);
-    else
-        redir_list = &(cmd->write);
-    redir->next = *redir_list;
-    redir->prev = NULL;
-    if (*redir_list)
-        (*redir_list)->prev = redir;
-    *redir_list = redir;
-    if (next_node && (next_node->type == FIL || next_node->type == ARG || next_node->type == WORD))
-    {
-        file_node = next_node;
-        after_file = file_node->next;
-        if (file_node->prev)
-            file_node->prev->next = file_node->next;
-        if (file_node->next)
-            file_node->next->prev = file_node->prev;
-        file_node->prev = redir;
-        file_node->next = NULL;
-        redir->next = file_node;
-        return (after_file);
-    }
-    return (next_node);
+
+	next_node = redir->next;
+	if (redir->prev)
+		redir->prev->next = redir->next;
+	if (redir->next)
+		redir->next->prev = redir->prev;
+	if (redir->type == REDIR_IN || redir->type == HEREDOC)
+		redir_list = &(cmd->read);
+	else
+		redir_list = &(cmd->write);
+	redir->next = *redir_list;
+	redir->prev = NULL;
+	if (*redir_list)
+		(*redir_list)->prev = redir;
+	*redir_list = redir;
+	if (next_node && (next_node->type == FIL
+			|| next_node->type == ARG || next_node->type == WORD))
+		process_redirs_bis(next_node, redir);
+	return (next_node);
 }
 
 /**
@@ -124,3 +128,41 @@ void	link_cmd_and_pipes(t_list **lst)
 	}
 	return ;
 }
+
+//review
+// t_list	*process_redirs(t_list *cmd, t_list *redir)
+// {
+// 	t_list	**redir_list;
+// 	t_list	*next_node;
+// 	t_list	*file_node;
+// 	t_list	*after_file;
+//     next_node = redir->next;
+//     if (redir->prev)
+//         redir->prev->next = redir->next;
+//     if (redir->next)
+//         redir->next->prev = redir->prev;
+//     if (redir->type == REDIR_IN || redir->type == HEREDOC)
+//         redir_list = &(cmd->read);
+//     else
+//         redir_list = &(cmd->write);
+//     redir->next = *redir_list;
+//     redir->prev = NULL;
+//     if (*redir_list)
+//         (*redir_list)->prev = redir;
+//     *redir_list = redir;
+//     if (next_node && (next_node->type == FIL
+//		 || next_node->type == ARG || next_node->type == WORD))
+//     {
+//         file_node = next_node;
+//         after_file = file_node->next;
+//         if (file_node->prev)
+//             file_node->prev->next = file_node->next;
+//         if (file_node->next)
+//             file_node->next->prev = file_node->prev;
+//         file_node->prev = redir;
+//         file_node->next = NULL;
+//         redir->next = file_node;
+//         return (after_file);
+//     }
+//     return (next_node);
+// }

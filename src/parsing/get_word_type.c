@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 09:47:46 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/02 14:38:14 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/05 17:07:24 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
  * FL after redir. checks files
  * else CMD, and following words are ARGS
  */
-int	assign_word_type(t_list **lst)
+int	assign_word_type(t_list **lst, t_data *data)
 {
 	t_list	*node;
 	t_list	*cmd;
@@ -29,7 +29,7 @@ int	assign_word_type(t_list **lst)
 	cmd = NULL;
 	while (node)
 	{
-		if (is_redir(node->type) && !assign_redir_and_file(node))
+		if (is_redir(node->type) && !assign_redir_and_file(node, data))
 			return (0);
 		else if (node->type == WORD)
 		{

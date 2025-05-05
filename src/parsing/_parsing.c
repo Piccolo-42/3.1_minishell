@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 11:11:42 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/02 13:10:31 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/05 17:07:56 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_list	*parsing(t_data *data)
 	if (!remove_type_rm(&lst)
 		|| !update_quotes_and_env(&lst)
 		|| !expand_env(&lst, data) //maybe change position? during/just before exec
-		|| !assign_word_type(&lst)
+		|| !assign_word_type(&lst, data)
 		|| !link_redirs_to_cmd(&lst)
 		|| !check_syntax(&lst))
 	{

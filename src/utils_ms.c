@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 15:31:32 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/05 16:25:00 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/05 17:25:29 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_data	*init_data(char **envp)
 	data->envp = copy_envp(envp);
 	if (!data->envp)
 		return (free(data), NULL);
-	data->exit_code = 0;
+	data->prt = 1;
 	data->input = NULL;
 	data->prompt = NULL;
 	signal_init(data);
@@ -64,4 +64,3 @@ char	**empty_envp(void)
 	dest[0] = NULL;
 	return (dest);
 }
-

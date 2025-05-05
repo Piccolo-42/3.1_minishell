@@ -38,12 +38,13 @@ int	main(int argc, char **argv, char **envp)
 		{
 			add_history(data->input);
 			data->ast = parsing(data);
-			if (!data->ast)
+			if (!data->ast && data->prt)
 				error_handler("ast: memory allocation failed", 1);
 			else
 			{
-				basic_prt_lst(data->ast);
-				// prt_ast_colored(data->ast);
+				data->prt = 1;
+				// basic_prt_lst(data->ast);
+				prt_ast_colored(data->ast);
 				// builtin_tester(&data);
 				// 	exec_pipeline(data->ast, data);
 				free_lst(&(data->ast));
