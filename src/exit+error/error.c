@@ -25,9 +25,9 @@ void	exit_handler(t_data *data, char *msg, int exit_code)
 	exit(exit_code);
 }
 
-void	file_exit_handler(t_data *data, char *first, char *file, char *second, int exit_code)
+void	file_exit_handler(t_data *data, char *str, char *file, int exit_code)
 {
-	file_error_handler(first, file, second, exit_code);
+	file_error_handler(str, file, NULL, exit_code);
 	rl_clear_history();
 	free_data(data);
 	exit(exit_code);
@@ -64,30 +64,29 @@ void	free_data(t_data *data)
 	free(data);
 }
 
-void	exit_freef(t_data *data, int exit_code, char *format, ...)
-{
-	int		i;
-	va_list	args;
+// void	exit_freef(t_data *data, int exit_code, char *format, ...)
+// {
+// 	int		i;
+// 	va_list	args;
 
-	if (format)
-	{	
-		va_start(args, format);
-		i = 0;
-		while(format[i])
-		{
-			if (format[i] == 's')
-				free(va_arg(args, char *));
-			if (format[i] == 'd')
-				ft_free_double(va_arg(args, char **));
-			if (format[i] == 'l')
-				free_lst(va_arg(args, t_list **));
-			i++;
-		}
-		va_end(args);
-	}
-	rl_clear_history();
-	free_data(data);
-	exit(exit_code);
-	return ;
-}
-
+// 	if (format)
+// 	{	
+// 		va_start(args, format);
+// 		i = 0;
+// 		while(format[i])
+// 		{
+// 			if (format[i] == 's')
+// 				free(va_arg(args, char *));
+// 			if (format[i] == 'd')
+// 				ft_free_double(va_arg(args, char **));
+// 			if (format[i] == 'l')
+// 				free_lst(va_arg(args, t_list **));
+// 			i++;
+// 		}
+// 		va_end(args);
+// 	}
+// 	rl_clear_history();
+// 	free_data(data);
+// 	exit(exit_code);
+// 	return ;
+// }

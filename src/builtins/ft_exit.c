@@ -26,9 +26,12 @@ void	ft_exit(t_list *cmd, t_data *data)
 	if (arg_count == 0)
 		exit(g_exit_code);
 	if (!ft_isdigit_str(exit_arg))
-		file_exit_handler(data, "exit: ", exit_arg, ": numeric argument required", 2);
+	{
+		file_error_handler("exit: ", exit_arg, ": numeric argument required", 2);
+		exit_handler(data, NULL, 2);
+	}
 	if (arg_count > 1)
-	{	
+	{
 		error_handler("exit: too many arguments", 1);
 		return ;
 	}

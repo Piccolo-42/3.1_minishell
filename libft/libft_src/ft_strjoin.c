@@ -52,8 +52,6 @@ char	*ft_strjoin_free_one(char *str1, char *str2)
 	char	*dest;
 	size_t	i;
 
-	// if (!str1)
-	// 	return (str2);
 	dest = malloc(sizeof(char) * (ft_strlen(str1) + ft_strlen(str2) + 1));
 	if (!dest)
 		return (0);
@@ -83,8 +81,6 @@ char	*ft_strjoin_free_two(char *str1, char *str2)
 	char	*dest;
 	size_t	i;
 
-	// if (!str1)
-	// 	return (str2);
 	dest = malloc(sizeof(char) * (ft_strlen(str1) + ft_strlen(str2) + 1));
 	if (!dest)
 		return (0);

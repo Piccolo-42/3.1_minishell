@@ -14,7 +14,7 @@
 
 int	ft_printtype(t_type type)
 {
-	const char *type_str[] = {
+	const char	*type_str[] = {
 		"PIPE", "REDIR_IN", "REDIR_OUT", "APPEND", "HEREDOC",
 		"CMD", "FIL", "ARG", "ENV", "SNG_Q", "DBL_Q",
 		"WORD", "RM", "NONE"
@@ -24,4 +24,3 @@ int	ft_printtype(t_type type)
 		return (ft_printstr("UNKNOWN"));
 	return (ft_printstr((char *)type_str[type]));
 }
-

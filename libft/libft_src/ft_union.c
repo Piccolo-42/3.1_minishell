@@ -29,7 +29,7 @@ char	*ft_union(char **str, char c)
 	while (str[i])
 	{
 		j = 0;
-		while(str[i][j])
+		while (str[i][j])
 			dest[d++] = str[i][j++];
 		if (str[i + 1])
 			dest[d++] = c;

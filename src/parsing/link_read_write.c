@@ -59,8 +59,8 @@ t_list	*next_cmd(t_list **lst)
 //review
 t_list	*process_redirs(t_list *cmd, t_list *redir)
 {
-    t_list	**redir_list;
-    t_list	*next_node;
+	t_list	**redir_list;
+	t_list	*next_node;
 	t_list	*file_node;
 	t_list	*after_file;
     
@@ -89,9 +89,9 @@ t_list	*process_redirs(t_list *cmd, t_list *redir)
         file_node->prev = redir;
         file_node->next = NULL;
         redir->next = file_node;
-        return after_file;
+        return (after_file);
     }
-    return next_node;
+    return (next_node);
 }
 
 /**

@@ -35,12 +35,10 @@ void	remove_node(t_list **lst, t_list **node)
 
 void	free_lst(t_list **lst)
 {
-	// t_list	*node;
 	t_list	*next;
 
 	if (!lst || !*lst)
 		return ;
-	// node = *lst;
 	next = NULL;
 	while (*lst)
 	{
@@ -50,7 +48,6 @@ void	free_lst(t_list **lst)
 		ft_free_double((*lst)->content);
 		ft_free_ptr((void **)&(*lst));
 		(*lst) = NULL;
-		// ft_free((void **)(&node));
 		(*lst) = next;
 	}
 	*lst = NULL;
@@ -62,9 +59,8 @@ void	free_lst_read(t_list *node)
 	t_list	*temp;
 	t_list	*next;
 
-	if(!node || !node->read)
+	if (!node || !node->read)
 		return ;
-
 	temp = node->read;
 	if (is_redir(temp->type))
 	{

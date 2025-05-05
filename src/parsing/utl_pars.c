@@ -29,5 +29,3 @@ int	is_operator(t_type type)
 		return (1);
 	return (0);
 }
-
-

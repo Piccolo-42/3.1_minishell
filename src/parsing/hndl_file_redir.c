@@ -17,15 +17,18 @@
  */
 int	assign_redir_and_file(t_list *redir)
 {
-	if (!redir->next )
-		return (error_handler("syntax error near unexpected token 'newline'", 2), 0);
+	if (!redir->next)
+		return (error_handler(
+				"syntax error near unexpected token 'newline'", 2), 0);
 	(redir->next)->type = FIL;
 	if (!add_arg(redir, (redir->next)->content[0]))
 		return (0);
 	remove_node(&redir, &redir->next);
-	if (redir->type == REDIR_IN && !file_exists_and_is_readable(redir->content[1]))
-	 	return (0);
-	if ((redir->type == REDIR_OUT || redir->type == APPEND) && !file_ok_or_create(redir->content[1], redir->type))
+	if (redir->type == REDIR_IN
+		&& !file_exists_and_is_readable(redir->content[1]))
+		return (0);
+	if ((redir->type == REDIR_OUT || redir->type == APPEND)
+		&& !file_ok_or_create(redir->content[1], redir->type))
 		return (0);
 	if (redir->type == HEREDOC && !handle_here_doc(redir))
 		return (0);
@@ -35,10 +38,11 @@ int	assign_redir_and_file(t_list *redir)
 int	file_exists_and_is_readable(char *file)
 {
 	if (access(file, F_OK) != 0)
-		return (file_error_handler(NULL, file, ":No such file or directory", 2), 0);
+		return (file_error_handler(
+				NULL, file, ":No such file or directory", 2), 0);
 	if (access(file, R_OK) != 0)
-		return (file_error_handler("cannot open ", file, " permission denied", 126), 0); //check
-	// printf("%s OK\n", file);
+		return (file_error_handler(
+				"cannot open ", file, " permission denied", 126), 0); //check
 	return (1);
 }
 
@@ -51,26 +55,25 @@ int	file_ok_or_create(char *file, t_type type)
 	else
 		fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd == -1)
-		return (file_error_handler("cannot open ", file, " permission denied", 126), 0); //check
-	// printf("%s OK\n", file);
+		return (file_error_handler(
+				"cannot open ", file, " permission denied", 126), 0); //check
 	close(fd);
 	return (1);
 }
 
 int	handle_here_doc(t_list *redir)
 {
-	char *line;
-	char *total;
-	char *limiter;
+	char	*line;
+	char	*total;
+	char	*limiter;
 
 	limiter = redir->content[1];
-	// printf("here_doc, limiter: %s\n", limiter);
 	total = ft_calloc(1, 1);
 	total = NULL;
 	while (1)
 	{
 		line = readline(">: ");
-		if (line && !ft_strncmp(line, limiter, ft_strlen(limiter)) 
+		if (line && !ft_strncmp(line, limiter, ft_strlen(limiter))
 			&& ft_strlen(line) == ft_strlen(limiter))
 		{
 			free(line);
@@ -81,9 +84,7 @@ int	handle_here_doc(t_list *redir)
 		free(line);
 	}
 	if (!add_arg(redir, total))
-		return (0);	
+		return (0);
 	free(total);
-	// printf("here_doc, doc:\n%s", redir->content[2]);
 	return (1);
 }
-

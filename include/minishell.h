@@ -77,7 +77,7 @@ char	**copy_envp(char **envp);
 void	exit_freef(t_data *data, int exit_code, char *format, ...);
 void	exit_handler(t_data *data, char *msg, int exit_code);
 void	file_error_handler(char *first, char *file, char *second, int exit_code);
-void	file_exit_handler(t_data *data, char *first, char *file, char *second, int exit_code);
+void	file_exit_handler(t_data *data, char *str, char *file, int exit_code);
 void	error_handler(char *msg, int exit_code);
 void	free_data(t_data *data);
 

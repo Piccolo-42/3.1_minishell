@@ -83,22 +83,22 @@ void	update_env(t_list *node)
 	node->subtype = ENV;
 }
 
-
 int	check_syntax(t_list **lst)
 {
-	t_list *node;
+	t_list	*node;
 	int		cmd;
 
 	cmd = 0;
 	node = *lst;
 	while (node)
 	{
-		if (node->type == CMD && cmd == 1)	
-			return (error_handler("syntax error", 2), 0) ;
+		if (node->type == CMD && cmd == 1)
+			return (error_handler("syntax error", 2), 0);
 		else if (node->type == CMD && cmd == 0)
 			cmd = 1;
 		else if (node->type == PIPE && cmd == 0)
-			return (error_handler("syntax error near unexpected token |", 2), 0) ;
+			return (error_handler(
+					"syntax error near unexpected token |", 2), 0);
 		else if (node->type == PIPE && cmd == 1)
 			cmd = 0;
 		node = node->next;

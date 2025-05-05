@@ -58,7 +58,7 @@ t_list	*token_lst(char *input)
 	i = 0;
 	while (input[i])
 	{
-		while (is_whitespace(input[i]) ) //&& input[i] != '$'
+		while (is_whitespace(input[i]))
 			i++;
 		token_len = create_token(input + i, &lst);
 		if (token_len == -1)

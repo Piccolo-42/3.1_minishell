@@ -30,5 +30,5 @@ int	ft_isdigit_str(char *str)
 			return (0);
 		i++;
 	}
-	return (1); 
+	return (1);
 }

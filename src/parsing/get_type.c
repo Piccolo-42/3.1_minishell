@@ -29,6 +29,7 @@ t_type	get_type(char *input, int *i)
 	return (handle_words(input, i));
 }
 
+// error msg when RM? (solitary quote)
 t_type	handle_quotes(char *input, int *i)
 {
 	char	quote;
@@ -42,7 +43,7 @@ t_type	handle_quotes(char *input, int *i)
 	if (input[*i] != quote)
 	{
 		*i = start + 1;
-		return (RM); // error msg?
+		return (RM);
 	}
 	(*i)++;
 	if (input[*i - 1] == '\"')

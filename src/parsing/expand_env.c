@@ -16,7 +16,7 @@
  */
 int	expand_env(t_list **lst, t_data *data)
 {
-	t_list *node;
+	t_list	*node;
 
 	node = *lst;
 	while (node)
@@ -31,31 +31,32 @@ int	expand_env(t_list **lst, t_data *data)
 	}
 	return (1);
 }
+
 /**
  * @brief looks for "input" in data->envp 
  * @param input format: "$NAME"
  * @return !input || !value  ? "" : value 
  * @returns (or global exit code of $?)
  */
-char *replace_env(t_data *data, char *input)
+char	*replace_env(t_data *data, char *input)
 {
 	int		i;
-	int 	size;
+	int		size;
 	int		env_size;
 	char	*env;
 
 	if (!input)
 		return (strdup(""));
 	if (!ft_strncmp(input, "$?", 2))
-		return(ft_free(&input), strdup(ft_itoa(g_exit_code)));
+		return (ft_free(&input), strdup(ft_itoa(g_exit_code)));
 	size = ft_strlen(input) - 1;
 	i = 0;
-	while(data->envp[i])
+	while (data->envp[i])
 	{
 		env = ft_strchr(data->envp[i], '=');
 		if (env)
 		{
-			env_size = ft_strlen(data->envp[i]) - ft_strlen(env); 
+			env_size = ft_strlen(data->envp[i]) - ft_strlen(env);
 			if (env_size == size && !ft_strncmp(data->envp[i], input + 1, size))
 				break ;
 		}

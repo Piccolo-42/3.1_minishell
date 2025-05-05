@@ -35,7 +35,7 @@ int	assign_word_type(t_list **lst)
 		{
 			check = process_cmd_and_args(&cmd, &node);
 			if (check == 1)
-				continue;
+				continue ;
 			else if (check == -1)
 				return (0);
 		}
