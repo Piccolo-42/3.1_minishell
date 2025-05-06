@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 15:31:32 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/06 15:58:54 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/06 17:02:39 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ t_data	*init_data(char **envp)
 	data->prt = 1;
 	data->input = NULL;
 	data->prompt = NULL;
+	data->here_doc = 0;
 	signal_init(data);
 	return (data);
 }

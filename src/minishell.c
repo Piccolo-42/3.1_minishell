@@ -43,7 +43,7 @@ int	main(int argc, char **argv, char **envp)
 			else
 			{
 				data->prt = 1;
-				// basic_prt_lst(data->ast);
+				basic_prt_lst(data->ast);
 				// prt_ast_colored(data->ast);
 				// builtin_tester(&data);
 			 	exec_pipeline(data->ast, data);

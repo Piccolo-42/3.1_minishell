@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 16:16:11 by emurillo          #+#    #+#             */
-/*   Updated: 2025/05/05 18:07:26 by emurillo         ###   ########.fr       */
+/*   Updated: 2025/05/06 17:17:21 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	execute_redirections(t_list *cmd)
 	{
 		fd = open(in->content[1], O_RDONLY);
 		if (fd == -1)
-			return (perror("infile"), -1);
+			return (perror("ZGEG"), -1);
 		if (dup2(fd, STDIN_FILENO) == -1)
 			return(perror("dup2 in"), -1);
 		close(fd);

@@ -135,10 +135,19 @@ void	basic_prt_lst(t_list *lst)
 			ft_printf("content: %s : %t\n", lst->content[0],lst->type);
 		while (lst->content[i])
 			ft_printf("args: \"%s\"\n", lst->content[i++]);
+		i = 0;
 		if (lst->read)
-			ft_printf("write: %s\n", lst->read->content[1]);
-        if (lst->write)
-            ft_printf("write: %s\n", lst->write->content[1]);
+		{
+			while (lst->read->content[i])
+				ft_printf("write: %s\n", lst->read->content[i++]);
+		}
+		i = 0;
+		if (lst->write)
+		{
+       		while (lst->write->content[i])
+            	ft_printf("write: %s\n", lst->write->content[i++]);
+		}
+
 		if (lst->subtype != NONE)
 			ft_printf("subtype: %t\n", lst->subtype);
 		ft_printf("\n");
