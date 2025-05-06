@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 14:37:30 by sravizza          #+#    #+#             */
-/*   Updated: 2025/04/30 17:37:36 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/06 10:54:21 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ int	check_syntax(t_list **lst)
 					"syntax error near unexpected token |", 2), 0);
 		else if (node->type == PIPE && cmd == 1)
 			cmd = 0;
+		// else if (is_redir(node->type))
+		// 		return (0);
 		node = node->next;
 	}
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 11:24:19 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/05 17:00:23 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/06 10:19:01 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_exec_ctx
 {
 	int		i;
 	int		n_cmd;
+	int		n_pipe;
 	t_list	*node;
 	int		*pipe_fd;
 	t_data	*data;

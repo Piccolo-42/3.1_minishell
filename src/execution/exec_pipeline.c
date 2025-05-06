@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipeline.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:10:49 by emurillo          #+#    #+#             */
-/*   Updated: 2025/05/04 16:21:53 by emurillo         ###   ########.fr       */
+/*   Updated: 2025/05/06 11:16:59 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,25 @@ int	exec_multiple_args(t_exec_ctx *ctx)
 	pid_t	pid;
 
 	pipe_cmds(ctx->n_cmd, ctx->pipe_fd);
-	while (ctx->i < ctx->n_cmd)
+	while (ctx->node && ctx->i < ctx->n_cmd)
 	{
-		pid = fork();
-		if (pid == -1)
+		if (ctx->node->type == CMD)
 		{
-			perror("Error: fork.\n");
-			return (EXIT_FAILURE);
+			pid = fork();
+			if (pid == -1)
+			{
+				perror("Error: fork.\n");
+				return (EXIT_FAILURE);
+			}
+			if (pid == 0)
+				child_process(ctx);
+			// if (ctx->node)
+			// 	ctx->node = ctx->node->next;
+			// while (ctx->node && ctx->node->type != CMD)
+			// ctx->node = ctx->node->next;
+			ctx->i++;
 		}
-		if (pid == 0)
-			child_process(ctx);
-		if (ctx->node)
-			ctx->node = ctx->node->next;
-		while (ctx->node && ctx->node->type != CMD)
-			ctx->node = ctx->node->next;
-		ctx->i++;
+		ctx->node = ctx->node->next;
 	}
 	close_wait(ctx);
 	return (0);

@@ -39,7 +39,7 @@ int	main(int argc, char **argv, char **envp)
 			add_history(data->input);
 			data->ast = parsing(data);
 			if (!data->ast && data->prt)
-				error_handler("ast: memory allocation failed", 1);
+				/*error_handler("ast: memory allocation failed", 1)*/;
 			else
 			{
 				data->prt = 1;

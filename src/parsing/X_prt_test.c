@@ -129,9 +129,11 @@ void	basic_prt_lst(t_list *lst)
 	while (lst)
 	{
 		i = 1;
-		ft_printf("content: %s\n", lst->content[0]);
+		ft_printf("content: %s:\n", lst->content[0]);
 		while (lst->content[i])
 			ft_printf("args: \"%s\"\n", lst->content[i++]);
+		if (lst->read)
+			ft_printf("write: %s\n", lst->read->content[1]);
         if (lst->write)
             ft_printf("write: %s\n", lst->write->content[1]);
 		ft_printf("type: %t\n", lst->type);

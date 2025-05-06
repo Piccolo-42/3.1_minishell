@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 06:54:01 by emurillo          #+#    #+#             */
-/*   Updated: 2025/05/04 16:14:19 by emurillo         ###   ########.fr       */
+/*   Updated: 2025/05/06 11:23:33 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	pipe_cmds(int n_cmd, int *pipe_fd)
+void	pipe_cmds(int n_pipe, int *pipe_fd)
 {
 	int	i;
 
 	i = 0;
-	while ((i < n_cmd - 1) && n_cmd > 1)
+	while (i < n_pipe)
 	{
 		if (pipe(&pipe_fd[2 * i]) == -1)
 		{
@@ -58,9 +58,9 @@ void	child_process(t_exec_ctx *ctx)
 {
 	if (ctx->i != 0)
 		dup2(ctx->pipe_fd[2 * (ctx->i - 1)], STDIN_FILENO);
-	if (ctx->i != ctx->n_cmd - 1)
+	if (ctx->i != ctx->n_cmd - 1)//
 		dup2(ctx->pipe_fd[2 * ctx->i + 1], STDOUT_FILENO);
-	if (ctx->node || has_redirection(ctx->node))
+	if (ctx->node && has_redirection(ctx->node))
 	{	if (execute_redirections(ctx->node) == -1)
 			exit(1);
 	}
@@ -75,6 +75,22 @@ void	child_process(t_exec_ctx *ctx)
 	else
 		execmd(ctx->node, ctx->data);
 	exit(EXIT_FAILURE);
+}
+
+int	count_pipe(t_list *start)
+{
+	int		n_pipe;
+	t_list	*node;
+
+	n_pipe = 0;
+	node = start;
+	while (node != NULL)
+	{
+		if (node->type == PIPE)
+			n_pipe++;
+		node = node->next;
+	}
+	return (n_pipe);
 }
 
 int	count_cmd(t_list *start)
@@ -97,6 +113,9 @@ void	init_exec_t(t_exec_ctx *ctx, int *pipe_fd, t_data *data, t_list *node)
 {
 	ctx->i = 0;
 	ctx->n_cmd = count_cmd(node);
+	ctx->n_pipe = count_pipe(node);
+	if (ctx->n_pipe > 100)
+		exit_handler(data, "too many pipes", 1);
 	ctx->pipe_fd = pipe_fd;
 	ctx->data = data;
 	ctx->node = node;
