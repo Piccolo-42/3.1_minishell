@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 11:16:33 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/05 17:07:32 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/06 14:09:38 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,11 @@ t_list *process_redirs(t_list *cmd, t_list *redir);
 t_list	*next_cmd(t_list **lst);
 int		link_redirs_to_cmd(t_list **lst);
 void	link_cmd_and_pipes(t_list **lst);
+
+
+// create_empty_cmd
+int	create_empty_cmd(t_list **lst);
+int	insert_empty_cmd(t_list *prev_node);
 
 
 // utl_clean (utils list clean up)

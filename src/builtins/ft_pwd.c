@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 15:01:26 by sravizza          #+#    #+#             */
-/*   Updated: 2025/03/31 15:01:26 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/06 15:04:50 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	ft_pwd(t_data *data)
 	if (cwd)
 	{
 		printf("%s\n", cwd);
+		free(cwd);
 		return (0);
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 10:59:49 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/05 16:20:40 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/06 15:59:10 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*read_input(t_data *data)
 	if (!data)	
 		return (NULL);
 	prompt_malloc = prompt(data);
-	if (!prompt_malloc)
+	if (!prompt_malloc || !data->has_envp)
 		line = readline("minishell$");
 	else
 	{
@@ -151,7 +151,7 @@ char	*get_cwd(t_data *data)
 	char	*cwd;
 	char	*home;
 
-	cwd = replace_env(data, ft_strdup("$PWD"));
+	cwd = getcwd(NULL, 0);
 	if (!cwd)
 		return (NULL);
 	// if (ft_strlen(cwd) == 1)

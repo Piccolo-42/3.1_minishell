@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 11:24:19 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/06 10:19:01 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/06 15:58:36 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_data
 	t_list	*ast;
 	int		prt;
 	char	*prompt;
+	int		has_envp;
 }	t_data;
 
 

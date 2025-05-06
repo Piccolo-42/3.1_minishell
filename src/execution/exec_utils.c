@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 06:54:01 by emurillo          #+#    #+#             */
-/*   Updated: 2025/05/06 11:23:33 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/06 14:33:40 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	execmd(t_list *list, t_data *data)
 {
 	char	*path;
 
+	if (!*list->content[0])
+		return ;
 	if (!list || !list->content || !list->content[0])
 	{
 		ft_putstr_fd("Error: empty command\n", 2);

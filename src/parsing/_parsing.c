@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 11:11:42 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/06 13:20:17 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/06 14:09:43 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ t_list	*parsing(t_data *data)
 		|| !update_quotes_and_env(&lst)
 		|| !expand_env(&lst, data) //maybe change position? during/just before exec
 		|| !assign_word_type(&lst, data)
-		|| !create_empty_cmd(&lst, data)
-		|| !link_redirs_to_cmd(&lst)
-		|| !check_syntax(&lst))
+		|| !check_syntax(&lst)
+		|| !create_empty_cmd(&lst)
+		|| !link_redirs_to_cmd(&lst))
 	{
 		free_lst(&lst);
 		return (NULL);

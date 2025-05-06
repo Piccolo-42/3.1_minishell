@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:10:49 by emurillo          #+#    #+#             */
-/*   Updated: 2025/05/06 13:15:42 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/06 14:31:26 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	exec_multiple_args(t_exec_ctx *ctx)
 	{
 		if (ctx->node->type == CMD)
 		{
-			printf("%i\n", ctx->n_cmd);
+			// printf("%i\n", ctx->n_cmd);
 			pid = fork();
 			if (pid == -1)
 			{
@@ -33,7 +33,7 @@ int	exec_multiple_args(t_exec_ctx *ctx)
 			// if (ctx->node)
 			// 	ctx->node = ctx->node->next;
 			// while (ctx->node && ctx->node->type != CMD)
-			// ctx->node = ctx->node->next;
+			// 	ctx->node = ctx->node->next;
 			ctx->i++;
 		}
 		ctx->node = ctx->node->next;
@@ -50,7 +50,7 @@ int	exec_pipeline(t_list *start, t_data *data)
 	int			save_out;
 
 	init_exec_t(&ctx, pipe_fd, data, start);
-	printf("lstlen: %i\n", lstlen(data->ast));
+	// printf("lstlen: %i\n", lstlen(data->ast));
 	if (ctx.node && ctx.n_cmd == 1 && is_builtin(ctx.node->content[0]) && lstlen(data->ast) == 1)
 	{
 		save_in = dup(STDIN_FILENO);

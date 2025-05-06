@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 11:45:05 by sravizza          #+#    #+#             */
-/*   Updated: 2025/03/25 16:15:45 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/06 14:15:33 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_list	*new_node(char *token, t_type ttype)
 {
 	t_list	*dest;
 
-	if (!token || !*token)
+	if (!token) // || !*token)
 		return (NULL);
 	dest = malloc(sizeof(t_list));
 	if (!dest)

@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 15:31:32 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/05 17:25:29 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/06 15:58:54 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	**copy_envp(char **envp)
 	int		i;
 	int		d;
 
-	if (!envp)
+	if (!envp || !*envp)
 		return (empty_envp());
 	i = ft_strlen_double(envp);
 	dest = malloc(sizeof(char *) * (i + 1));
@@ -44,6 +44,9 @@ t_data	*init_data(char **envp)
 	data = malloc(sizeof(t_data));
 	if (!data)
 		return (NULL);
+	data->has_envp = 1;
+	if (!*envp)
+		data->has_envp = 0;
 	data->envp = copy_envp(envp);
 	if (!data->envp)
 		return (free(data), NULL);
@@ -57,10 +60,22 @@ t_data	*init_data(char **envp)
 char	**empty_envp(void)
 {
 	char	**dest;
+	char	*cwd;
 
-	dest = malloc(sizeof(char *) * 1);
+	dest = malloc(sizeof(char *) * 3);
 	if (!dest)
 		return (NULL);
-	dest[0] = NULL;
+	dest[0] = ft_strdup("USER=minishell");
+	if (!dest[0])
+		return (NULL);
+	cwd = getcwd(NULL, 0);
+	if (!cwd)
+		return (NULL);
+	dest[1] = ft_strjoin_free_two("PWD=", cwd);
+	if (!dest[1])
+		return (NULL);
+	dest[2] = NULL;
+	// for (int i = 0; dest[i]; i++)
+	// 	printf("dest[%d]= %s\n", i, dest[i]);
 	return (dest);
 }

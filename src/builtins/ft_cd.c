@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 15:00:42 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/01 16:38:10 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/06 16:17:50 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,18 @@ int	ft_cd(char **args, char ***envp, t_data *data)
 char	*get_dir(char **args, char **envp)
 {
 	char	*home;
+	int		n_arg;
 
-	if (args[2])
+	n_arg = 0;
+	while (args[n_arg])
+		n_arg++;
+	if (n_arg > 1)
 		return (error_handler("cd: too many arguments", 1), NULL);
 	if (args[1])
 		return (args[1]);
 	home = ft_getenv(envp, "HOME");
 	if (!home)
-		return (NULL);
+		return (error_handler("cd: HOME not set", 1), NULL);
 	return (home);
 }
 
@@ -67,5 +71,6 @@ char	*ft_getenv(char **envp, char *name)
 			return (envp[i] + len + 1);
 		i++;
 	}
-	return (file_error_handler(NULL, name, " not set", 1), NULL);
+	return (NULL);
 }
+//file_error_handler(NULL, name, " not set", 1), 
