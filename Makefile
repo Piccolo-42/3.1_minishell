@@ -32,7 +32,8 @@ SRC_RL		=	_readline.c	utils_rl.c
 SRC_PARS	=	_parsing.c 				   										\
 				get_type.c	get_word_type.c	hndl_file_redir.c	link_read_write.c \
 				utl_clean.c	utl_lst_mk.c	utl_lst_rm.c		utl_pars.c  	\
-				expand_env.c				X_prt_test.c		XX_color_prt.c
+				expand_env.c	create_empty_cmd.c								\
+				X_prt_test.c		XX_color_prt.c
 
 SRC_BI		=	ft_cd.c		ft_echo.c		ft_env.c			ft_exit.c		\
 				ft_export.c	ft_pwd.c		ft_unset.c			utils_bi.c
