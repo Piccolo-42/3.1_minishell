@@ -41,12 +41,14 @@ int	ft_atoi(const char *str)
 	return (result * sign);
 }
 
-long	ft_atol(const char *str)
+long	ft_atol(char *str)
 {
 	int		i;
 	int		sign;
 	long	result;
 
+	if (!str)
+		return (0);
 	i = 0;
 	sign = 1;
 	result = 0;

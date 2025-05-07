@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:10:49 by emurillo          #+#    #+#             */
-/*   Updated: 2025/05/07 11:30:47 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/07 17:10:44 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,16 @@ int	exec_multiple_args(t_exec_ctx *ctx)
 			pid = fork();
 			if (pid == -1)
 			{
-				exit_handler(ctx->data, "fork failed", 1);
+				error_handler("fork failed", 1);
 			}
 			if (pid == 0)
+			{
+				// child_signal(ctx->data);
+				signal(SIGQUIT, SIG_DFL);
+				signal(SIGINT, SIG_DFL);
 				child_process(ctx);
+				signal_init(ctx->data);
+			}
 			ctx->i++;
 		}
 		ctx->node = ctx->node->next;

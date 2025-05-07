@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 11:48:18 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/07 14:39:58 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/07 17:10:30 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,3 +50,20 @@ void	signal_init(t_data *data)
 	if (sigaction(SIGINT, &sa, NULL) == -1)
 		exit_handler(data, "sigaction", 1);
 }
+
+// void	child_signal(t_data *data)
+// {
+// 	struct sigaction	sa;
+
+// 	sigemptyset(&sa.sa_mask);
+// 	sa.sa_flags = SA_RESTART;
+// 	if (sigaction(SIGQUIT, &sa, NULL) == -1)
+// 		exit_handler(data, "sigaction", 1);
+// 	signal()
+// }
+
+// void	child_signal(t_data *data)
+// {
+// 	signal(SIGQUIT, SIG_DFL);
+// 	signal(SIGINT, SIG_DFL);
+// }

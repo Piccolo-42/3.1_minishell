@@ -6,12 +6,13 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 16:16:11 by emurillo          #+#    #+#             */
-/*   Updated: 2025/05/07 09:55:42 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/07 17:00:03 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+//error msg
 int	execute_redir_in(t_list *cmd)
 {
 	t_list	*in;

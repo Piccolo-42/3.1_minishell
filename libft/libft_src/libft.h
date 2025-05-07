@@ -22,7 +22,7 @@ int		ft_atoi_base16(const char *str);
 int		ft_wordcount(char *str, char c);
 int		is_whitespace(char c);
 char	*crop_whitespace(char *str, int crop);
-long	ft_atol(const char *str);
+long	ft_atol(char *str);
 int		ft_strlen_double(char **str);
 char	**ft_strdup_double_add_n_free_old(char **str, int n);
 int		ft_isdigit_str(char *str);

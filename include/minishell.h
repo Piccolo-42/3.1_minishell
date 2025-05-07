@@ -87,6 +87,7 @@ void	free_data(t_data *data);
 //signals
 void	signal_init(t_data *data);
 void	handle_signint(int signum);
+void	child_signal(t_data *data);
 
 // void	freef(char *format, ...);
 

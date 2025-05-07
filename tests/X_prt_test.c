@@ -130,9 +130,9 @@ void	basic_prt_lst(t_list *lst)
 	{
 		i = 1;
 		if (!*lst->content[0])
-			ft_printf("content: EMPTY : %t\n", lst->type);
+			ft_printf("%t: EMPTY\n", lst->type);
 		else
-			ft_printf("content: %s : %t\n", lst->content[0],lst->type);
+			ft_printf("%t: >%s<\n", lst->type, lst->content[0]);
 		while (lst->content[i])
 			ft_printf("args: \"%s\"\n", lst->content[i++]);
 		i = 0;
