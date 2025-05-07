@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 06:54:01 by emurillo          #+#    #+#             */
-/*   Updated: 2025/05/06 14:33:40 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/07 12:01:21 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	execmd(t_list *list, t_data *data)
 		return (0);
 	}
 	free(path);
-	return ;
+	return (1);
 }
 
 //error
