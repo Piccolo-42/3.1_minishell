@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 11:48:18 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/07 11:50:47 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/07 14:39:58 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 // 	write(1, "\n", 1);
 // }
 
-//enxpansion var HEREDOC
 // ctrlc in HEREDOC
 // ctrl\ in cat non interactive
 

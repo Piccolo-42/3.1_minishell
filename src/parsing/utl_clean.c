@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 14:37:30 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/07 11:05:57 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/07 14:38:14 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,11 @@ char	*update_quotes(char *input)
 	else if (input[0] == '\'')
 		dest = ft_strtrim(input, "\'");
 	if (!dest)
-		return (error_handler("ast: quotes: memory allocation failed", 1), NULL);
-	free(input);
+	{
+		error_handler("ast: quotes: memory allocation failed", 1);
+		return (NULL);
+	}
+	ft_free(&input);
 	return (dest);
 }
 

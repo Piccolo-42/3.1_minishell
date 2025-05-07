@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 // <infile grep hello | grep world | wc -l >outfile
 // <in1   grep <    in2<in3 hello     <in4 >out1| grep world |<in5      wc -l >out2>out3

@@ -12,9 +12,6 @@
 
 #include "minishell.h"
 
-// "real" tabs
-// when !envp, check for built-ins
-//always write "exit"?
 int	g_exit_code = 0;
 
 int	main(int argc, char **argv, char **envp)

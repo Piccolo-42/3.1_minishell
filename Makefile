@@ -21,6 +21,7 @@ PARS_DIR	=	parsing
 BI_DIR		=	builtins
 EXE_DIR		=	execution
 UTIL_DIR	=	utils
+TEST_DIR	=	tests
 
 ################################################################################
 ##								  SOURCES									  ##
@@ -43,6 +44,8 @@ SRC_EXE		=	built_ins_exec.c	close_wait.c 	exec_pipeline.c exec_utils.c \
 
 SRC_UTIL	=	error.c	utils_ms.c	signals.c
 
+SRC_TEST	=	X_prt_test.c	XX_color_prt.c
+
 SRC			=	$(SRC_MAIN)													   \
 				$(addprefix $(RL_DIR)/, $(SRC_RL))							   \
 				$(addprefix $(PARS_DIR)/, $(SRC_PARS))						   \
@@ -61,7 +64,7 @@ NAME		= 	minishell
 CC			= 	gcc
 CFLAGS		= 	-Wall -Werror -Wextra -I$(INCL_DIR) -I$(LIBFT_DIR)
 LFLAGS		= 	-lreadline -Llibft -lft
-OBJ			= 	$(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
+OBJ			= 	$(addprefix $(OBJ_DIR)/, $(SRC:.c=.o)) $(addprefix $(TEST_DIR)/, $(SRC_TEST))
 RM			= 	rm -f
 AR			= 	ar -rcs
 VALGRIND	=	valgrind

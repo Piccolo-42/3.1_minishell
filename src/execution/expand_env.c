@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 15:26:52 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/07 12:01:25 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/07 14:39:25 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,6 @@
 // 	return (1);
 // }
 
-	// || !update_quotes_and_env(&lst)
-	// 		|| !expand_env(&lst, data) 
-
 /**
  * @brief goes through node, expands $ENV, also in "DBLQ"
  */
@@ -52,7 +49,8 @@ int	expand_env(t_list **lst, t_data *data)
 			if (node->content[i][0] == '$')
 				node->content[i] = replace_env(data, node->content[i]);
 			else if (node->content[i][0] == '\"')
-				node->content[i] = dblq_replace_env(data, update_quotes(node->content[i]));
+				node->content[i] = dblq_replace_env(data,
+						update_quotes(node->content[i]));
 			else if (node->content[i][0] == '\'')
 				node->content[i] = update_quotes(node->content[i]);
 			if (!node->content[i])
