@@ -25,8 +25,7 @@ int	exec_multiple_args(t_exec_ctx *ctx)
 			pid = fork();
 			if (pid == -1)
 			{
-				perror("Error: fork.\n");
-				return (EXIT_FAILURE);
+				exit_handler(ctx->data, "fork failed", 1)
 			}
 			if (pid == 0)
 				child_process(ctx);

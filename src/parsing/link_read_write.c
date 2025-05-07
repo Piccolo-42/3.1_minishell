@@ -83,7 +83,7 @@ t_list	*process_redirs(t_list *cmd, t_list *redir)
 		redir->prev->next = redir->next;
 	if (redir->next)
 		redir->next->prev = redir->prev;
-	printf("%t\n", redir->type);
+	// ft_printf("%t\n", redir->type);
 	if (redir->type == REDIR_IN || redir->type == HEREDOC)
 		redir_list = &(cmd->read);
 	else

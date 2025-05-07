@@ -31,8 +31,12 @@ int	ft_cd(char **args, char ***envp, t_data *data)
 	if (!newpwd)
 		return (ft_free(&oldpwd),
 			exit_handler(data, "cd: error retrieving new directory\n", 1), 0);
+	ft_printf("old: %s\n", oldpwd);
+	ft_printf("new: %s\n", newpwd);
 	mini_export(envp, ft_strjoin("OLDPWD=", oldpwd));
 	mini_export(envp, ft_strjoin("PWD=", newpwd));
+	// mini_export(envp, oldpwd);
+	// mini_export(envp, newpwd);
 	ft_free(&oldpwd);
 	ft_free(&newpwd);
 	return (1);

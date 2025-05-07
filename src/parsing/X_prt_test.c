@@ -139,7 +139,7 @@ void	basic_prt_lst(t_list *lst)
 		if (lst->read)
 		{
 			while (lst->read->content[i])
-				ft_printf("write: %s\n", lst->read->content[i++]);
+				ft_printf("read: %s\n", lst->read->content[i++]);
 		}
 		i = 0;
 		if (lst->write)

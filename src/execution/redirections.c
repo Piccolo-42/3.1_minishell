@@ -24,9 +24,12 @@ int	execute_redirections(t_list *cmd)
 
 	if (in)
 	{
-		fd = open(in->content[1], O_RDONLY);
+		if (in->type == HEREDOC)
+			fd = open(in->content[2], O_RDONLY);
+		else if (in->type == REDIR_IN)
+			fd = open(in->content[1], O_RDONLY);
 		if (fd == -1)
-			return (perror("ZGEG"), -1);
+			return (perror("infile"), -1);
 		if (dup2(fd, STDIN_FILENO) == -1)
 			return(perror("dup2 in"), -1);
 		close(fd);
@@ -34,7 +37,10 @@ int	execute_redirections(t_list *cmd)
 	out = cmd->write;
 	if (out)
 	{
-		fd = open(out->content[1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
+		if (out->type == REDIR_OUT)
+			fd = open(out->content[1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
+		else if (out->type == APPEND)
+			fd = open(out->content[1], O_CREAT | O_WRONLY | O_APPEND, 0644);
 		if (fd == -1)
 			return (perror("outfile"), -1);
 		if (dup2(fd, STDOUT_FILENO) == -1)

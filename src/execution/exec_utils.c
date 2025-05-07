@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	pipe_cmds(int n_pipe, int *pipe_fd)
+int	pipe_cmds(int n_pipe, int *pipe_fd)
 {
 	int	i;
 
@@ -21,42 +21,43 @@ void	pipe_cmds(int n_pipe, int *pipe_fd)
 	{
 		if (pipe(&pipe_fd[2 * i]) == -1)
 		{
-			perror("pipe error.\n");
-			exit(EXIT_FAILURE);
+			error_handler("pipe creation failed", 1);
+			return (0);
 		}
 		i++;
 	}
+	return (1);
 }
 
-void	execmd(t_list *list, t_data *data)
+int	execmd(t_list *list, t_data *data)
 {
 	char	*path;
 
 	if (!*list->content[0])
-		return ;
+		return (0);
 	if (!list || !list->content || !list->content[0])
 	{
-		ft_putstr_fd("Error: empty command\n", 2);
-		exit(127);
+		error_handler(" : command not found", 127);
+		return (0);
 	}
 	path = pathfinder(list->content[0], data);
 	if (!path)
 	{
-		ft_putstr_fd(list->content[0], 2);
-		ft_putstr_fd(": command not found\n", 2);
-		exit(127);
+		file_error_handler(NULL, list->content[0], ": command not found", 127);
+		return (0);
 	}
 	if (execve(path, list->content, data->envp) == -1)
 	{
-		perror("execve");
+		file_error_handler(NULL, list->content[0], ": exec failed", 126);
 		free(path);
-		exit(1);
+		return (0);
 	}
 	free(path);
 	return ;
 }
 
-void	child_process(t_exec_ctx *ctx)
+//error
+int	child_process(t_exec_ctx *ctx)
 {
 	if (ctx->i != 0)
 		dup2(ctx->pipe_fd[2 * (ctx->i - 1)], STDIN_FILENO);
@@ -64,19 +65,19 @@ void	child_process(t_exec_ctx *ctx)
 		dup2(ctx->pipe_fd[2 * ctx->i + 1], STDOUT_FILENO);
 	if (ctx->node && has_redirection(ctx->node))
 	{	if (execute_redirections(ctx->node) == -1)
-			exit(1);
+			return (0);
 	}
 	close_all(ctx->n_cmd, ctx->pipe_fd);
 	if (!ctx->node || ctx->node->type != CMD || !ctx->node->content)
-		exit(EXIT_FAILURE);
+		return (file_error_handler(NULL, ctx->node->content[0], ": command not found", 127), 0);
 	if (is_builtin(ctx->node->content[0]))
 	{
 		exec_builtin(ctx->node, ctx->data);
-		exit(EXIT_SUCCESS);
+		return (1);
 	}
-	else
-		execmd(ctx->node, ctx->data);
-	exit(EXIT_FAILURE);
+	if (execmd(ctx->node, ctx->data))
+		return (1);
+	return (0);
 }
 
 int	count_pipe(t_list *start)
