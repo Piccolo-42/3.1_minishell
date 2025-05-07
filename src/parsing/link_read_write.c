@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 11:38:39 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/06 17:31:56 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/07 10:16:19 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ t_list	*process_redirs(t_list *cmd, t_list *redir)
 		redir->prev->next = redir->next;
 	if (redir->next)
 		redir->next->prev = redir->prev;
-	// ft_printf("%t\n", redir->type);
 	if (redir->type == REDIR_IN || redir->type == HEREDOC)
 		redir_list = &(cmd->read);
 	else

@@ -3,34 +3,70 @@
 /*                                                        :::      ::::::::   */
 /*   expand_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 15:26:52 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/05 17:48:44 by emurillo         ###   ########.fr       */
+/*   Updated: 2025/05/07 12:01:25 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+// /**
+//  * @brief goes through lst, expands subtype $ENV and envs in "DBLQ"
+//  */
+// int	expand_env(t_list **lst, t_data *data)
+// {
+// 	t_list	*node;
+
+// 	node = *lst;
+// 	while (node)
+// 	{
+// 		if (node->subtype == ENV)
+// 			node->content[0] = replace_env(data, node->content[0]);
+// 		else if (node->subtype == DBL_Q)
+// 			node->content[0] = dblq_replace_env(data, node->content[0]);
+// 		if (!node->content[0])
+// 			return (0);
+// 		node = node->next;
+// 	}
+// 	return (1);
+// }
+
+	// || !update_quotes_and_env(&lst)
+	// 		|| !expand_env(&lst, data) 
+
 /**
- * @brief goes through lst, expands subtype $ENV and envs in "DBLQ"
+ * @brief goes through node, expands $ENV, also in "DBLQ"
  */
 int	expand_env(t_list **lst, t_data *data)
 {
+	int		i;
 	t_list	*node;
 
 	node = *lst;
 	while (node)
 	{
-		if (node->subtype == ENV)
-			node->content[0] = replace_env(data, node->content[0]);
-		else if (node->subtype == DBL_Q)
-			node->content[0] = dblq_replace_env(data, node->content[0]);
-		if (!node->content[0])
-			return (0);
+		i = 0;
+		while (node->content[i])
+		{
+			if (node->content[i][0] == '$')
+				node->content[i] = replace_env(data, node->content[i]);
+			else if (node->content[i][0] == '\"')
+				node->content[i] = dblq_replace_env(data, update_quotes(node->content[i]));
+			else if (node->content[i][0] == '\'')
+				node->content[i] = update_quotes(node->content[i]);
+			if (!node->content[i])
+				return (error_handler("Error expanding variables", 1), 0);
+			i++;
+		}
 		node = node->next;
 	}
 	return (1);
 }
+// if (node->read && !expand_env(node->read, data))
+// 	return (0);
+// if (node->write && !expand_env(node->write, data))
+// 	return (0);	
 
 /**
  * @brief looks for "input" in data->envp
@@ -72,6 +108,8 @@ char	*dblq_replace_env(t_data *data, char *content)
 {
 	int		i;
 
+	if (!content)
+		return (NULL);
 	i = 0;
 	while (content[i])
 	{
@@ -109,6 +147,8 @@ char	*split_union(char *input, int var_start, t_data *data)
 	temp[1] = replace_env(data, ft_substr(input, var_start, i - var_start));
 	temp[2] = ft_substr(input, i, ft_strlen(input) - i);
 	ft_free(&input);
+	if (!temp[0] || !temp[1] || !temp[2])
+		return (NULL);
 	dest = ft_union_simple(temp);
 	ft_free_double(temp);
 	if (!dest)

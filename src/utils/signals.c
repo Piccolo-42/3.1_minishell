@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 11:48:18 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/06 17:12:09 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/07 11:50:47 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,15 @@
 // int status;
 // int sig;
 // pid_t pid = waitpid(child_pid, &status, 0);
-//
+
 // if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
 // {
 // 	write(1, "\n", 1);
 // }
 
+//enxpansion var HEREDOC
+// ctrlc in HEREDOC
+// ctrl\ in cat non interactive
 
 void	handle_signint(int signum)
 {
@@ -39,7 +42,7 @@ void	handle_signint(int signum)
 
 void	signal_init(t_data *data)
 {
-	struct sigaction sa;
+	struct sigaction	sa;
 
 	signal(SIGQUIT, SIG_IGN);
 	sa.sa_handler = handle_signint;

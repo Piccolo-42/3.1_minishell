@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   close_wait.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 16:05:38 by emurillo          #+#    #+#             */
-/*   Updated: 2025/04/26 17:45:34 by emurillo         ###   ########.fr       */
+/*   Updated: 2025/05/07 09:46:45 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	close_all(int n_cmd, int pipe_fd[])
 
 void	close_wait(t_exec_ctx *ctx)
 {
-	int i;
+	int	i;
 
 	close_all(ctx->n_cmd, ctx->pipe_fd);
 	i = 0;

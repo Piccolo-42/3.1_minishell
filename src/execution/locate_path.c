@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   locate_path.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 15:14:45 by emurillo          #+#    #+#             */
-/*   Updated: 2025/04/26 17:45:55 by emurillo         ###   ########.fr       */
+/*   Updated: 2025/05/07 09:48:17 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 void	free_split(char **arr)
 {
@@ -22,7 +21,6 @@ void	free_split(char **arr)
 		free(arr[i++]);
 	free(arr);
 }
-
 
 //locate PATH in environment
 char	*pathfinder(char *cmd, t_data *data)
@@ -47,13 +45,9 @@ char	*pathfinder(char *cmd, t_data *data)
 		path = ft_strjoin(temp, cmd);
 		free(temp);
 		if (access(path, F_OK) == 0)
-		{
-			free_split(all_paths);
-			return (path);
-		}
+			return (free_split(all_paths), path);
 		free(path);
 		i++;
 	}
-	free_split(all_paths);
-	return (NULL);
+	return (free_split(all_paths), NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 15:31:32 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/06 17:02:39 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/07 10:08:03 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,5 @@ char	**empty_envp(void)
 	if (!dest[1])
 		return (NULL);
 	dest[2] = NULL;
-	// for (int i = 0; dest[i]; i++)
-	// 	printf("dest[%d]= %s\n", i, dest[i]);
 	return (dest);
 }

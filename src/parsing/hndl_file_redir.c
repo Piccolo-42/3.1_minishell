@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 14:07:04 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/06 17:11:47 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/07 12:23:27 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	assign_redir_and_file(t_list *redir, t_data *data)
 	return (1);
 }
 
+//check error n2
 int	file_exists_and_is_readable(char *file)
 {
 	if (access(file, F_OK) != 0)
@@ -54,11 +55,12 @@ int	file_exists_and_is_readable(char *file)
 	if (access(file, R_OK) != 0)
 	{
 		file_error_handler("cannot open ", file, " permission denied", 126);
-		return (0); //check
+		return (0);
 	}
 	return (1);
 }
 
+//check err2
 int	file_ok_or_create(char *file, t_type type)
 {
 	int	fd;
@@ -70,15 +72,37 @@ int	file_ok_or_create(char *file, t_type type)
 	if (fd == -1)
 	{
 		file_error_handler("cannot open ", file, " permission denied", 126);
-		return (0); //check
+		return (0);
 	}
 	close(fd);
 	return (1);
 }
 
-int	handle_here_doc(t_list *redir, t_data *data)
+int	here_doc_readline(char *limiter, int doc_fd, t_data *data)
 {
 	char	*line;
+
+	while (1)
+	{
+		line = readline("> ");
+		if ((!line) || (line && !ft_strncmp(line, limiter, ft_strlen(limiter))
+				&& ft_strlen(line) == ft_strlen(limiter)))
+		{
+			ft_free(&line);
+			break ;
+		}
+		line = dblq_replace_env(data, line);
+		if (!line)
+			return (0);
+		write(doc_fd, line, ft_strlen(line));
+		write(doc_fd, "\n", 1);
+		free(line);
+	}
+	return (1);
+}
+
+int	handle_here_doc(t_list *redir, t_data *data)
+{
 	char	*limiter;
 	int		doc_fd;
 	char	*doc_name;
@@ -88,21 +112,14 @@ int	handle_here_doc(t_list *redir, t_data *data)
 		return (0);
 	limiter = redir->content[1];
 	doc_fd = open(doc_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-    if (doc_fd == -1)
-		return (free(doc_name), error_handler("heredoc: failed to create temporary file", 1), 0);
-	while (1)
+	if (doc_fd == -1)
 	{
-		line = readline("> ");
-		if ((!line) || (line && !ft_strncmp(line, limiter, ft_strlen(limiter))
-			&& ft_strlen(line) == ft_strlen(limiter)))
-		{
-			ft_free(&line);
-			break ;
-		}
-		write(doc_fd, line, ft_strlen(line));
-        write(doc_fd, "\n", 1);
-		free(line);
+		error_handler("heredoc: failed to create temporary file", 1);
+		free(doc_name);
+		return (0);
 	}
+	if (!here_doc_readline(limiter, doc_fd, data))
+		return (0);
 	close(doc_fd);
 	if (!add_arg(redir, doc_name))
 		return (free(doc_name), 0);

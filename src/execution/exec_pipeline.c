@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:10:49 by emurillo          #+#    #+#             */
-/*   Updated: 2025/05/06 14:31:26 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/07 11:30:47 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,19 @@ int	exec_multiple_args(t_exec_ctx *ctx)
 {
 	pid_t	pid;
 
-	pipe_cmds(ctx->n_cmd, ctx->pipe_fd);
+	if (!pipe_cmds(ctx->n_cmd, ctx->pipe_fd))
+		return (0);
 	while (ctx->node && ctx->i < ctx->n_cmd)
 	{
 		if (ctx->node->type == CMD)
 		{
-			// printf("%i\n", ctx->n_cmd);
 			pid = fork();
 			if (pid == -1)
 			{
-				exit_handler(ctx->data, "fork failed", 1)
+				exit_handler(ctx->data, "fork failed", 1);
 			}
 			if (pid == 0)
 				child_process(ctx);
-			// if (ctx->node)
-			// 	ctx->node = ctx->node->next;
-			// while (ctx->node && ctx->node->type != CMD)
-			// 	ctx->node = ctx->node->next;
 			ctx->i++;
 		}
 		ctx->node = ctx->node->next;
@@ -40,6 +36,10 @@ int	exec_multiple_args(t_exec_ctx *ctx)
 	close_wait(ctx);
 	return (0);
 }
+// if (ctx->node)
+// 	ctx->node = ctx->node->next;
+// while (ctx->node && ctx->node->type != CMD)
+// 	ctx->node = ctx->node->next;
 
 int	exec_pipeline(t_list *start, t_data *data)
 {
@@ -48,17 +48,14 @@ int	exec_pipeline(t_list *start, t_data *data)
 	int			save_in;
 	int			save_out;
 
-	init_exec_t(&ctx, pipe_fd, data, start);
-	// printf("lstlen: %i\n", lstlen(data->ast));
-	if (ctx.node && ctx.n_cmd == 1 && is_builtin(ctx.node->content[0]) && lstlen(data->ast) == 1)
+	if (!init_exec_t(&ctx, pipe_fd, data, start))
+		return (0);
+	if (ctx.node && ctx.n_cmd == 1 && is_builtin(ctx.node->content[0]))
 	{
 		save_in = dup(STDIN_FILENO);
 		save_out = dup(STDOUT_FILENO);
-		if (has_redirection(ctx.node))
-		{
-			if (execute_redirections(ctx.node) == -1)
-				return (1);
-		}
+		if (has_redirection(ctx.node) && execute_redirections(ctx.node) == -1)
+			return (0);
 		exec_builtin(ctx.node, ctx.data);
 		dup2(save_in, STDIN_FILENO);
 		dup2(save_out, STDOUT_FILENO);
@@ -66,6 +63,33 @@ int	exec_pipeline(t_list *start, t_data *data)
 		close(save_out);
 		return (0);
 	}
-	exec_multiple_args(&ctx);
-	return (0);
+	if (!exec_multiple_args(&ctx))
+		return (0);
+	return (1);
+}
+
+//error
+int	child_process(t_exec_ctx *ctx)
+{
+	if (ctx->i != 0)
+		dup2(ctx->pipe_fd[2 * (ctx->i - 1)], STDIN_FILENO);
+	if (ctx->i != ctx->n_cmd - 1)
+		dup2(ctx->pipe_fd[2 * ctx->i + 1], STDOUT_FILENO);
+	if (ctx->node && has_redirection(ctx->node))
+	{	
+		if (execute_redirections(ctx->node) == -1)
+			return (0);
+	}
+	close_all(ctx->n_cmd, ctx->pipe_fd);
+	if (!ctx->node || ctx->node->type != CMD || !ctx->node->content)
+		return (file_error_handler(NULL,
+				ctx->node->content[0], ": command not found", 127), 0);
+	if (is_builtin(ctx->node->content[0]))
+	{
+		exec_builtin(ctx->node, ctx->data);
+		return (1);
+	}
+	if (!execmd(ctx->node, ctx->data))
+		return (0);
+	return (1);
 }
