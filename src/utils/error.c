@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 10:27:00 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/05 16:14:05 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/08 09:55:42 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	silent_exit(t_data *data, int exit_code)
 void	error_handler(char *msg, int exit_code)
 {
 	g_exit_code = exit_code;
-	ft_putstr_fd("bash: ", 2);
+	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(msg, 2);
 	ft_putstr_fd("\n", 2);
 }
@@ -52,7 +52,7 @@ void	error_handler(char *msg, int exit_code)
 void	file_error_handler(char *first, char *file, char *second, int exit_code)
 {
 	g_exit_code = exit_code;
-	ft_putstr_fd("bash: ", 2);
+	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(first, 2);
 	ft_putstr_fd(file, 2);
 	ft_putstr_fd(second, 2);

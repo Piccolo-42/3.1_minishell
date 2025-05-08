@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 11:07:20 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/07 10:35:58 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/08 09:55:02 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ char	*fill_join(char *dest, char *name, char *session, char *cwd)
 	dest[d++] = 'M';
 	dest[d++] = 'S';
 	dest[d++] = '$';
+	dest[d++] = ' ';
 	dest[d] = 0;
 	return (dest);
 }
@@ -58,7 +59,7 @@ char	*custom_join(char *name, char *session, char *cwd)
 	char	*dest;
 	int		size;
 
-	size = ft_strlen(name) + ft_strlen(session) + ft_strlen(cwd) + 4 + 3;
+	size = ft_strlen(name) + ft_strlen(session) + ft_strlen(cwd) + 5 + 3;
 	if (size > 127)
 		return (NULL);
 	dest = malloc(sizeof(char) * size);
