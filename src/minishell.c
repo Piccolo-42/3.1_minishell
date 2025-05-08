@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	g_exit_code = 0;
+
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -49,7 +49,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		ft_free(&(data->input));
 	}
-	exit_handler(data, NULL, 0);
+	exit_handler(data, NULL, g_exit_code);
 	return (0);
 }
 

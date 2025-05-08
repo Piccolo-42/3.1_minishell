@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   utils_ms.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 15:31:32 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/07 10:08:03 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/08 10:50:36 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	g_exit_code = 0;
 
 //no +1 because we are removing the varaible _=./minishell (if strcmp)
 char	**copy_envp(char **envp)

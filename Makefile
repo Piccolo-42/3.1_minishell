@@ -26,14 +26,14 @@ TEST_DIR	=	tests
 ################################################################################
 ##								  SOURCES									  ##
 
-SRC_MAIN	=	minishell.c	
+SRC_MAIN	=	minishell.c
 
 SRC_RL		=	_readline.c	utils_rl.c
 
 SRC_PARS	=	_parsing.c 				   										\
 				get_type.c	get_word_type.c	hndl_file_redir.c	link_read_write.c \
 				utl_clean.c	utl_lst_mk.c	utl_lst_rm.c		utl_pars.c  	\
-				create_empty_cmd.c	hndl_heredoc.c				
+				create_empty_cmd.c	hndl_heredoc.c
 
 SRC_BI		=	ft_cd.c		ft_echo.c		ft_env.c			ft_exit.c		\
 				ft_export.c	ft_pwd.c		ft_unset.c			utils_bi.c
@@ -62,7 +62,7 @@ LIBFT_LIB	=	$(LIBFT_DIR)/libft.a
 
 NAME		= 	minishell
 CC			= 	gcc
-CFLAGS		= 	-Wall -Werror -Wextra -I$(INCL_DIR) -I$(LIBFT_DIR)
+CFLAGS		= 	-Wall -Werror -Wextra -I$(INCL_DIR) -I$(LIBFT_DIR) -g
 LFLAGS		= 	-lreadline -Llibft -lft
 OBJ			= 	$(addprefix $(OBJ_DIR)/, $(SRC:.c=.o)) $(addprefix $(TEST_DIR)/, $(SRC_TEST))
 RM			= 	rm -f

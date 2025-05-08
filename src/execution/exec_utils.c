@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 06:54:01 by emurillo          #+#    #+#             */
-/*   Updated: 2025/05/07 09:57:53 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/08 10:38:00 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	execmd(t_list *list, t_data *data)
 	path = pathfinder(list->content[0], data);
 	if (!path)
 	{
-		file_error_handler(NULL, list->content[0], ": command not found", 127);
+		file_exit_handler(NULL, list->content[0], ": command not found", 127);
 		return (0);
 	}
 	if (execve(path, list->content, data->envp) == -1)

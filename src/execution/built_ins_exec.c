@@ -6,7 +6,7 @@
 /*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 14:07:30 by emurillo          #+#    #+#             */
-/*   Updated: 2025/05/05 17:42:42 by emurillo         ###   ########.fr       */
+/*   Updated: 2025/05/08 14:20:52 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	exec_builtin(t_list *node, t_data *data)
 	if (!ft_strncmp(cmd, "cd", 2) && cmd[2] == '\0')
 		return (ft_cd(args, envp, data), 1);
 	else if (!ft_strncmp(cmd, "echo", 4) && cmd[4] == '\0')
-		return (ft_echo(args), 1);
+		return (ft_echo(args), 0);
 	else if (!ft_strncmp(cmd, "env", 3) && cmd[3] == '\0')
 		return (ft_env(*envp), 1);
 	else if (!ft_strncmp(cmd, "export", 6) && cmd[6] == '\0')

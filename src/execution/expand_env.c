@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 15:26:52 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/07 14:39:25 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/08 10:46:09 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	expand_env(t_list **lst, t_data *data)
 // if (node->read && !expand_env(node->read, data))
 // 	return (0);
 // if (node->write && !expand_env(node->write, data))
-// 	return (0);	
+// 	return (0);
 
 /**
  * @brief looks for "input" in data->envp
@@ -82,7 +82,7 @@ char	*replace_env(t_data *data, char *input)
 	if (!input)
 		return (strdup(""));
 	if (!ft_strncmp(input, "$?", 2))
-		return (ft_free(&input), strdup(ft_itoa(g_exit_code)));
+		return (ft_free(&input), ft_itoa(g_exit_code));
 	size = ft_strlen(input) - 1;
 	i = 0;
 	while (data->envp[i])
