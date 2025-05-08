@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_ms.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 15:31:32 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/08 10:50:36 by emurillo         ###   ########.fr       */
+/*   Updated: 2025/05/08 16:38:09 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ t_data	*init_data(char **envp)
 	data->input = NULL;
 	data->prompt = NULL;
 	data->here_doc = 0;
+	data->c_stdin = dup(STDIN_FILENO);
+	data->c_stdout = dup(STDOUT_FILENO);
 	signal_init(data);
 	return (data);
 }

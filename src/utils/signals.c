@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 11:48:18 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/08 15:12:30 by emurillo         ###   ########.fr       */
+/*   Updated: 2025/05/08 16:32:04 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,9 @@ void	signal_init(t_data *data)
 {
 	struct sigaction	sa;
 
+	dup2(data->c_stdin, STDIN_FILENO);
+	dup2(data->c_stdout, STDOUT_FILENO);
 	signal(SIGQUIT, SIG_IGN);
-
 	sa.sa_handler = handle_signint;
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = SA_RESTART;

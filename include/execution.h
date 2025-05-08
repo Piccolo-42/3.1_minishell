@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 15:01:45 by emurillo          #+#    #+#             */
-/*   Updated: 2025/05/08 14:55:13 by emurillo         ###   ########.fr       */
+/*   Updated: 2025/05/08 16:24:00 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		exec_builtin(t_list *node, t_data *data);
 int		is_builtin(char *cmd);
 int		execute_redirections(t_list *cmd);
 int		has_redirection(t_list *cmd);
-int	execmd(t_list *list, t_data *data);
+int		execmd(t_list *list, t_data *data);
 
 
 // for PATH search

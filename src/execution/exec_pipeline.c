@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipeline.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:10:49 by emurillo          #+#    #+#             */
-/*   Updated: 2025/05/08 15:10:48 by emurillo         ###   ########.fr       */
+/*   Updated: 2025/05/08 16:24:37 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	exec_multiple_args(t_exec_ctx *ctx)
 		return (0);
 	while (ctx->node && ctx->i < ctx->n_cmd)
 	{
-		if (ctx->node->type == CMD)
+		if (ctx->node->type == CMD && *ctx->node->content[0])
 		{
 			pid = fork();
 			if (pid == -1)

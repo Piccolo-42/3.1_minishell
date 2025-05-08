@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hndl_heredoc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 14:57:50 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/08 15:23:19 by emurillo         ###   ########.fr       */
+/*   Updated: 2025/05/08 16:18:05 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,28 @@ void	handle_heredoc_sigint(int signum)
     exit(130);
 }
 
+void	heredoc_signint(int signum)
+{
+	(void) signum;
+	write(1, "\n", 1);
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	// rl_redisplay();
+	g_exit_code = 130;
+}
+
+void	signal_heredoc(t_data *data)
+{
+	struct sigaction	sa;
+
+	signal(SIGQUIT, SIG_IGN);
+	sa.sa_handler = heredoc_signint;
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = SA_RESTART;
+	if (sigaction(SIGINT, &sa, NULL) == -1)
+		exit_handler(data, "sigaction", 1);
+}
+
 int	handle_here_doc(t_list *redir, t_data *data)
 {
 	char	*limiter;
@@ -76,7 +98,8 @@ int	handle_here_doc(t_list *redir, t_data *data)
 	pid = fork();
 	if (pid == 0)
 	{
-		signal(SIGINT, handle_heredoc_sigint);
+		signal(SIGINT, SIG_DFL);
+		// signal_heredoc(data);
 		if (!here_doc_readline(limiter, doc_name, data, expand))
 			silent_exit(data, 1);
 		silent_exit(data, 0);
@@ -89,6 +112,11 @@ int	handle_here_doc(t_list *redir, t_data *data)
 			redir->content[2] = NULL;
 			unlink(doc_name);
 			free(doc_name);
+			write(1, "\n", 1);
+			rl_replace_line("", 0);
+			rl_on_new_line();
+			// rl_redisplay();
+			g_exit_code = 130;
 			return (0);
 		}
 	}
