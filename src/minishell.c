@@ -45,6 +45,7 @@ int	main(int argc, char **argv, char **envp)
 				// prt_ast_colored(data->ast);
 				// builtin_tester(&data);
 			 	exec_pipeline(data->ast, data);
+				free_heredocs(data->ast);
 				free_lst(&(data->ast));
 			}
 		}

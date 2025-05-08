@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipeline.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:10:49 by emurillo          #+#    #+#             */
-/*   Updated: 2025/05/08 16:24:37 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/08 17:48:53 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	exec_multiple_args(t_exec_ctx *ctx)
 		return (0);
 	while (ctx->node && ctx->i < ctx->n_cmd)
 	{
-		if (ctx->node->type == CMD && *ctx->node->content[0])
+		if (ctx->node->type == CMD && *(ctx->node->content[0]))
 		{
 			pid = fork();
 			if (pid == -1)
@@ -58,7 +58,7 @@ int	exec_pipeline(t_list *start, t_data *data)
 	{
 		save_in = dup(STDIN_FILENO);
 		save_out = dup(STDOUT_FILENO);
-		if (has_redirection(ctx.node) && execute_redirections(ctx.node) == -1)
+		if (has_redirection(ctx.node) && execute_redirections(ctx.node, ctx.data) == -1)
 			return (0);
 		g_exit_code = exec_builtin(ctx.node, ctx.data);
 		dup2(save_in, STDIN_FILENO);
@@ -82,7 +82,7 @@ int	child_process(t_exec_ctx *ctx)
 		dup2(ctx->pipe_fd[2 * ctx->i + 1], STDOUT_FILENO);
 	if (ctx->node && has_redirection(ctx->node))
 	{
-		if (execute_redirections(ctx->node) == -1)
+		if (execute_redirections(ctx->node, ctx->data) == -1)
 			return (0);
 	}
 	close_all(ctx->n_cmd, ctx->pipe_fd);
@@ -92,7 +92,7 @@ int	child_process(t_exec_ctx *ctx)
 	if (is_builtin(ctx->node->content[0]))
 	{
 		exec_builtin(ctx->node, ctx->data);
-		return (1);
+		silent_exit(ctx->data, 1);
 	}
 	if (!execmd(ctx->node, ctx->data))
 		return (0);

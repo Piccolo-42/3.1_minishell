@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hndl_heredoc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 14:57:50 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/08 16:18:05 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/08 17:48:13 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ int	handle_here_doc(t_list *redir, t_data *data)
 			return (error_handler("ast: memory allocation failed", 1), 0);
 	}
 	doc_name = ft_strjoin_free_two(".heredoc_", ft_itoa(data->here_doc));
+	data->here_doc++;
 	if (!doc_name)
 		return (0);
 	redir->content[1] = limiter;
@@ -102,7 +103,7 @@ int	handle_here_doc(t_list *redir, t_data *data)
 		// signal_heredoc(data);
 		if (!here_doc_readline(limiter, doc_name, data, expand))
 			silent_exit(data, 1);
-		silent_exit(data, 0);
+		// exit(data, 0);
 	}
 	else if (pid > 0)
 	{
@@ -111,16 +112,37 @@ int	handle_here_doc(t_list *redir, t_data *data)
 		{
 			redir->content[2] = NULL;
 			unlink(doc_name);
-			free(doc_name);
-			write(1, "\n", 1);
-			rl_replace_line("", 0);
-			rl_on_new_line();
+			ft_free(&doc_name);
 			// rl_redisplay();
 			g_exit_code = 130;
 			return (0);
 		}
+		write(1, "\n", 1);
+		rl_replace_line("", 0);
+		rl_on_new_line();
 	}
 		if (!add_arg(redir, doc_name))
 		return (free(doc_name), 0);
 	return (free(doc_name), 1);
+}
+
+
+void free_heredocs(t_list *lst)
+{
+	t_list *node;
+
+	while (lst)
+	{
+		if (lst->read)
+		{
+			node = lst->read;
+			while (node)
+			{
+				if (node->type == HEREDOC)
+					unlink(node->content[2]);
+				node = node->next;
+			}
+		}
+		lst = lst->next;
+	}
 }

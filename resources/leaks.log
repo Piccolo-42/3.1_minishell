@@ -1,161 +1,90 @@
-==1215368== Memcheck, a memory error detector
-==1215368== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==1215368== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==1215368== Command: ./minishell
-==1215368== Parent PID: 1215367
-==1215368== 
-==1215368== Invalid write of size 1
-==1215368==    at 0x1098D4: custom_join (_readline.c:82)
-==1215368==    by 0x109976: prompt (_readline.c:103)
-==1215368==    by 0x10966D: read_input (_readline.c:44)
-==1215368==    by 0x1093DD: main (minishell.c:28)
-==1215368==  Address 0x4b24eef is 0 bytes after a block of size 31 alloc'd
-==1215368==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1215368==    by 0x10974B: custom_join (_readline.c:63)
-==1215368==    by 0x109976: prompt (_readline.c:103)
-==1215368==    by 0x10966D: read_input (_readline.c:44)
-==1215368==    by 0x1093DD: main (minishell.c:28)
-==1215368== 
-==1215368== Invalid read of size 1
-==1215368==    at 0x484ED24: strlen (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1215368==    by 0x48881D7: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x4893CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x109685: read_input (_readline.c:45)
-==1215368==    by 0x1093DD: main (minishell.c:28)
-==1215368==  Address 0x4b24eef is 0 bytes after a block of size 31 alloc'd
-==1215368==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1215368==    by 0x10974B: custom_join (_readline.c:63)
-==1215368==    by 0x109976: prompt (_readline.c:103)
-==1215368==    by 0x10966D: read_input (_readline.c:44)
-==1215368==    by 0x1093DD: main (minishell.c:28)
-==1215368== 
-==1215368== Conditional jump or move depends on uninitialised value(s)
-==1215368==    at 0x484E830: rindex (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1215368==    by 0x4898D56: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x48881BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x4893CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x109685: read_input (_readline.c:45)
-==1215368==    by 0x1093DD: main (minishell.c:28)
-==1215368== 
-==1215368== Conditional jump or move depends on uninitialised value(s)
-==1215368==    at 0x4898D5D: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x48881BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x4893CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x109685: read_input (_readline.c:45)
-==1215368==    by 0x1093DD: main (minishell.c:28)
-==1215368== 
-==1215368== Conditional jump or move depends on uninitialised value(s)
-==1215368==    at 0x484ED28: strlen (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1215368==    by 0x48985C7: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x4898E0D: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x48881BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x4893CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x109685: read_input (_readline.c:45)
-==1215368==    by 0x1093DD: main (minishell.c:28)
-==1215368== 
-==1215368== Conditional jump or move depends on uninitialised value(s)
-==1215368==    at 0x484EA0A: index (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1215368==    by 0x4898774: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x4898E0D: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x48881BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x4893CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x109685: read_input (_readline.c:45)
-==1215368==    by 0x1093DD: main (minishell.c:28)
-==1215368== 
-==1215368== Conditional jump or move depends on uninitialised value(s)
-==1215368==    at 0x484EA0E: index (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1215368==    by 0x4898774: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x4898E0D: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x48881BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x4893CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x109685: read_input (_readline.c:45)
-==1215368==    by 0x1093DD: main (minishell.c:28)
-==1215368== 
-==1215368== Conditional jump or move depends on uninitialised value(s)
-==1215368==    at 0x484ED28: strlen (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1215368==    by 0x4898C73: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x4898E0D: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x48881BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x4893CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x109685: read_input (_readline.c:45)
-==1215368==    by 0x1093DD: main (minishell.c:28)
-==1215368== 
-==1215368== Conditional jump or move depends on uninitialised value(s)
-==1215368==    at 0x484ED28: strlen (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1215368==    by 0x4898E2E: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x48881BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x4893CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x109685: read_input (_readline.c:45)
-==1215368==    by 0x1093DD: main (minishell.c:28)
-==1215368== 
-==1215368== Conditional jump or move depends on uninitialised value(s)
-==1215368==    at 0x484ED28: strlen (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1215368==    by 0x48AB5AE: _rl_adjust_point (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x48AB7D2: _rl_find_next_mbchar (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x4898A12: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x4898E0D: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x48881BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x4893CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x109685: read_input (_readline.c:45)
-==1215368==    by 0x1093DD: main (minishell.c:28)
-==1215368== 
-==1215368== Conditional jump or move depends on uninitialised value(s)
-==1215368==    at 0x484ED28: strlen (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1215368==    by 0x48AB80F: _rl_find_next_mbchar (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x4898A12: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x4898E0D: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x48881BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x4893CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x109685: read_input (_readline.c:45)
-==1215368==    by 0x1093DD: main (minishell.c:28)
-==1215368== 
-==1215368== Conditional jump or move depends on uninitialised value(s)
-==1215368==    at 0x484ED28: strlen (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1215368==    by 0x48AB96A: _rl_find_next_mbchar (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x4898A12: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x4898E0D: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x48881BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x4893CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x109685: read_input (_readline.c:45)
-==1215368==    by 0x1093DD: main (minishell.c:28)
-==1215368== 
-==1215368== Conditional jump or move depends on uninitialised value(s)
-==1215368==    at 0x484ED19: strlen (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1215368==    by 0x48AB96A: _rl_find_next_mbchar (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x4898A12: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x4898E0D: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x48881BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x4893CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x109685: read_input (_readline.c:45)
-==1215368==    by 0x1093DD: main (minishell.c:28)
-==1215368== 
-==1215368== Conditional jump or move depends on uninitialised value(s)
-==1215368==    at 0x4898719: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x4898E0D: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x48881BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x4893CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==1215368==    by 0x109685: read_input (_readline.c:45)
-==1215368==    by 0x1093DD: main (minishell.c:28)
-==1215368== 
-==1215368== 
-==1215368== HEAP SUMMARY:
-==1215368==     in use at exit: 208,283 bytes in 224 blocks
-==1215368==   total heap usage: 549 allocs, 325 frees, 232,272 bytes allocated
-==1215368== 
-==1215368== 62 bytes in 2 blocks are definitely lost in loss record 16 of 64
-==1215368==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1215368==    by 0x10974B: custom_join (_readline.c:63)
-==1215368==    by 0x109976: prompt (_readline.c:103)
-==1215368==    by 0x10966D: read_input (_readline.c:44)
-==1215368==    by 0x1093DD: main (minishell.c:28)
-==1215368== 
-==1215368== LEAK SUMMARY:
-==1215368==    definitely lost: 62 bytes in 2 blocks
-==1215368==    indirectly lost: 0 bytes in 0 blocks
-==1215368==      possibly lost: 0 bytes in 0 blocks
-==1215368==    still reachable: 0 bytes in 0 blocks
-==1215368==         suppressed: 208,221 bytes in 222 blocks
-==1215368== 
-==1215368== Use --track-origins=yes to see where uninitialised values come from
-==1215368== For lists of detected and suppressed errors, rerun with: -s
-==1215368== ERROR SUMMARY: 208 errors from 15 contexts (suppressed: 0 from 0)
+==1459710== Memcheck, a memory error detector
+==1459710== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==1459710== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==1459710== Command: ./minishell
+==1459710== Parent PID: 1459709
+==1459710== 
+==1459794== 
+==1459794== HEAP SUMMARY:
+==1459794==     in use at exit: 208,259 bytes in 222 blocks
+==1459794==   total heap usage: 546 allocs, 324 frees, 237,342 bytes allocated
+==1459794== 
+==1459794== LEAK SUMMARY:
+==1459794==    definitely lost: 0 bytes in 0 blocks
+==1459794==    indirectly lost: 0 bytes in 0 blocks
+==1459794==      possibly lost: 0 bytes in 0 blocks
+==1459794==    still reachable: 0 bytes in 0 blocks
+==1459794==         suppressed: 208,259 bytes in 222 blocks
+==1459794== 
+==1459794== For lists of detected and suppressed errors, rerun with: -s
+==1459794== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==1459836== 
+==1459836== HEAP SUMMARY:
+==1459836==     in use at exit: 208,284 bytes in 224 blocks
+==1459836==   total heap usage: 607 allocs, 383 frees, 242,720 bytes allocated
+==1459836== 
+==1459836== LEAK SUMMARY:
+==1459836==    definitely lost: 0 bytes in 0 blocks
+==1459836==    indirectly lost: 0 bytes in 0 blocks
+==1459836==      possibly lost: 0 bytes in 0 blocks
+==1459836==    still reachable: 0 bytes in 0 blocks
+==1459836==         suppressed: 208,284 bytes in 224 blocks
+==1459836== 
+==1459836== For lists of detected and suppressed errors, rerun with: -s
+==1459836== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==1459992== 
+==1459992== HEAP SUMMARY:
+==1459992==     in use at exit: 208,420 bytes in 225 blocks
+==1459992==   total heap usage: 708 allocs, 483 frees, 248,925 bytes allocated
+==1459992== 
+==1459992== LEAK SUMMARY:
+==1459992==    definitely lost: 0 bytes in 0 blocks
+==1459992==    indirectly lost: 0 bytes in 0 blocks
+==1459992==      possibly lost: 0 bytes in 0 blocks
+==1459992==    still reachable: 0 bytes in 0 blocks
+==1459992==         suppressed: 208,420 bytes in 225 blocks
+==1459992== 
+==1459992== For lists of detected and suppressed errors, rerun with: -s
+==1459992== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==1459957== 
+==1459957== HEAP SUMMARY:
+==1459957==     in use at exit: 208,516 bytes in 225 blocks
+==1459957==   total heap usage: 723 allocs, 498 frees, 253,444 bytes allocated
+==1459957== 
+==1459957== LEAK SUMMARY:
+==1459957==    definitely lost: 0 bytes in 0 blocks
+==1459957==    indirectly lost: 0 bytes in 0 blocks
+==1459957==      possibly lost: 0 bytes in 0 blocks
+==1459957==    still reachable: 0 bytes in 0 blocks
+==1459957==         suppressed: 208,516 bytes in 225 blocks
+==1459957== 
+==1459957== For lists of detected and suppressed errors, rerun with: -s
+==1459957== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==1460134== 
+==1460134== HEAP SUMMARY:
+==1460134==     in use at exit: 208,541 bytes in 227 blocks
+==1460134==   total heap usage: 686 allocs, 459 frees, 248,635 bytes allocated
+==1460134== 
+==1460134== LEAK SUMMARY:
+==1460134==    definitely lost: 0 bytes in 0 blocks
+==1460134==    indirectly lost: 0 bytes in 0 blocks
+==1460134==      possibly lost: 0 bytes in 0 blocks
+==1460134==    still reachable: 0 bytes in 0 blocks
+==1460134==         suppressed: 208,541 bytes in 227 blocks
+==1460134== 
+==1460134== For lists of detected and suppressed errors, rerun with: -s
+==1460134== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==1459710== 
+==1459710== HEAP SUMMARY:
+==1459710==     in use at exit: 208,516 bytes in 225 blocks
+==1459710==   total heap usage: 701 allocs, 476 frees, 253,154 bytes allocated
+==1459710== 
+==1459710== LEAK SUMMARY:
+==1459710==    definitely lost: 0 bytes in 0 blocks
+==1459710==    indirectly lost: 0 bytes in 0 blocks
+==1459710==      possibly lost: 0 bytes in 0 blocks
+==1459710==    still reachable: 0 bytes in 0 blocks
+==1459710==         suppressed: 208,516 bytes in 225 blocks
+==1459710== 
+==1459710== For lists of detected and suppressed errors, rerun with: -s
+==1459710== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

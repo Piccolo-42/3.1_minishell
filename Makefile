@@ -68,7 +68,7 @@ OBJ			= 	$(addprefix $(OBJ_DIR)/, $(SRC:.c=.o)) $(addprefix $(TEST_DIR)/, $(SRC_
 RM			= 	rm -f
 AR			= 	ar -rcs
 VALGRIND	=	valgrind
-VFLAGS		=	--leak-check=full #--show-leak-kinds=all --track-origins=yes --verbose
+VFLAGS		=	--leak-check=full --show-leak-kinds=all --track-origins=yes #--verbose
 VSUPP		=	--suppressions=resources/a.supp --log-file="resources/leaks.log"
 
 
@@ -129,6 +129,7 @@ debug: re
 valgrind: CFLAGS += -g
 valgrind: re
 	$(VALGRIND) $(VFLAGS) $(VSUPP) ./$(NAME)
+
 
 
 .SILENT:
