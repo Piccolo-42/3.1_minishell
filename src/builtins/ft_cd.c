@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 15:00:42 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/06 16:17:50 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/07 16:25:10 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,14 @@ int	ft_cd(char **args, char ***envp, t_data *data)
 	if (!dir)
 		return (0);
 	if (chdir(dir) == -1)
-		return (ft_free(&oldpwd), error_handler("exec failed", 126), 0);
+		return (ft_free(&oldpwd), file_error_handler("cd: ", dir,
+				": no such file or directory", 1), 0);
 	newpwd = getcwd(NULL, 0);
 	if (!newpwd)
 		return (ft_free(&oldpwd),
 			exit_handler(data, "cd: error retrieving new directory\n", 1), 0);
-	ft_printf("old: %s\n", oldpwd);
-	ft_printf("new: %s\n", newpwd);
 	mini_export(envp, ft_strjoin("OLDPWD=", oldpwd));
 	mini_export(envp, ft_strjoin("PWD=", newpwd));
-	// mini_export(envp, oldpwd);
-	// mini_export(envp, newpwd);
 	ft_free(&oldpwd);
 	ft_free(&newpwd);
 	return (1);
@@ -50,9 +47,9 @@ char	*get_dir(char **args, char **envp)
 	n_arg = 0;
 	while (args[n_arg])
 		n_arg++;
-	if (n_arg > 1)
+	if (n_arg > 2)
 		return (error_handler("cd: too many arguments", 1), NULL);
-	if (args[1])
+	if (args[1] && ft_strncmp(args[1], "~", 1))
 		return (args[1]);
 	home = ft_getenv(envp, "HOME");
 	if (!home)

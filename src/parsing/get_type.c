@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_hndl_typ.c                                     :+:      :+:    :+:   */
+/*   get_type.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 14:36:02 by sravizza          #+#    #+#             */
-/*   Updated: 2025/03/24 13:05:47 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/07 11:04:12 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ t_type	handle_quotes(char *input, int *i)
 	}
 	(*i)++;
 	if (input[*i - 1] == '\"')
-		return (DBL_Q);
+		return (WORD);
 	if (input[*i - 1] == '\'')
-		return (SNG_Q);
+		return (WORD);
 	return (WORD);
 }
 
@@ -88,7 +88,7 @@ t_type	handle_env(char *input, int *i)
 	{
 		(*i)++;
 	}
-	return (ENV);
+	return (WORD);
 }
 
 t_type	handle_words(char *input, int *i)

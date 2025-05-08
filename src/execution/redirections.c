@@ -6,22 +6,19 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 16:16:11 by emurillo          #+#    #+#             */
-/*   Updated: 2025/05/06 17:17:21 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/07 17:00:03 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	execute_redirections(t_list *cmd)
+//error msg
+int	execute_redir_in(t_list *cmd)
 {
 	t_list	*in;
-	t_list	*out;
 	int		fd;
 
 	in = cmd->read;
-	// printf("in 0: %s\n", in->content[0]);
-	// printf("in 1: %s\n", in->content[1]);
-
 	if (in)
 	{
 		if (in->type == HEREDOC)
@@ -31,9 +28,18 @@ int	execute_redirections(t_list *cmd)
 		if (fd == -1)
 			return (perror("infile"), -1);
 		if (dup2(fd, STDIN_FILENO) == -1)
-			return(perror("dup2 in"), -1);
+			return (perror("dup2 in"), -1);
 		close(fd);
 	}
+	return (1);
+}
+
+int	execute_redirections(t_list *cmd)
+{
+	t_list	*out;
+	int		fd;
+
+	execute_redir_in(cmd);
 	out = cmd->write;
 	if (out)
 	{
@@ -44,11 +50,9 @@ int	execute_redirections(t_list *cmd)
 		if (fd == -1)
 			return (perror("outfile"), -1);
 		if (dup2(fd, STDOUT_FILENO) == -1)
-			return(perror("dup2 out"), -1);
+			return (perror("dup2 out"), -1);
 		close(fd);
 	}
-	// printf("out 0: %s\n", out->content[0]);
-	// printf("out 1: %s\n", out->content[1]);
 	return (0);
 }
 

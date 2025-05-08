@@ -6,7 +6,7 @@
 /*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 15:01:45 by emurillo          #+#    #+#             */
-/*   Updated: 2025/05/07 12:02:43 by emurillo         ###   ########.fr       */
+/*   Updated: 2025/05/08 14:55:13 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,14 @@
 
 int		exec_pipeline(t_list *start, t_data *data);
 int		count_cmd(t_list *start);
-void	init_exec_t(t_exec_ctx *ctx, int *pipe_fd, t_data *data, t_list *node);
+int		init_exec_t(t_exec_ctx *ctx, int *pipe_fd, t_data *data, t_list *node);
 int		child_process(t_exec_ctx *ctx);
 int		pipe_cmds(int n_cmd, int *pipe_fd);
 int		exec_builtin(t_list *node, t_data *data);
 int		is_builtin(char *cmd);
 int		execute_redirections(t_list *cmd);
 int		has_redirection(t_list *cmd);
+int	execmd(t_list *list, t_data *data);
 
 
 // for PATH search

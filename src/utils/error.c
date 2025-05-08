@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 10:27:00 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/05 16:14:05 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/08 13:00:35 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,17 @@ void	exit_handler(t_data *data, char *msg, int exit_code)
 	exit(exit_code);
 }
 
-// void	file_exit_handler(t_data *data, char *str, char *file, int exit_code)
-// {
-// 	file_error_handler(str, file, NULL, exit_code);
-// 	rl_clear_history();
-// 	free_data(data);
-// 	exit(exit_code);
-// }
+void	file_exit_handler(t_data *data, char *str, char *file, int exit_code)
+{
+	g_exit_code = exit_code;
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd(file, 2);
+	ft_putstr_fd("\n", 2);
+	rl_clear_history();
+	free_data(data);
+	exit(exit_code);
+}
 
 void	silent_exit(t_data *data, int exit_code)
 {
@@ -44,7 +48,7 @@ void	silent_exit(t_data *data, int exit_code)
 void	error_handler(char *msg, int exit_code)
 {
 	g_exit_code = exit_code;
-	ft_putstr_fd("bash: ", 2);
+	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(msg, 2);
 	ft_putstr_fd("\n", 2);
 }
@@ -52,7 +56,7 @@ void	error_handler(char *msg, int exit_code)
 void	file_error_handler(char *first, char *file, char *second, int exit_code)
 {
 	g_exit_code = exit_code;
-	ft_putstr_fd("bash: ", 2);
+	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(first, 2);
 	ft_putstr_fd(file, 2);
 	ft_putstr_fd(second, 2);
@@ -78,7 +82,7 @@ void	free_data(t_data *data)
 // 	va_list	args;
 
 // 	if (format)
-// 	{	
+// 	{
 // 		va_start(args, format);
 // 		i = 0;
 // 		while(format[i])

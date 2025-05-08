@@ -20,36 +20,38 @@ RL_DIR		=	readline
 PARS_DIR	=	parsing
 BI_DIR		=	builtins
 EXE_DIR		=	execution
-ERR_DIR		=	exit+error
+UTIL_DIR	=	utils
+TEST_DIR	=	tests
 
 ################################################################################
 ##								  SOURCES									  ##
 
-SRC_MAIN	=	minishell.c	utils_ms.c	signals.c
+SRC_MAIN	=	minishell.c
 
 SRC_RL		=	_readline.c	utils_rl.c
 
 SRC_PARS	=	_parsing.c 				   										\
 				get_type.c	get_word_type.c	hndl_file_redir.c	link_read_write.c \
 				utl_clean.c	utl_lst_mk.c	utl_lst_rm.c		utl_pars.c  	\
-				expand_env.c	create_empty_cmd.c								\
-				X_prt_test.c		XX_color_prt.c
+				create_empty_cmd.c	hndl_heredoc.c
 
 SRC_BI		=	ft_cd.c		ft_echo.c		ft_env.c			ft_exit.c		\
 				ft_export.c	ft_pwd.c		ft_unset.c			utils_bi.c
 
-SRC_EXE		=	built_ins_exec.c	close_wait.c exec_pipeline.c exec_utils.c		\
-				locate_path.c redirections.c
+SRC_EXE		=	built_ins_exec.c	close_wait.c 	exec_pipeline.c exec_utils.c \
+				locate_path.c 		redirections.c	expand_env.c
 
 
-SRC_ERR		=	error.c
+SRC_UTIL	=	error.c	utils_ms.c	signals.c
+
+SRC_TEST	=	X_prt_test.c	XX_color_prt.c
 
 SRC			=	$(SRC_MAIN)													   \
 				$(addprefix $(RL_DIR)/, $(SRC_RL))							   \
 				$(addprefix $(PARS_DIR)/, $(SRC_PARS))						   \
 				$(addprefix $(BI_DIR)/, $(SRC_BI))							   \
 				$(addprefix $(EXE_DIR)/, $(SRC_EXE))						   \
-				$(addprefix $(ERR_DIR)/, $(SRC_ERR))
+				$(addprefix $(UTIL_DIR)/, $(SRC_UTIL))
 
 LIBFT_LIB	=	$(LIBFT_DIR)/libft.a
 
@@ -60,9 +62,9 @@ LIBFT_LIB	=	$(LIBFT_DIR)/libft.a
 
 NAME		= 	minishell
 CC			= 	gcc
-CFLAGS		= 	-Wall -Werror -Wextra -I$(INCL_DIR) -I$(LIBFT_DIR)
+CFLAGS		= 	-Wall -Werror -Wextra -I$(INCL_DIR) -I$(LIBFT_DIR) -g
 LFLAGS		= 	-lreadline -Llibft -lft
-OBJ			= 	$(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
+OBJ			= 	$(addprefix $(OBJ_DIR)/, $(SRC:.c=.o)) $(addprefix $(TEST_DIR)/, $(SRC_TEST))
 RM			= 	rm -f
 AR			= 	ar -rcs
 VALGRIND	=	valgrind
@@ -92,12 +94,12 @@ $(OBJ_DIR)/%.o: $(BI_DIR)/%.c | create_obj_dirs
 $(OBJ_DIR)/%.o: $(EXE_DIR)/%.c | create_obj_dirs
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(OBJ_DIR)/%.o: $(ERR_DIR)/%.c | create_obj_dirs
+$(OBJ_DIR)/%.o: $(UTIL_DIR)/%.c | create_obj_dirs
 	$(CC) $(CFLAGS) -c $< -o $@
 
 create_obj_dirs:
 	mkdir -p	$(OBJ_DIR)/$(RL_DIR) $(OBJ_DIR)/$(PARS_DIR) 				\
-				$(OBJ_DIR)/$(EXE_DIR) $(OBJ_DIR)/$(BI_DIR) $(OBJ_DIR)/$(ERR_DIR)
+				$(OBJ_DIR)/$(EXE_DIR) $(OBJ_DIR)/$(BI_DIR) $(OBJ_DIR)/$(UTIL_DIR)
 
 $(LIBFT_LIB):
 	$(MAKE) -C $(LIBFT_DIR) > /dev/null

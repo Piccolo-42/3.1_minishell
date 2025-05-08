@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 11:16:33 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/06 17:10:55 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/07 14:14:20 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ int	insert_empty_cmd(t_list *prev_node);
 // utl_clean (utils list clean up)
 
 int		remove_type_rm(t_list **lst);
-int		update_quotes_and_env(t_list **lst);
-int		update_quotes(t_list *node);
-void	update_env(t_list *node);
+// int		update_quotes_and_env(t_list **lst);
+char	*update_quotes(char *input);
+// void	update_env(t_list *node);
 int		check_syntax(t_list **lst);
 
 
