@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 15:01:31 by sravizza          #+#    #+#             */
-/*   Updated: 2025/04/01 17:29:50 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/08 15:04:06 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	mini_unset(char ***envp, char *name)
 		return ;
 	free((*envp)[rm]);
 	i = rm;
-	while (envp[i])
+	while ((*envp)[i])
 	{
 		(*envp)[i] = (*envp)[i + 1];
 		i++;

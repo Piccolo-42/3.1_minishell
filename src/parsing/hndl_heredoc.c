@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hndl_heredoc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 14:57:50 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/07 16:25:44 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/08 15:23:19 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ void	handle_heredoc_sigint(int signum)
 {
     (void)signum;
     write(1, "\n", 1);
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
+	// rl_replace_line("", 0);
+	// rl_on_new_line();
+	// rl_redisplay();
     exit(130);
 }
 

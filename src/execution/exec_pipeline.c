@@ -6,7 +6,7 @@
 /*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:10:49 by emurillo          #+#    #+#             */
-/*   Updated: 2025/05/08 14:56:03 by emurillo         ###   ########.fr       */
+/*   Updated: 2025/05/08 15:10:48 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ int	exec_multiple_args(t_exec_ctx *ctx)
 				error_handler("fork failed", 1);
 			if (pid == 0)
 			{
-				child_signal(ctx->data);
+				// child_signal(ctx->data);
 				signal(SIGINT, SIG_DFL);
-				// signal(SIGQUIT, SIG_DFL);
+				signal(SIGQUIT, SIG_DFL);
 				child_process(ctx);
 			}
-			signal_init(ctx->data);
+			signal_restore(ctx->data);
 			ctx->i++;
 		}
 		ctx->node = ctx->node->next;

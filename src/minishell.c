@@ -28,6 +28,7 @@ int	main(int argc, char **argv, char **envp)
 		exit_handler(NULL, "data: memory allocation failed", 1);
 	while (1)
 	{
+		signal_init(data);
 		data->input = read_input(data);
 		if (!data->input)
 			break ;

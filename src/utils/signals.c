@@ -6,7 +6,7 @@
 /*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 11:48:18 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/08 14:36:58 by emurillo         ###   ########.fr       */
+/*   Updated: 2025/05/08 15:12:30 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,28 @@ void	signal_init(t_data *data)
 	signal(SIGQUIT, SIG_IGN);
 
 	sa.sa_handler = handle_signint;
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = SA_RESTART;
+	if (sigaction(SIGINT, &sa, NULL) == -1)
+		exit_handler(data, "sigaction", 1);
+}
+
+void	restore_signint(int signum)
+{
+	(void) signum;
+	write(1, "\n", 1);
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	// rl_redisplay();
+	g_exit_code = 130;
+}
+
+void	signal_restore(t_data *data)
+{
+	struct sigaction	sa;
+
+	signal(SIGQUIT, SIG_IGN);
+	sa.sa_handler = restore_signint;
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = SA_RESTART;
 	if (sigaction(SIGINT, &sa, NULL) == -1)
