@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 11:38:39 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/07 10:16:19 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/09 12:15:25 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ t_list	*next_cmd(t_list **lst)
 			return (node);
 		node = node->next;
 	}
-	return (NULL);
+	
+	return (ft_putendl_fd("no cmd", 2), NULL);
 }
 
 t_list	*process_redirs_bis(t_list *next_node, t_list *redir)

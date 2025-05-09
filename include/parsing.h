@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 11:16:33 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/08 17:32:42 by emurillo         ###   ########.fr       */
+/*   Updated: 2025/05/09 12:13:51 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ int		assign_redir_and_file(t_list *node, t_data *data);
 int		file_exists_and_is_readable(char *file);
 int		file_ok_or_create(char *file, t_type type);
 int		handle_here_doc(t_list *redir, t_data *data);
-void free_heredocs(t_list *lst);
+void 	free_heredocs(t_list *lst);
+void 	free_heredocs_sigint(t_list *lst);
 void	gnl_doc(char *limiter);
 
 
@@ -61,7 +62,7 @@ void	link_cmd_and_pipes(t_list **lst);
 
 // create_empty_cmd
 int	create_empty_cmd(t_list **lst);
-int	insert_empty_cmd(t_list *prev_node);
+t_list	*insert_empty_cmd(t_list *node);
 
 
 // utl_clean (utils list clean up)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 06:54:01 by emurillo          #+#    #+#             */
-/*   Updated: 2025/05/08 17:07:18 by emurillo         ###   ########.fr       */
+/*   Updated: 2025/05/09 11:40:12 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	execmd(t_list *list, t_data *data)
 	char	*path;
 
 	if (!*list->content[0])
-		return (0);
+		silent_exit(data, 0);
 	if (!list || !list->content || !list->content[0])
 	{
 		error_handler(" : command not found", 127);

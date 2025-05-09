@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 14:57:50 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/09 10:55:49 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/09 12:18:05 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ int	handle_here_doc(t_list *redir, t_data *data)
 	if (!doc_name)
 		return (0);
 	redir->content[1] = limiter;
-
 	pid = fork();
 	if (pid == 0)
 	{
@@ -116,9 +115,8 @@ int	handle_here_doc(t_list *redir, t_data *data)
 			waitpid(-1, &status, 0);
 			if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
 			{
-				// unlink(doc_name);
-				ft_putendl_fd("HERE", 2);
-				free_heredocs(data->ast);
+				unlink(doc_name);
+				free_heredocs_sigint(redir);
 				// ft_free(&doc_name);
 				// redir->content[2] = NULL;
 				// rl_redisplay();
@@ -137,20 +135,17 @@ int	handle_here_doc(t_list *redir, t_data *data)
 	return (free(doc_name), 1);
 }
 
-
 void free_heredocs(t_list *lst)
 {
 	t_list *node;
 
-	ft_putendl_fd("FREE", 2);
 	while (lst)
 	{
-		ft_putendl_fd("FREE2", 2);
-		if (lst->type == HEREDOC && lst->content[2])
-		{
-			ft_putendl_fd(lst->content[2], 2);
-			unlink(lst->content[2]);
-		}
+		// if (lst->type == HEREDOC && lst->content[2])
+		// {
+		// 	ft_putendl_fd(lst->content[2], 2);
+		// 	unlink(lst->content[2]);
+		// }
 		if (lst->read)
 		{
 			node = lst->read;
@@ -161,6 +156,33 @@ void free_heredocs(t_list *lst)
 				node = node->next;
 			}
 		}
+		lst = lst->next;
+	}
+}
+
+void free_heredocs_sigint(t_list *lst)
+{
+	// t_list *node;
+
+	while (lst->prev)
+		lst = lst->prev;
+	while (lst)
+	{
+		if (lst->type == HEREDOC && lst->content[2])
+		{
+			// ft_putendl_fd(lst->content[2], 2);
+			unlink(lst->content[2]);
+		}
+		// if (lst->read)
+		// {
+		// 	node = lst->read;
+		// 	while (node)
+		// 	{
+		// 		if (node->type == HEREDOC && node->content[2])
+		// 			unlink(node->content[2]);
+		// 		node = node->next;
+		// 	}
+		// }
 		lst = lst->next;
 	}
 }

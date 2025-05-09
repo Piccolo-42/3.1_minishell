@@ -38,7 +38,7 @@ int	main(int argc, char **argv, char **envp)
 			add_history(data->input);
 			data->ast = parsing(data);
 			if (!data->ast && data->prt)
-				/*error_handler("ast: memory allocation failed", 1)*/;
+				ft_putendl_fd("NO AST", 2);
 			else
 			{
 				data->prt = 1;
