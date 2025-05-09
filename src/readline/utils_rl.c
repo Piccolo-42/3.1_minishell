@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 11:07:20 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/08 09:55:02 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/09 09:52:55 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,20 +54,18 @@ char	*fill_join(char *dest, char *name, char *session, char *cwd)
 	return (dest);
 }
 
-char	*custom_join(char *name, char *session, char *cwd)
+char	*get_user(t_data *data)
 {
-	char	*dest;
-	int		size;
+	char	*name;
 
-	size = ft_strlen(name) + ft_strlen(session) + ft_strlen(cwd) + 5 + 3;
-	if (size > 127)
+	name = replace_env(data, ft_strdup("$USER"));
+	if (!name)
 		return (NULL);
-	dest = malloc(sizeof(char) * size);
-	if (!dest)
-		return (NULL);
-	dest = fill_join(dest, name, session, cwd);
-	return (dest);
+	if (!*name)
+		return (ft_free(&name), ft_strdup("minishell"));
+	return (name);
 }
+
 
 //if at 42, gets your computer location. else "c4r2s42"
 char	*get_session(t_data *data)
@@ -86,7 +84,10 @@ char	*get_session(t_data *data)
 	free(env);
 	if (!dest)
 		return (NULL);
-	return (dest);
+	if (dest[0]=='c' && ft_isdigit(dest[1]) && dest[2] == 'r'
+			&& ft_isdigit(dest[3]) && ft_strlen(dest) > 5 && ft_strlen(dest) < 9)
+		return (dest);
+	return (free(dest), ft_strdup("c4r2s42"));
 }
 
 // '/' root ; ~ instead of home/user ; rest is CWD

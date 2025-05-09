@@ -41,7 +41,9 @@ extern int g_exit_code;
 char	*read_input(t_data *data);
 char	*prompt(t_data *data);
 char	*custom_join(char *name, char *session, char *cwd);
+char	*fill_join(char *dest, char *name, char *session, char *cwd);
 char	*get_session(t_data *data);
+char	*get_user(t_data *data);
 char	*get_cwd(t_data *data);
 char	last_char(char *str);
 

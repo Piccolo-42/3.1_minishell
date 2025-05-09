@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hndl_heredoc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 14:57:50 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/08 17:48:13 by emurillo         ###   ########.fr       */
+/*   Updated: 2025/05/09 10:55:49 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int	here_doc_readline(char *limiter, char *doc_name, t_data *data, int expand)
 
 	doc_fd = open(doc_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (doc_fd == -1)
-		return (free(doc_name),
-			error_handler("heredoc: failed to create temporary file", 1), 0);
+		return (ft_free(&doc_name),
+			exit_handler(data, "heredoc: failed to create temporary file", 1), 0);
 	while (1)
 	{
 		line = readline("> ");
@@ -33,7 +33,7 @@ int	here_doc_readline(char *limiter, char *doc_name, t_data *data, int expand)
 		if (expand)
 			line = dblq_replace_env(data, line);
 		if (!line)
-			return (close(doc_fd), 0);
+			return (close(doc_fd), silent_exit(data, 1), 0);
 		write(doc_fd, line, ft_strlen(line));
 		write(doc_fd, "\n", 1);
 		ft_free(&line);
@@ -57,6 +57,7 @@ void	heredoc_signint(int signum)
 	write(1, "\n", 1);
 	rl_replace_line("", 0);
 	rl_on_new_line();
+
 	// rl_redisplay();
 	g_exit_code = 130;
 }
@@ -80,6 +81,7 @@ int	handle_here_doc(t_list *redir, t_data *data)
 	int		expand;
 	pid_t	pid;
 	int		status;
+	// int		i;
 
 	expand = 1;
 	limiter = redir->content[1];
@@ -103,25 +105,34 @@ int	handle_here_doc(t_list *redir, t_data *data)
 		// signal_heredoc(data);
 		if (!here_doc_readline(limiter, doc_name, data, expand))
 			silent_exit(data, 1);
-		// exit(data, 0);
+		silent_exit(data, 0);
 	}
 	else if (pid > 0)
 	{
-		waitpid(pid, &status, 0);
-		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
-		{
-			redir->content[2] = NULL;
-			unlink(doc_name);
-			ft_free(&doc_name);
-			// rl_redisplay();
-			g_exit_code = 130;
-			return (0);
+		// signal_restore(data);
+		// i = 0;
+		// while (i++ <= data->here_doc)
+		// {
+			waitpid(-1, &status, 0);
+			if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+			{
+				// unlink(doc_name);
+				ft_putendl_fd("HERE", 2);
+				free_heredocs(data->ast);
+				// ft_free(&doc_name);
+				// redir->content[2] = NULL;
+				// rl_redisplay();
+				g_exit_code = 130;
+				// write(1, "\n", 1);
+				// rl_replace_line("", 0);
+				// rl_on_new_line();
+				signal_restore(data);
+				return (0);
+			// }
 		}
-		write(1, "\n", 1);
-		rl_replace_line("", 0);
-		rl_on_new_line();
 	}
-		if (!add_arg(redir, doc_name))
+	signal_restore(data);
+	if (!add_arg(redir, doc_name))
 		return (free(doc_name), 0);
 	return (free(doc_name), 1);
 }
@@ -131,14 +142,21 @@ void free_heredocs(t_list *lst)
 {
 	t_list *node;
 
+	ft_putendl_fd("FREE", 2);
 	while (lst)
 	{
+		ft_putendl_fd("FREE2", 2);
+		if (lst->type == HEREDOC && lst->content[2])
+		{
+			ft_putendl_fd(lst->content[2], 2);
+			unlink(lst->content[2]);
+		}
 		if (lst->read)
 		{
 			node = lst->read;
 			while (node)
 			{
-				if (node->type == HEREDOC)
+				if (node->type == HEREDOC && node->content[2])
 					unlink(node->content[2]);
 				node = node->next;
 			}

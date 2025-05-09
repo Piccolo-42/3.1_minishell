@@ -28,6 +28,7 @@ int	main(int argc, char **argv, char **envp)
 		exit_handler(NULL, "data: memory allocation failed", 1);
 	while (1)
 	{
+		data->here_doc = 0;
 		signal_init(data);
 		data->input = read_input(data);
 		if (!data->input)
@@ -45,9 +46,11 @@ int	main(int argc, char **argv, char **envp)
 				// prt_ast_colored(data->ast);
 				// builtin_tester(&data);
 			 	exec_pipeline(data->ast, data);
-				free_heredocs(data->ast);
-				free_lst(&(data->ast));
+				// free_heredocs(data->ast);
+				// free_lst(&(data->ast));
 			}
+			free_heredocs(data->ast);
+			free_lst(&(data->ast));
 		}
 		ft_free(&(data->input));
 	}

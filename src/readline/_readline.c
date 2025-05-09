@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 10:59:49 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/07 10:35:21 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/09 09:46:50 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ char	*prompt(t_data *data)
 	char	*cwd;
 	char	*dest;
 
-	name = replace_env(data, ft_strdup("$USER"));
+	name = get_user(data);
 	if (!name)
 		return (NULL);
 	session = get_session(data);
@@ -86,5 +86,20 @@ char	*prompt(t_data *data)
 	free(name);
 	free(session);
 	free(cwd);
+	return (dest);
+}
+
+char	*custom_join(char *name, char *session, char *cwd)
+{
+	char	*dest;
+	int		size;
+
+	size = ft_strlen(name) + ft_strlen(session) + ft_strlen(cwd) + 5 + 3;
+	if (size > 127)
+		return (NULL);
+	dest = malloc(sizeof(char) * size);
+	if (!dest)
+		return (NULL);
+	dest = fill_join(dest, name, session, cwd);
 	return (dest);
 }
