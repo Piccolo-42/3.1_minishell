@@ -32,6 +32,7 @@ char	*ft_union_simple(char **str);
 char	**double_null(int n);
 char	*ft_strjoin_free_one(char *str1, char *str2);
 char	*ft_strjoin_free_two(char *str1, char *str2);
+int		ft_strcmp(char *str1, char *str2);
 
 //free
 void	ft_free_double(char **str);

@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 15:26:52 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/09 11:48:09 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/10 00:43:43 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ char	*split_union(char *input, int var_start, t_data *data)
 		return (NULL);
 	temp[0] = ft_substr(input, 0, var_start);
 	i = var_start + 1;
-	while (input[i] && ft_isalnum(input[i]))
+	while (input[i] && (ft_isalnum(input[i]) || input[i] == '?'))
 		i++;
 	temp[1] = replace_env(data, ft_substr(input, var_start, i - var_start));
 	temp[2] = ft_substr(input, i, ft_strlen(input) - i);

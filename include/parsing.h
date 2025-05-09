@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 11:16:33 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/09 17:47:22 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/09 23:44:14 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,14 @@
 
 t_list	*parsing(t_data *data);
 t_list	*token_lst(char *input);
+
+//fquotes
+int		count_split(char *old);
+int		fquotes(t_list *lst, t_data *data);
+char	*rework_token(char *old, t_data *data);
+char	*get_substring(char *old, int *o);
+char	**token_split(char *old);
+int		modify_substrings(char **temp, t_data *data);
 
 // expand_env
 int		expand_env(t_list **lst, t_data *data);
@@ -95,8 +103,7 @@ void	free_lst_write(t_list *node);
 int		is_redir(t_type	type);
 int		is_operator(t_type type);
 int	char_is_operator(char c);
-int	rework_token_main(t_list *lst, t_data *data);
-char	*rework_token(char *old, t_data *data);
+
 
 
 // X_prt_test (print tests)
