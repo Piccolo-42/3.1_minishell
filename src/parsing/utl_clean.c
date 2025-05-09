@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 14:37:30 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/09 11:48:04 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/09 15:11:47 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,12 @@ int	remove_type_rm(t_list **lst)
 	node = *lst;
 	while (node)
 	{
-		if (node->type == RM || !(*node->content[0]))
+		if (node->type == RM)
+		{
+			error_handler("syntax error: unmatched quote", 2);
+			return (0);
+		}
+		if (!(*node->content[0]))
 			remove_node(lst, &node);
 		else
 			node = node->next;

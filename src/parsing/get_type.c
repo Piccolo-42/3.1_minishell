@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 14:36:02 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/07 11:04:12 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/09 16:48:11 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@
  */
 t_type	get_type(char *input, int *i)
 {
-	if (input[*i] == '\"' || input[*i] == '\'')
-		return (handle_quotes(input, i));
+	// if (input[*i] == '\"' || input[*i] == '\'')
+	// 	return (handle_quotes(input, i));
 	if (input[*i] == '|')
 		return ((*i)++, PIPE);
 	if (input[*i] == '<' || input[*i] == '>')
 		return (handle_redir(input, i));
-	if (input[*i] == '$')
-		return (handle_env(input, i));
+	// if (input[*i] == '$')
+	// 	return (handle_env(input, i));
 	return (handle_words(input, i));
 }
 
@@ -46,10 +46,12 @@ t_type	handle_quotes(char *input, int *i)
 		return (RM);
 	}
 	(*i)++;
-	if (input[*i - 1] == '\"')
-		return (WORD);
-	if (input[*i - 1] == '\'')
-		return (WORD);
+	while (input[*i] && !is_whitespace(input[*i]) && !is_operator(input[*i]))
+		(*i)++;
+	// if (input[*i - 1] == '\"')
+	// 	return (WORD);
+	// if (input[*i - 1] == '\'')
+	// 	return (WORD);
 	return (WORD);
 }
 
@@ -81,23 +83,43 @@ t_type	handle_redir(char *input, int *i)
 t_type	handle_env(char *input, int *i)
 {
 	(*i)++;
-	while (input[*i] && !is_whitespace(input[*i])
-		&& input[*i] != '<' && input[*i] != '>'
-		&& input[*i] != '|' && input[*i] != '$'
-		&& input[*i] != '\'' && input[*i] != '\"')
+	while (input[*i] && !is_whitespace(input[*i]) && !is_operator(input[*i]))
+		// && input[*i] != '<' && input[*i] != '>'
+		// && input[*i] != '|' && input[*i] != '$'
+		// && input[*i] != '\'' && input[*i] != '\"')
 	{
 		(*i)++;
 	}
 	return (WORD);
 }
 
+// t_type	handle_words(char *input, int *i)
+// {
+// 	while (input[*i] && !is_whitespace(input[*i] && !is_operator(input[*i])))
+// 		// && input[*i] != '<' && input[*i] != '>'
+// 		// && input[*i] != '|' && input[*i] != '$'
+// 		// && input[*i] != '\'' && input[*i] != '\"')
+// 	{
+// 		(*i)++;
+// 	}
+// 	return (WORD);
+// }
+
 t_type	handle_words(char *input, int *i)
 {
-	while (input[*i] && !is_whitespace(input[*i])
-		&& input[*i] != '<' && input[*i] != '>'
-		&& input[*i] != '|' && input[*i] != '$'
-		&& input[*i] != '\'' && input[*i] != '\"')
+	char	quote;
+
+	while (input[*i] && !is_whitespace(input[*i]) && !char_is_operator(input[*i]))
 	{
+		if (input[*i] == '\"' || input[*i] == '\'')
+		{
+			quote = input[*i];
+			(*i)++;
+			while (input[*i] && input[*i] != quote)
+				(*i)++;
+			if (input[*i] != quote)
+				return (RM);
+		}
 		(*i)++;
 	}
 	return (WORD);

@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 11:11:42 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/08 10:04:16 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/09 17:47:45 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_list	*parsing(t_data *data)
 
 	lst = token_lst(data->input);
 	if (!remove_type_rm(&lst)
+		|| !rework_token_main(lst, data)
 		|| !assign_word_type(&lst, data)
 		|| !expand_env(&lst, data)
 		|| !check_syntax(&lst)

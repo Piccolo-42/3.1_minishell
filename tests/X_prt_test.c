@@ -134,7 +134,7 @@ void	basic_prt_lst(t_list *lst)
 		else
 			ft_printf("%t: >%s<\n", lst->type, lst->content[0]);
 		while (lst->content[i])
-			ft_printf("args: \"%s\"\n", lst->content[i++]);
+			ft_printf("args: >%s<\n", lst->content[i++]);
 		i = 0;
 		if (lst->read)
 		{
