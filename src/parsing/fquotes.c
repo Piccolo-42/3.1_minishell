@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 22:12:17 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/10 11:06:03 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/10 12:51:48 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ char	*rework_token(char *old, t_data *data)
 	dest = ft_union_simple(temp);
 	if (!dest)
 		return (NULL);
+	ft_free_double(temp);
 	ft_free(&old);
 	return (dest);
 }

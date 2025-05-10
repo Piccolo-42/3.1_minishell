@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 14:57:50 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/10 11:05:14 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/10 13:21:36 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	here_doc_readline(char *limiter, char *doc_name, t_data *data, int expand)
 		write(doc_fd, "\n", 1);
 		ft_free(&line);
 	}
-	return (close(doc_fd), 1);
+	return (ft_free(&doc_name), close(doc_fd), 1);
 }
 
 int	heredoc_fork(char *doc_name, char *limiter, t_data *data, t_list *redir)
@@ -105,12 +105,13 @@ int	handle_here_doc(t_list *redir, t_data *data)
 		limiter = update_quotes(limiter);
 		if (!limiter)
 			return (error_handler("ast: memory allocation failed", 1), 0);
+		ft_free(&(redir->content[1]));
+		redir->content[1] = limiter;
 	}
 	doc_name = ft_strjoin_free_two(".heredoc_", ft_itoa(data->here_doc));
 	data->here_doc++;
 	if (!doc_name)
 		return (0);
-	redir->content[1] = limiter;
 	if (!heredoc_fork(doc_name, limiter, data, redir))
 		return (0);
 	if (!add_arg(redir, doc_name))

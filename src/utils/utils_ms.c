@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 15:31:32 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/10 11:11:07 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/10 12:29:08 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ t_data	*init_data(char **envp)
 	data->prt = 1;
 	data->input = NULL;
 	data->prompt = NULL;
+	data->ast = NULL;
 	data->here_doc = 0;
 	data->expand_here_doc = 1;
 	data->c_stdin = dup(STDIN_FILENO);
@@ -94,7 +95,7 @@ void	free_data(t_data *data)
 		free_lst(&(data->ast));
 	if (data->prompt)
 		ft_free(&(data->prompt));
-	free(data);
+	ft_free_ptr((void *) &data);
 }
 
 void	restore_signint(int signum)

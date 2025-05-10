@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 14:47:37 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/07 16:24:42 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/10 12:57:26 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_exit(t_list *cmd, t_data *data)
 	exit_arg = cmd->content[1];
 	exit_code = ft_atol(exit_arg);
 	if (arg_count == 0)
-		exit(g_exit_code);
+		silent_exit(data, g_exit_code);
 	if (!ft_isdigit_str(exit_arg))
 	{
 		file_error_handler("exit: ",
