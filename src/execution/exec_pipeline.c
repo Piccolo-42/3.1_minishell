@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:10:49 by emurillo          #+#    #+#             */
-/*   Updated: 2025/05/09 12:16:28 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/10 10:59:36 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int	exec_multiple_args(t_exec_ctx *ctx)
 				error_handler("fork failed", 1);
 			if (pid == 0)
 			{
-				// child_signal(ctx->data);
 				signal(SIGINT, SIG_DFL);
 				signal(SIGQUIT, SIG_DFL);
 				child_process(ctx);
@@ -58,7 +57,8 @@ int	exec_pipeline(t_list *start, t_data *data)
 	{
 		save_in = dup(STDIN_FILENO);
 		save_out = dup(STDOUT_FILENO);
-		if (has_redirection(ctx.node) && execute_redirections(ctx.node, ctx.data) == -1)
+		if (has_redirection(ctx.node)
+			&& execute_redirections(ctx.node, ctx.data) == -1)
 			return (0);
 		g_exit_code = exec_builtin(ctx.node, ctx.data);
 		dup2(save_in, STDIN_FILENO);
@@ -69,7 +69,7 @@ int	exec_pipeline(t_list *start, t_data *data)
 	}
 	if (!exec_multiple_args(&ctx))
 		return (0);
-	g_exit_code = 0;;
+	g_exit_code = 0;
 	return (1);
 }
 
@@ -87,8 +87,8 @@ int	child_process(t_exec_ctx *ctx)
 	}
 	close_all(ctx->n_cmd, ctx->pipe_fd);
 	if (!ctx->node || ctx->node->type != CMD || !ctx->node->content)
-		return (ft_putendl_fd("here error.", 2)/* file_exit_handler(ctx->data,
-				ctx->node->content[0], ": command not found", NULL, 127),*/, 0);
+		return (file_exit_handler(ctx->data,
+				ctx->node->content[0], ": command not found", NULL, 127), 0);
 	if (is_builtin(ctx->node->content[0]))
 	{
 		exec_builtin(ctx->node, ctx->data);

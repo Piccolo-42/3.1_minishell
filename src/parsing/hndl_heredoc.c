@@ -6,11 +6,33 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 14:57:50 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/09 12:18:05 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/10 11:05:14 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// int	main_mock(void)
+// {
+// 	char *dest;
+// 	int pid;
+
+// 	dest = malloc(sizeof(char) * 3);
+// 	if (!dest)
+// 		return (1);
+// 	pid = fork();
+// 	if (pid == 0)
+// 	{
+// 		if (!chil_fucntion())
+// 			return(silent_exit(dest, 1));
+// 		return (silent_exit(dest, 0));
+// 	}
+// 	else if (pid > 0)
+// 		waitpid(-1, NULL, 0);
+// 	printf("%s\n", dest);
+// 	free(dest);
+// 	return (0);
+// }
 
 int	here_doc_readline(char *limiter, char *doc_name, t_data *data, int expand)
 {
@@ -20,7 +42,7 @@ int	here_doc_readline(char *limiter, char *doc_name, t_data *data, int expand)
 	doc_fd = open(doc_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (doc_fd == -1)
 		return (ft_free(&doc_name),
-			exit_handler(data, "heredoc: failed to create temporary file", 1), 0);
+			exit_handler(data, "heredoc: failed to create temp file", 1), 0);
 	while (1)
 	{
 		line = readline("> ");
@@ -41,53 +63,45 @@ int	here_doc_readline(char *limiter, char *doc_name, t_data *data, int expand)
 	return (close(doc_fd), 1);
 }
 
-void	handle_heredoc_sigint(int signum)
+int	heredoc_fork(char *doc_name, char *limiter, t_data *data, t_list *redir)
 {
-    (void)signum;
-    write(1, "\n", 1);
-	// rl_replace_line("", 0);
-	// rl_on_new_line();
-	// rl_redisplay();
-    exit(130);
-}
+	pid_t	pid;
+	int		status;
 
-void	heredoc_signint(int signum)
-{
-	(void) signum;
-	write(1, "\n", 1);
-	rl_replace_line("", 0);
-	rl_on_new_line();
-
-	// rl_redisplay();
-	g_exit_code = 130;
-}
-
-void	signal_heredoc(t_data *data)
-{
-	struct sigaction	sa;
-
-	signal(SIGQUIT, SIG_IGN);
-	sa.sa_handler = heredoc_signint;
-	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = SA_RESTART;
-	if (sigaction(SIGINT, &sa, NULL) == -1)
-		exit_handler(data, "sigaction", 1);
+	pid = fork();
+	if (pid == 0)
+	{
+		signal(SIGINT, SIG_DFL);
+		if (!here_doc_readline(limiter, doc_name, data, data->expand_here_doc))
+			silent_exit(data, 1);
+		silent_exit(data, 0);
+	}
+	else if (pid > 0)
+	{
+		signal_restore(data);
+		waitpid(-1, &status, 0);
+		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+		{
+			unlink(doc_name);
+			free_heredocs_sigint(redir);
+			ft_free(&doc_name);
+			g_exit_code = 130;
+			return (0);
+		}
+	}
+	return (1);
 }
 
 int	handle_here_doc(t_list *redir, t_data *data)
 {
 	char	*limiter;
 	char	*doc_name;
-	int		expand;
-	pid_t	pid;
-	int		status;
-	// int		i;
 
-	expand = 1;
+	data->expand_here_doc = 1;
 	limiter = redir->content[1];
 	if (limiter[0] == '\'' || limiter[0] == '\"')
 	{
-		expand = 0;
+		data->expand_here_doc = 0;
 		limiter = update_quotes(limiter);
 		if (!limiter)
 			return (error_handler("ast: memory allocation failed", 1), 0);
@@ -97,55 +111,19 @@ int	handle_here_doc(t_list *redir, t_data *data)
 	if (!doc_name)
 		return (0);
 	redir->content[1] = limiter;
-	pid = fork();
-	if (pid == 0)
-	{
-		signal(SIGINT, SIG_DFL);
-		// signal_heredoc(data);
-		if (!here_doc_readline(limiter, doc_name, data, expand))
-			silent_exit(data, 1);
-		silent_exit(data, 0);
-	}
-	else if (pid > 0)
-	{
-		// signal_restore(data);
-		// i = 0;
-		// while (i++ <= data->here_doc)
-		// {
-			waitpid(-1, &status, 0);
-			if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
-			{
-				unlink(doc_name);
-				free_heredocs_sigint(redir);
-				// ft_free(&doc_name);
-				// redir->content[2] = NULL;
-				// rl_redisplay();
-				g_exit_code = 130;
-				// write(1, "\n", 1);
-				// rl_replace_line("", 0);
-				// rl_on_new_line();
-				signal_restore(data);
-				return (0);
-			// }
-		}
-	}
-	signal_restore(data);
+	if (!heredoc_fork(doc_name, limiter, data, redir))
+		return (0);
 	if (!add_arg(redir, doc_name))
-		return (free(doc_name), 0);
-	return (free(doc_name), 1);
+		return (ft_free(&doc_name), 0);
+	return (ft_free(&doc_name), 1);
 }
 
-void free_heredocs(t_list *lst)
+void	free_heredocs(t_list *lst)
 {
-	t_list *node;
+	t_list	*node;
 
 	while (lst)
 	{
-		// if (lst->type == HEREDOC && lst->content[2])
-		// {
-		// 	ft_putendl_fd(lst->content[2], 2);
-		// 	unlink(lst->content[2]);
-		// }
 		if (lst->read)
 		{
 			node = lst->read;
@@ -160,29 +138,14 @@ void free_heredocs(t_list *lst)
 	}
 }
 
-void free_heredocs_sigint(t_list *lst)
+void	free_heredocs_sigint(t_list *lst)
 {
-	// t_list *node;
-
 	while (lst->prev)
 		lst = lst->prev;
 	while (lst)
 	{
 		if (lst->type == HEREDOC && lst->content[2])
-		{
-			// ft_putendl_fd(lst->content[2], 2);
 			unlink(lst->content[2]);
-		}
-		// if (lst->read)
-		// {
-		// 	node = lst->read;
-		// 	while (node)
-		// 	{
-		// 		if (node->type == HEREDOC && node->content[2])
-		// 			unlink(node->content[2]);
-		// 		node = node->next;
-		// 	}
-		// }
 		lst = lst->next;
 	}
 }

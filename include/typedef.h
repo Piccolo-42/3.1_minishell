@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 11:24:19 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/08 16:31:31 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/10 10:54:33 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,20 @@
 
 typedef enum e_type
 {
-	PIPE,		// |
-	REDIR_IN,	// <
-	REDIR_OUT,	// >
-	APPEND,		// >>
-	HEREDOC,	// <<
-	CMD,		// command
-	FIL,		// file
-	ARG,		// arguments and flags
-	ENV,		// $ENV
-	SNG_Q,		// quotes ''
-	DBL_Q,		// quotes ""
-	WORD,		// undefined yet
-	RM,			// solitary quotes to remove
-	NONE,		// default, not assigned yet
+	PIPE,
+	REDIR_IN,
+	REDIR_OUT,
+	APPEND,
+	HEREDOC,
+	CMD,
+	FIL,
+	ARG,
+	ENV,
+	SNG_Q,
+	DBL_Q,
+	WORD,
+	RM,
+	NONE,
 }	t_type;
 
 typedef struct s_list
@@ -53,10 +53,10 @@ typedef struct s_data
 	char	*prompt;
 	int		has_envp;
 	int		here_doc;
+	int		expand_here_doc;
 	int		c_stdin;
 	int		c_stdout;
 }	t_data;
-
 
 typedef struct s_exec_ctx
 {
@@ -69,5 +69,3 @@ typedef struct s_exec_ctx
 }	t_exec_ctx;
 
 #endif
-
-

@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 11:07:20 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/09 09:52:55 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/10 11:08:54 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ char	*get_user(t_data *data)
 	return (name);
 }
 
-
 //if at 42, gets your computer location. else "c4r2s42"
 char	*get_session(t_data *data)
 {
@@ -84,8 +83,9 @@ char	*get_session(t_data *data)
 	free(env);
 	if (!dest)
 		return (NULL);
-	if (dest[0]=='c' && ft_isdigit(dest[1]) && dest[2] == 'r'
-			&& ft_isdigit(dest[3]) && ft_strlen(dest) > 5 && ft_strlen(dest) < 9)
+	if (dest[0] == 'c' && ft_isdigit(dest[1]) && dest[2] == 'r'
+		&& ft_isdigit(dest[3]) && ft_strlen(dest) > 5
+		&& ft_strlen(dest) < 9)
 		return (dest);
 	return (free(dest), ft_strdup("c4r2s42"));
 }

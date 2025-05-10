@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 11:48:18 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/08 16:32:04 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/10 11:11:00 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,6 @@ void	signal_init(t_data *data)
 		exit_handler(data, "sigaction", 1);
 }
 
-void	restore_signint(int signum)
-{
-	(void) signum;
-	write(1, "\n", 1);
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	// rl_redisplay();
-	g_exit_code = 130;
-}
-
 void	signal_restore(t_data *data)
 {
 	struct sigaction	sa;
@@ -81,9 +71,6 @@ void	handle_sigquit_child(int signum)
 	(void) signum;
 	kill(getpid(), SIGQUIT);
 	ft_putstr_fd("Quit (core dumped)", 1);
-	// write(1, "\n", 1);
-	// rl_replace_line("", 0);
-	// rl_on_new_line();
 }
 
 void	child_signal(t_data *data)
@@ -94,14 +81,5 @@ void	child_signal(t_data *data)
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = SA_RESTART;
 	if (sigaction(SIGQUIT, &sa, NULL) == -1)
-		{
-			// ft_putstr_fd("Quit (core dumped)", 1);
-			exit_handler(data, "sigaction", 1);
-		}
+		exit_handler(data, "sigaction", 1);
 }
-
-// void	child_signal(t_data *data)
-// {
-// 	signal(SIGQUIT, SIG_DFL);
-// 	signal(SIGINT, SIG_DFL);
-// }

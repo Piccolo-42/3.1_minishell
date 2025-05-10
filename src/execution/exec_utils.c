@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 06:54:01 by emurillo          #+#    #+#             */
-/*   Updated: 2025/05/09 11:40:12 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/10 10:47:58 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	execmd(t_list *list, t_data *data)
 	path = pathfinder(list->content[0], data);
 	if (!path)
 	{
-		file_exit_handler(NULL, list->content[0], ": command not found", 127);
+		file_exit_handler(NULL, list->content[0], ": command not found", 127);//
 		return (0);
 	}
 	if (execve(path, list->content, data->envp) == -1)

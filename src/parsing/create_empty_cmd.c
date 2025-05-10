@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 13:20:31 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/09 12:15:17 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/10 11:02:09 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	create_empty_cmd(t_list **lst)
 				if (!node)
 					return (0);
 			}	
-			
 			has_cmd = 0;
 		}
 		node = node->next;
@@ -43,7 +42,6 @@ int	create_empty_cmd(t_list **lst)
 t_list	*insert_empty_cmd(t_list *node)
 {
 	t_list	*new;
-	// t_list	*next_node;
 
 	new = new_node("", CMD);
 	if (!new)

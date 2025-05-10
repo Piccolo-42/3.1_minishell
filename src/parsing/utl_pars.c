@@ -69,7 +69,7 @@ int	count_split(char *old)
 			while (old[i] && old[i] != '\'' && old[i] != '\"')
 				i++;
 			if (!old[i])
-				break; 
+				break ;
 		}
 	}
 	return (count);

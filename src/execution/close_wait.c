@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   close_wait.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 16:05:38 by emurillo          #+#    #+#             */
-/*   Updated: 2025/05/08 14:48:28 by emurillo         ###   ########.fr       */
+/*   Updated: 2025/05/10 10:58:17 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,10 @@ void	close_wait(t_exec_ctx *ctx)
 	i = 0;
 	while (i++ < ctx->n_cmd)
 	{
-		if (waitpid(-1, &status, 0) != -1 )
+		if (waitpid(-1, &status, 0) != -1)
 		{
 			if (WIFSIGNALED(status) && WIFSIGNALED(status) != 0)
 			{
-
 				if (WTERMSIG(status) == SIGQUIT)
 					ft_putendl_fd("Quit (core dumped)", 2);
 			}

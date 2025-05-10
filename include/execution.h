@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 15:01:45 by emurillo          #+#    #+#             */
-/*   Updated: 2025/05/08 17:42:39 by emurillo         ###   ########.fr       */
+/*   Updated: 2025/05/10 10:54:47 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,9 @@ int		execute_redirections(t_list *cmd, t_data *data);
 int		has_redirection(t_list *cmd);
 int		execmd(t_list *list, t_data *data);
 
-
 // for PATH search
 
 char	*pathfinder(char *cmd, t_data *data);
-
 
 // free **char anc waitpid
 

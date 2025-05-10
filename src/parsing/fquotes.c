@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 22:12:17 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/10 00:37:59 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/10 11:06:03 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ char	*rework_token(char *old, t_data *data)
 	if (!modify_substrings(temp, data))
 		return (NULL);
 	dest = ft_union_simple(temp);
-	// ft_putendl_fd(dest, 2);
 	if (!dest)
 		return (NULL);
 	ft_free(&old);
@@ -118,7 +117,7 @@ int	modify_substrings(char **temp, t_data *data)
 			temp[i] = update_quotes(temp[i]);
 		else if (temp[i][0] == '\"')
 			temp[i] = dblq_replace_env(data,
-				update_quotes(temp[i]));
+					update_quotes(temp[i]));
 		else
 			temp[i] = dblq_replace_env(data, temp[i]);
 		if (!temp[i])

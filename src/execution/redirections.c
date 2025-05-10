@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 16:16:11 by emurillo          #+#    #+#             */
-/*   Updated: 2025/05/08 17:49:56 by emurillo         ###   ########.fr       */
+/*   Updated: 2025/05/10 11:00:27 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,11 @@ int	execute_redir_in(t_list *cmd, t_data *data)
 		else if (in->type == REDIR_IN)
 			fd = open(in->content[1], O_RDONLY);
 		if (fd == -1 && in->type == HEREDOC)
-			return (file_exit_handler(data, in->content[2], ": No such file or directory", 2), -1);
+			return (file_exit_handler(data, in->content[2],
+					": No such file or directory", 2), -1);
 		if (fd == -1 && in->type == REDIR_IN)
-			return (file_exit_handler(data, in->content[1], ": No such file or directory", 2), -1);
+			return (file_exit_handler(data, in->content[1],
+					": No such file or directory", 2), -1);
 		if (dup2(fd, STDIN_FILENO) == -1)
 			return (exit_handler(data, "dup2 in", 1), -1);
 		close(fd);
@@ -50,7 +52,8 @@ int	execute_redirections(t_list *cmd, t_data *data)
 		else if (out->type == APPEND)
 			fd = open(out->content[1], O_CREAT | O_WRONLY | O_APPEND, 0644);
 		if (fd == -1)
-			return (file_exit_handler(data, out->content[1], ": No such file or directory", 2), -1);
+			return (file_exit_handler(data, out->content[1],
+					": No such file or directory", 2), -1);
 		if (dup2(fd, STDOUT_FILENO) == -1)
 			return (exit_handler(data, "dup2 out", 1), -1);
 		close(fd);

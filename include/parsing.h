@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 11:16:33 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/09 23:44:14 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/10 10:55:56 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ t_type	handle_redir(char *input, int *i);
 t_type	handle_env(char *input, int *i);
 t_type	handle_words(char *input, int *i);
 
-
 // get_word_type
 
 int		assign_word_type(t_list **lst, t_data *data);
@@ -55,32 +54,26 @@ int		assign_redir_and_file(t_list *node, t_data *data);
 int		file_exists_and_is_readable(char *file);
 int		file_ok_or_create(char *file, t_type type);
 int		handle_here_doc(t_list *redir, t_data *data);
-void 	free_heredocs(t_list *lst);
-void 	free_heredocs_sigint(t_list *lst);
+void	free_heredocs(t_list *lst);
+void	free_heredocs_sigint(t_list *lst);
 void	gnl_doc(char *limiter);
-
 
 // link_read_write (redirs, pipes, cmd)
 
-t_list *process_redirs(t_list *cmd, t_list *redir);
+t_list	*process_redirs(t_list *cmd, t_list *redir);
 t_list	*next_cmd(t_list **lst);
 int		link_redirs_to_cmd(t_list **lst);
 void	link_cmd_and_pipes(t_list **lst);
 
-
 // create_empty_cmd
-int	create_empty_cmd(t_list **lst);
+int		create_empty_cmd(t_list **lst);
 t_list	*insert_empty_cmd(t_list *node);
-
 
 // utl_clean (utils list clean up)
 
 int		remove_type_rm(t_list **lst);
-// int		update_quotes_and_env(t_list **lst);
 char	*update_quotes(char *input);
-// void	update_env(t_list *node);
 int		check_syntax(t_list **lst);
-
 
 // utl_lst_mk (utils list build)
 
@@ -89,7 +82,6 @@ t_list	*new_node(char *input, t_type type);
 void	node_add_back(t_list **lst, t_list *new);
 int		add_arg(t_list *node, char *arg);
 int		lstlen(t_list *lst);
-
 
 // utl_lst_rm (utils list remove/free)
 
@@ -102,9 +94,7 @@ void	free_lst_write(t_list *node);
 
 int		is_redir(t_type	type);
 int		is_operator(t_type type);
-int	char_is_operator(char c);
-
-
+int		char_is_operator(char c);
 
 // X_prt_test (print tests)
 
