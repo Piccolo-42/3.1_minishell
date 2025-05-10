@@ -82,7 +82,7 @@ char	*ft_strjoin_free_two(char *str1, char *str2)
 	size_t	i;
 
 	dest = malloc(sizeof(char) * (ft_strlen(str1) + ft_strlen(str2) + 1));
-	if (!dest)
+	if (!dest || !str2)
 		return (0);
 	i = 0;
 	while (str1[i])

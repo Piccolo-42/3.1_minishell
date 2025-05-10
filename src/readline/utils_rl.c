@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_rl.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 11:07:20 by sravizza          #+#    #+#             */
-/*   Updated: 2025/05/10 11:08:54 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/10 13:09:47 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,27 +90,29 @@ char	*get_session(t_data *data)
 	return (free(dest), ft_strdup("c4r2s42"));
 }
 
-// '/' root ; ~ instead of home/user ; rest is CWD
+// '/' root ; ~ instead of home/user ; rest is CWD -- LEAKS MALLOC CORRECTED
 char	*get_cwd(t_data *data)
 {
 	int		home_len;
 	char	*dest;
 	char	*cwd;
 	char	*home;
+	char	*sufix;
 
 	cwd = getcwd(NULL, 0);
-	if (!cwd)
-		return (NULL);
 	home = replace_env(data, ft_strdup("$HOME"));
-	if (!home)
+	if (!home || !cwd)
 		return (free(cwd), NULL);
 	home_len = ft_strlen(home);
+	sufix = ft_strdup(cwd + home_len);
+	if(!sufix)
+		return (free(home), free(cwd), NULL);
 	if (!ft_strncmp(cwd, home, home_len))
 	{
 		if (!cwd[home_len])
 			dest = ft_strdup("~");
 		else
-			dest = ft_strjoin_free_two("~", ft_strdup(cwd + home_len));
+			dest = ft_strjoin_free_two("~", sufix);
 	}
 	else
 		dest = ft_strdup(cwd);
