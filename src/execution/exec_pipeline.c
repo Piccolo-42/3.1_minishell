@@ -6,7 +6,7 @@
 /*   By: sravizza <sravizza@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:10:49 by emurillo          #+#    #+#             */
-/*   Updated: 2025/05/10 10:59:36 by sravizza         ###   ########.fr       */
+/*   Updated: 2025/05/10 11:30:35 by sravizza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	child_process(t_exec_ctx *ctx)
 	close_all(ctx->n_cmd, ctx->pipe_fd);
 	if (!ctx->node || ctx->node->type != CMD || !ctx->node->content)
 		return (file_exit_handler(ctx->data,
-				ctx->node->content[0], ": command not found", NULL, 127), 0);
+				ctx->node->content[0], ": command not found", 127), 0);
 	if (is_builtin(ctx->node->content[0]))
 	{
 		exec_builtin(ctx->node, ctx->data);

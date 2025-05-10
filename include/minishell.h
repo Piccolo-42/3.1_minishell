@@ -93,6 +93,7 @@ void	signal_init(t_data *data);
 void	handle_signint(int signum);
 void	child_signal(t_data *data);
 void	signal_restore(t_data *data);
+void	restore_signint(int signum);
 
 // void	freef(char *format, ...);
 
